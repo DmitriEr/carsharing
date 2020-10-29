@@ -1,0 +1,12 @@
+@import '../../../styles/variables.scss';
+
+.sidebar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 64px;
+
+  .sidebar__burger-menu {
+    margin-top: 30px;
+  }
+}
