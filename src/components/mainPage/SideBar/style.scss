@@ -1,12 +1,98 @@
 @import '../../../styles/variables.scss';
 
-.sidebar {
+.ant-layout .sidebar {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  width: 64px;
+  justify-content: flex-start;
+  position: relative;
+  background: $backgroundBlack !important;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
 
-  .sidebar__burger-menu {
+  & .sidebar__burger-menu {
     margin-top: 30px;
+    margin-left: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+  }
+
+  .ant-layout-sider-children {
+    width: inherit;
+
+    & .sidebar__menu {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      width: inherit;
+      height: inherit;
+  
+      & .sidebar__menu-open {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 52%;
+        background: $backgroundBlack !important;
+        border: none;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 37px;
+        color: $white;
+        height: 100%;
+        z-index: 1;
+
+        & .sidebar__menu-inner-wrapper {
+          width: 100%;
+
+          & .sidebar__items {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+
+            & .sidebar__item {
+              width: inherit;
+              font-weight: 500;
+              font-size: 32px;
+              line-height: 37px;
+              color: $white;
+              margin-left: 128px;
+              padding: 0px;
+
+              &:hover {
+                color: $mainAccent;
+              }
+            }
+          }
+
+          .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected  {
+            color: $mainAccent;
+            background-color: transparent !important;
+          }
+
+          & .sidebar__links {
+            margin-left: 128px;
+            margin-top: 38px;
+            padding: 0px;
+
+            & .sidebar__link {
+              margin-right: 24px;
+            }
+          }
+        }
+
+        & .sidebar__item-img {
+          width: inherit;
+        }
+      }
+  
+      & .sidebar__menu-full {
+        width: 48%;
+        opacity: 0.5;
+      }
+    }
   }
 }

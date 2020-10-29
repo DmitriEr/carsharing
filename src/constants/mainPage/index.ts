@@ -2,6 +2,9 @@ import background_1 from '../../assets/mainPage/slider/Slide_1.jpg';
 import background_2 from '../../assets/mainPage/slider/Slide_2.png';
 import background_3 from '../../assets/mainPage/slider/Slide_3.png';
 import background_4 from '../../assets/mainPage/slider/Slide_4.png';
+import facebook from '../../assets/mainPage/sideBar/Facebook_white.svg';
+import instagram from '../../assets/mainPage/sideBar/Instagram.svg';
+import telegram from '../../assets/mainPage/sideBar/Telegram_white.svg';
 import { sliderInterface } from '../../interfaces/mainPage';
 
 export const menuItems: string[] = [
@@ -9,6 +12,28 @@ export const menuItems: string[] = [
   'страховка',
   'бензин',
   'обслуживание',
+];
+
+export const socialNetworks: {
+  picture: string;
+  name: string;
+  link: string;
+}[] = [
+  {
+    picture: facebook,
+    name: 'facebook',
+    link: 'https://www.facebook.com/dmitri.erkin',
+  },
+  {
+    picture: instagram,
+    name: 'instagram',
+    link: 'https://www.instagram.com/idmitriier/?hl=ru',
+  },
+  {
+    picture: telegram,
+    name: 'telegram',
+    link: 'https://web.telegram.org/',
+  },
 ];
 
 export const sliderItems: sliderInterface[] = [

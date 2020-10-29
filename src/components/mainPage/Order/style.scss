@@ -10,6 +10,7 @@
 .main-page__order {
   width: 48%;
   font-family: 'Roboto';
+  margin-left: 80px;
 
   & .order__header {
     @extend %display;
@@ -71,7 +72,7 @@
       }
 
       & .content__btn {
-        background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
+        background: $orderButton;
         background-blend-mode: darken;
         border-radius: 8px;
         font-weight: 500;
