@@ -25,7 +25,7 @@ export const SideBar: React.FunctionComponent = () => {
       setImage(closeBurger);
       setWidthPercent('100%');
     } else {
-      window.innerWidth >= 400 ? setImage(burgerFull) : setImage(burgerMini);
+      window.innerWidth >= 500 ? setImage(burgerFull) : setImage(burgerMini);
       setWidthPercent(80);
     }
   };

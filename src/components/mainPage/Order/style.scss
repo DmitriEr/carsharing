@@ -105,8 +105,32 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
 
+  .main-page__order {
+    & .order__content {  
+      & .order__wrapper {
+  
+        & .order__name {
+          font-size: 50px;
+          line-height: 100%;
+        }
+    
+        & .order__title {
+          font-size: 50px;
+          line-height: 100%;
+        }
+    
+        & .order__description {
+          font-size: 18px;
+          line-height: 21px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
   .main-page__order {
     margin: 0px;
   
@@ -163,13 +187,16 @@
       & span {
         color: $grayFooter;
         order: 2;
+        width: 100%;
+        text-align: end;
       }
   
       & a {
         color: $mainAccent;
         order: 1;
+        width: 100%;
+        text-align: end;
       }
     }
   }
-
 }
