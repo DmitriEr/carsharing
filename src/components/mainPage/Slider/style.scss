@@ -94,6 +94,7 @@
         border: none;
         outline: none;
         opacity: 0.2;
+        z-index: 14;
 
         &:hover {
           background: $mainAccent;

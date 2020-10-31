@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Image } from 'antd';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
+import { Props } from '../../../interfaces/mainPage';
 import burgerFull from '../../../assets/mainPage/sideBar/menu_btn_full.svg';
 import burgerMini from '../../../assets/mainPage/sideBar/menu_btn_mini.svg';
 import closeBurger from '../../../assets/mainPage/sideBar/close.svg';
@@ -9,13 +10,15 @@ import './style.scss';
 const { Sider } = Layout;
 const { Item } = Menu;
 
-export const SideBar: React.FunctionComponent = () => {
+export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
   const [image, setImage] = useState<string>(burgerFull);
   const [widthPercent, setWidthPercent] = useState<string | number>(80);
   const [windowSize, setWindowSize] = useState<number>(0);
 
   useEffect(() => {
-    windowSize >= 400 ? setImage(burgerFull) : setImage(burgerMini);
+    windowSize >= 500 || windowSize === 0
+      ? setImage(burgerFull)
+      : setImage(burgerMini);
   }, [windowSize]);
 
   window.addEventListener('resize', () => setWindowSize(window.innerWidth));
@@ -30,15 +33,25 @@ export const SideBar: React.FunctionComponent = () => {
     }
   };
 
-  const showContent = () => {
+  const switchSlide: (num: number) => void = (num: number) => {
+    window.innerWidth >= 500 ? setImage(burgerFull) : setImage(burgerMini);
+    setWidthPercent(80);
+    sliderRef.current.goTo(num);
+  };
+
+  const showContent: () => null | JSX.Element = () => {
     if (image === closeBurger) {
       return (
         <div className="sidebar__menu">
           <div className="sidebar__menu-open">
             <div className="sidebar__menu-inner-wrapper">
               <Menu className="sidebar__items">
-                {menuItems.map((item: string) => (
-                  <Item key={item} className="sidebar__item">
+                {menuItems.map((item: string, index: number) => (
+                  <Item
+                    key={item}
+                    className="sidebar__item"
+                    onClick={() => switchSlide(index)}
+                  >
                     {item.toUpperCase()}
                   </Item>
                 ))}
