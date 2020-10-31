@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Image } from 'antd';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
-import { useWindowSize } from '../../../helper';
-import burger from '../../../assets/mainPage/sideBar/menu_btn.svg';
+import burgerFull from '../../../assets/mainPage/sideBar/menu_btn_full.svg';
+import burgerMini from '../../../assets/mainPage/sideBar/menu_btn_mini.svg';
 import closeBurger from '../../../assets/mainPage/sideBar/close.svg';
 import './style.scss';
 
@@ -10,15 +10,22 @@ const { Sider } = Layout;
 const { Item } = Menu;
 
 export const SideBar: React.FunctionComponent = () => {
-  const [image, setImage] = useState<string>(burger);
+  const [image, setImage] = useState<string>(burgerFull);
   const [widthPercent, setWidthPercent] = useState<string | number>(80);
+  const [windowSize, setWindowSize] = useState<number>(0);
+
+  useEffect(() => {
+    windowSize >= 400 ? setImage(burgerFull) : setImage(burgerMini);
+  }, [windowSize]);
+
+  window.addEventListener('resize', () => setWindowSize(window.innerWidth));
 
   const showMenu: () => void = () => {
-    if (image === burger) {
+    if (image === burgerMini || image === burgerFull) {
       setImage(closeBurger);
       setWidthPercent('100%');
     } else {
-      setImage(burger);
+      window.innerWidth >= 400 ? setImage(burgerFull) : setImage(burgerMini);
       setWidthPercent(80);
     }
   };
@@ -71,6 +78,7 @@ export const SideBar: React.FunctionComponent = () => {
       <Button
         type="link"
         onClick={showMenu}
+        className="sidebar__btn"
         icon={<img src={image} alt="btn" className="sidebar__burger-menu" />}
       />
       {showContent()}

@@ -7,7 +7,10 @@ import './style.scss';
 
 export const MainPage: React.FunctionComponent = () => {
   return (
-    <Layout className="main-page">
+    <Layout
+      className="main-page"
+      style={{ overflow: 'hidden', background: '#fff' }}
+    >
       <SideBar />
       <Order />
       <Slider />

@@ -22,7 +22,7 @@ export const Slider: React.FunctionComponent = () => {
               <Image
                 src={background}
                 alt={title}
-                className="slide__background"
+                className={`slide__background slide__background-${index}`}
                 preview={false}
               />
               <div className="slide__filter"></div>

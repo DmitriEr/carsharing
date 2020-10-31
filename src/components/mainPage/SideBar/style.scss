@@ -4,12 +4,15 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  position: relative;
   background: $backgroundBlack !important;
   position: absolute;
   left: 0px;
   top: 0px;
   height: 100%;
+
+  & .sidebar__btn {
+    position: absolute;
+  }
 
   & .sidebar__burger-menu {
     margin-top: 30px;
@@ -17,10 +20,10 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 2;
+    z-index: 18;
   }
 
-  .ant-layout-sider-children {
+  & .ant-layout-sider-children {
     width: inherit;
 
     & .sidebar__menu {
@@ -29,21 +32,22 @@
       justify-content: center;
       align-items: center;
       width: inherit;
-      height: inherit;
+      height: 100%;
   
       & .sidebar__menu-open {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        width: 52%;
+        width: 64%;
         background: $backgroundBlack !important;
         border: none;
         font-weight: 500;
         font-size: 32px;
         line-height: 37px;
         color: $white;
-        height: 100%;
-        z-index: 1;
+        height: inherit;
+        z-index: 17;
+        overflow: hidden;
 
         & .sidebar__menu-inner-wrapper {
           width: 100%;
@@ -52,6 +56,7 @@
             width: 100%;
             background-color: transparent;
             border: none;
+            margin-left: 97px;
 
             & .sidebar__item {
               width: inherit;
@@ -59,7 +64,7 @@
               font-size: 32px;
               line-height: 37px;
               color: $white;
-              margin-left: 128px;
+              margin: 0px;
               padding: 0px;
 
               &:hover {
@@ -74,7 +79,7 @@
           }
 
           & .sidebar__links {
-            margin-left: 128px;
+            margin-left: 97px;
             margin-top: 38px;
             padding: 0px;
 
@@ -92,6 +97,77 @@
       & .sidebar__menu-full {
         width: 48%;
         opacity: 0.5;
+        z-index: 1;
+        height: 100%;
+        background: #151B1F 81%;
+        ;
+      }
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .ant-layout .sidebar {
+
+    & .ant-layout-sider-children .sidebar__menu {
+      & .sidebar__menu-open {
+        width: 100%;
+  
+        & .sidebar__menu-inner-wrapper {
+  
+          & .sidebar__items {
+            margin-left: 80px;
+  
+            & .sidebar__item {
+              margin-left: 0px;
+              font-size: 28px;
+              line-height: 33px;
+            }
+          }
+  
+          & .sidebar__links {
+            margin-left: 80px;
+          }
+        }
+      }
+  
+      & .sidebar__menu-full {
+        width: 0%;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .ant-layout .sidebar {
+
+    & .sidebar__burger-menu {
+
+      & svg path {
+        stroke: path(red);
+      }
+    }
+  
+    & .ant-layout-sider-children .sidebar__menu {
+      & .sidebar__menu-open {
+        align-items: flex-start;
+  
+        & .sidebar__menu-inner-wrapper {
+          margin-top: 80px;
+  
+          & .sidebar__items {
+            margin-left: 28px;
+  
+            & .sidebar__item {
+              font-size: 22px;
+              line-height: 26px;
+            }          
+          }
+  
+          & .sidebar__links {
+            margin-left: 28px;
+          }
+        }
       }
     }
   }

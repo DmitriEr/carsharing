@@ -1,8 +1,13 @@
 @import '../../../styles/variables.scss';
+%background {
+  display: inherit;
+  text-align: center;
+  height: 100vh;
+  background: $sliderDark;
+}
 
 .ant-carousel {
-  width: 48%;
-  // background-color: $sliderDark;
+  width: 43%;
 
   & .main-page__slider {
     width: 100%;
@@ -12,12 +17,17 @@
       display: flex;
       position: relative;
 
-      & .slide__background img {
-        display: inherit;
-        height: 100vh;
-        width: auto;
-        background: $sliderDark;
-      }
+        & .slide__background-0 img,
+        & .slide__background-3 img {
+          @extend %background;
+          object-fit: cover;
+        }
+
+        & .slide__background-1 img,
+        & .slide__background-2 img {
+          @extend %background;
+          width: auto;
+        }
 
       & .slide__content {
         position: absolute;
@@ -112,6 +122,16 @@
           opacity: 1;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .ant-carousel {
+    width: 0%;
+  
+    & .main-page__slider {
+      display: none;
     }
   }
 }
