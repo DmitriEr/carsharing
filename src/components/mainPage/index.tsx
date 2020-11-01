@@ -7,7 +7,7 @@ import './style.scss';
 
 export const MainPage: React.FunctionComponent = () => {
   const sliderRef = useRef(null);
-  console.log(sliderRef);
+
   return (
     <Layout
       className="main-page"

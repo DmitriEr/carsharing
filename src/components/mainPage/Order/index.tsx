@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Button } from 'antd';
 import { getUserLocation } from '../../../server/userLocation';
+import { TypeUserLocation } from '../../../server/userLocation/interface';
 import location from '../../../assets/mainPage/order/location.svg';
 import './style.scss';
 
@@ -10,7 +11,7 @@ export const Order: React.FunctionComponent = () => {
   const [userLocation, setUserLocation] = useState<string>('Ulyanovsk');
 
   useEffect(() => {
-    getUserLocation().then((userCity) => {
+    getUserLocation().then((userCity: TypeUserLocation) => {
       setUserLocation(userCity.city);
     });
   }, []);

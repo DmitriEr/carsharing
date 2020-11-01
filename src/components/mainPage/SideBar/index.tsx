@@ -28,7 +28,7 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
       setImage(closeBurger);
       setWidthPercent('100%');
     } else {
-      window.innerWidth >= 500 ? setImage(burgerFull) : setImage(burgerMini);
+      windowSize >= 500 ? setImage(burgerFull) : setImage(burgerMini);
       setWidthPercent(80);
     }
   };
