@@ -1,0 +1,10 @@
+.mapContainer {
+  display: inline-block;
+  width: 736px;
+  height: 352px;
+
+  & .mapboxgl-ctrl-bottom-right,
+  & .mapboxgl-ctrl-bottom-left {
+    display: none;
+  }
+}

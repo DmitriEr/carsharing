@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Carousel, Image, Layout, Button } from 'antd';
 import { sliderItems } from '../../../constants/mainPage';
-import { sliderInterface, Props } from '../../../interfaces/mainPage';
+import { sliderInterface } from '../../../interfaces/mainPage';
+import { Props } from '../../../interfaces/common';
 import left from '../../../assets/mainPage/slider/left.svg';
 import right from '../../../assets/mainPage/slider/right.svg';
 import './style.scss';
@@ -47,12 +49,14 @@ export const Slider: React.FunctionComponent<Props> = ({ sliderRef }) => {
               <div className="slide__content">
                 <span className="slide__title">{title}</span>
                 <div className="slide__description">{content}</div>
-                <Button
-                  className={`slide__btn-${index} slide__btn`}
-                  type="primary"
-                >
-                  Подробнее
-                </Button>
+                <Link to="/carsharing/order">
+                  <Button
+                    className={`slide__btn-${index} slide__btn`}
+                    type="primary"
+                  >
+                    Подробнее
+                  </Button>
+                </Link>
               </div>
             </Content>
           </Layout>

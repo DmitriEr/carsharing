@@ -10,7 +10,7 @@ export const getCars: () => Promise<carPromiseType> = async () => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTPS ${response.status}: ${await response.text()}`);
+      throw new Error(`HTTP ${response.status}: ${await response.text()}`);
     }
 
     const data = await response.json();

@@ -14,32 +14,6 @@
   margin-left: 80px;
   z-index: 16;
 
-  & .order__header {
-    @extend %display;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    & .header__logo {
-      color: $mainAccent;
-      font-weight: 700;
-      font-size: 30px;
-      line-height: 30px;
-    }
-
-    & .header__location {
-      @extend %display;
-      justify-content: center;
-      align-items: flex-end;
-
-      & .header__city {
-        margin-left: 13px;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-      }
-    }
-  }
-
   & .order__content {
     padding-top: 22%;
     background-color: $white;
@@ -134,21 +108,6 @@
 @media (max-width: 500px) {
   .main-page__order {
     margin: 0px;
-  
-    & .order__header {
-      justify-content: flex-end;
-      height: 80px;
-      padding: 16px 16px 0px 0px;
-
-      & .header__logo {
-        width: 100%;
-        text-align: end;
-      }
-
-      & .header__location {
-        padding-top: 10px;
-      }
-    }
   
     & .order__content {
       padding-top: 38px;

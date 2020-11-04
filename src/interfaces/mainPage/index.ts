@@ -3,9 +3,3 @@ export interface sliderInterface {
   content: string;
   background: string;
 }
-
-export interface Props {
-  sliderRef: {
-    current: any;
-  };
-}

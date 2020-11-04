@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Button, Image } from 'antd';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
-import { Props } from '../../../interfaces/mainPage';
+import { Props } from '../../../interfaces/common';
 import burgerFull from '../../../assets/mainPage/sideBar/menu_btn_full.svg';
 import burgerMini from '../../../assets/mainPage/sideBar/menu_btn_mini.svg';
 import closeBurger from '../../../assets/mainPage/sideBar/close.svg';
