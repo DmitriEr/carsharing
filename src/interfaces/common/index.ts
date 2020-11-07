@@ -3,3 +3,7 @@ export interface Props {
     current: any;
   };
 }
+
+export interface TypeTranslate {
+  [x: string]: string;
+}

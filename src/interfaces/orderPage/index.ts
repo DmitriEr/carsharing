@@ -1,5 +1,6 @@
 export interface coordinatesData {
   latitude: number;
-  longitude: number;
+  longtitude: number;
   zoom: number;
+  // status: boolean;
 }

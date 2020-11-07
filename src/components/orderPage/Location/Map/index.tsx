@@ -1,59 +1,95 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { getUserLocation } from '../../../../server/userLocation';
-import { TypeUserLocation } from '../../../../server/userLocation/interface';
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { RootReducer } from '../../../../interfaces/redux';
 import { coordinatesData } from '../../../../interfaces/orderPage';
-import { getLocation } from '../../../../server/geocodeLocation';
+import { getLocation, getAddress } from '../../../../server/geocodeLocation';
 import './style.scss';
 
-export const Map: React.FunctionComponent = () => {
+export const Map: React.FunctionComponent<any> = ({ setPionts }) => {
+  const userCity: string = useSelector(
+    (state: RootReducer) => state.information.userCity
+  );
+
   const [userCoordsData, setUserCoordsData] = useState<coordinatesData>({
     latitude: 0,
-    longitude: 0,
+    longtitude: 0,
     zoom: 11,
   });
+
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState(null);
 
-  getLocation('Moscow').then((data) => console.log(data));
+  useEffect(() => {
+    if (userCity) {
+      getLocation(userCity).then((data) => {
+        const [long, lat] = data.features[0].center;
+        setUserCoordsData({
+          ...userCoordsData,
+          latitude: lat,
+          longtitude: long,
+        });
+      });
+    }
+  }, [userCity]);
 
   useEffect(() => {
-    getUserLocation().then((location: TypeUserLocation) => {
-      const dataCoords: string[] = location.loc.split(',');
-      const [lat, long] = dataCoords;
-      setUserCoordsData({
-        ...userCoordsData,
-        latitude: Number(lat),
-        longitude: Number(long),
+    if (userCity && map) {
+      getAddress(userCity).then((data) => {
+        const { features } = data;
+        setPionts([]);
+        features.forEach((address) => {
+          const { center, place_name } = address;
+          setPionts((prev) => [...prev, place_name]);
+          new mapboxgl.Marker().setLngLat(center).addTo(map);
+        });
       });
-    });
-  }, []);
-
-  mapboxgl.accessToken =
-    'pk.eyJ1IjoiZG1pdHJpZXIiLCJhIjoiY2thaTZmNzFxMG40cjMwbzBnc3B2aHowOSJ9.q40lHO4-30difBBHLsTIyQ';
-
-  const initMap = (
-    setMap: React.Dispatch<React.SetStateAction<any>>,
-    mapContainer: React.RefObject<HTMLDivElement>
-  ) => {
-    if (!mapContainer.current) {
-      return null;
     }
+  }, [userCity, map]);
 
-    const { latitude, longitude, zoom } = userCoordsData;
+  useEffect(() => {
+    if (userCoordsData.latitude) {
+      mapboxgl.accessToken = process.env.REACT_APP_MAP;
 
-    const map = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/outdoors-v11',
-      center: [longitude, latitude],
-      zoom,
-    });
+      const initMap = (
+        setMap: React.Dispatch<React.SetStateAction<any>>,
+        mapContainer: React.RefObject<HTMLDivElement>
+      ) => {
+        if (!mapContainer.current) {
+          return null;
+        }
+        const { latitude, longtitude, zoom } = userCoordsData;
 
-    setMap(map);
-  };
+        const map = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: 'mapbox://styles/mapbox/outdoors-v11',
+          center: [longtitude, latitude],
+          zoom,
+        });
 
-  !map && initMap(setMap, mapContainer);
+        setMap(map);
+      };
+      if (!map) {
+        initMap(setMap, mapContainer);
+      }
+    }
+  }, [map, userCoordsData]);
 
-  return <div ref={mapContainer} className="mapContainer" />;
+  useEffect(() => {
+    if (map !== null) {
+      map.flyTo({
+        center: [userCoordsData.longtitude, userCoordsData.latitude],
+        essential: true,
+      });
+    }
+  }, [userCoordsData]);
+
+  return (
+    <>
+      <span>Выбрать на карте</span>
+      <div ref={mapContainer} className="mapContainer" />
+    </>
+  );
 };

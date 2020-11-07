@@ -1,4 +1,4 @@
-export interface carPromiseType {
+export interface CarPromiseType {
   count: number;
   data: {
     categoryId: {
@@ -39,4 +39,10 @@ export interface carPromiseType {
     tank: { type: string; name: string };
     thumbnail: { required: boolean; type: string; name: string };
   };
+}
+
+export interface Cities {
+  count: number;
+  data: { createdAt: number; id: string; name: string; updateAt: number }[];
+  fileds: { name: string; type: string; required: boolean };
 }

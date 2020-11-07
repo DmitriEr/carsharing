@@ -9,7 +9,7 @@
 .order__header {
   @extend %display;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   background: #fff !important;
 
   & .header__logo {

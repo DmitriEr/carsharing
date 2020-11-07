@@ -1,3 +1,58 @@
-.ant-layout-content {
+@import '../../styles/variables.scss';
+
+.order-page {
   margin-left: 80px;
+
+  & .order-page__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    & .order__statuses {
+      width: 100%;
+      background: $white;
+
+      & .order__status {
+        color: $gray;
+        padding: 8px 38px 7px 0px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 16px;
+        position: relative;
+
+        &:first-of-type {
+          padding-left: 48px;
+        }
+
+        &::after {
+          content: ' ';
+          display: inline-block;
+          position: absolute;
+          width: 6px;
+          height: 8px;
+          right: 16px;
+          bottom: 12px;
+          background-image: url('../../assets//orderPage/arrow.svg');
+          background-repeat: no-repeat;
+        }
+      }
+
+      & .status-active {
+        color: $mainAccent;
+      }
+
+      & .status-prev {
+        color: $black;
+      }
+    }
+
+    & .order__forms {
+      width: 60%;
+    }
+
+    & .order__result {
+      width: 35%;
+    }
+  }
 }
