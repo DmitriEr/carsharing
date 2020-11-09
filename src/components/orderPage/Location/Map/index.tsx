@@ -9,9 +9,8 @@ import { getLocation, getAddress } from '../../../../server/geocodeLocation';
 import './style.scss';
 
 export const Map: React.FunctionComponent<any> = ({ setPionts }) => {
-  const userCity: string = useSelector(
-    (state: RootReducer) => state.information.userCity
-  );
+  const userData = useSelector((state: RootReducer) => state.information);
+  const { userCity } = userData;
 
   const [userCoordsData, setUserCoordsData] = useState<coordinatesData>({
     latitude: 0,
@@ -86,10 +85,5 @@ export const Map: React.FunctionComponent<any> = ({ setPionts }) => {
     }
   }, [userCoordsData]);
 
-  return (
-    <>
-      <span>Выбрать на карте</span>
-      <div ref={mapContainer} className="mapContainer" />
-    </>
-  );
+  return <div ref={mapContainer} className="mapContainer" />;
 };

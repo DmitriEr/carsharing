@@ -11,5 +11,6 @@ export interface UserCityType {
 export interface RootReducer {
   information: {
     userCity: string;
+    userPoint: string;
   };
 }

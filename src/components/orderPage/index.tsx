@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
+import { useSelector } from 'react-redux';
 import { Location } from './Location';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Props } from '../../interfaces/common';
 import { statuses } from '../../constants/orderPage';
+import { RootReducer } from '../../interfaces/redux';
 import './style.scss';
 
 const { Content } = Layout;
 
 export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
   const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
+
+  const userPoint = useSelector(
+    (state: RootReducer) => state.information.userPoint
+  );
 
   const checkCurrentStatus: (text: string) => string | null = (
     text: string
@@ -32,7 +38,7 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
       style={{ overflow: 'hidden', background: '#fff' }}
     >
       <SideBar sliderRef={sliderRef} />
-      <Content>
+      <Content className="order-page__wrapper">
         <Layout>
           <Head />
           <Content className="order-page__content">
@@ -51,7 +57,21 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
             <div className="order__forms">
               <Location />
             </div>
-            <div className="order__result">Hello world</div>
+            <div className="order__result">
+              <h2>Ваш заказ</h2>
+              <div className="result__list">
+                <div className="result__list-dots result__list-link">
+                  <span className="result__list-field">Пункт выдачи</span>
+                </div>
+                <span className="result__list-address">{userPoint}</span>
+              </div>
+              <div className="result__list-price">
+                <span>Цена:</span> от 8 000 до 12 000 ₽
+              </div>
+              <Button disabled={true} className="result__list-btn">
+                Выбрать модель
+              </Button>
+            </div>
           </Content>
         </Layout>
       </Content>

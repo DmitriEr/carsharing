@@ -1,0 +1,49 @@
+@import '../../../styles/variables.scss';
+
+.location {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-wrap: wrap;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+  margin-left: 64px;
+  margin-right: 64px;
+
+  .location__city,
+  .location__point {
+    width: 100%;
+    margin-top: 13px;
+
+    & .location__input-name {
+      display: inline-block;
+      text-align: end;
+      width: 91px;
+      margin-right: 5px;
+    }
+
+    & .location__select {
+      width: 224px;
+
+      & .ant-select-selector {
+        border-bottom: 1px solid $gray !important;
+      }
+    }
+  }
+
+  & .location__map {
+    margin-top: 45px;
+    width: -webkit-fill-available;
+
+    & .location__map-name {
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    
+    & .mapContainer {
+      width: inherit;
+    }
+  }
+}
