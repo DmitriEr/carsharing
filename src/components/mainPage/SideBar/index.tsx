@@ -27,7 +27,7 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
     sliderRef.current.goTo(num);
   };
 
-  const showContent: () => null | JSX.Element = () => {
+  const showContent = () => {
     if (sideOpen) {
       return (
         <div className="menu">

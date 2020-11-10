@@ -10,8 +10,8 @@ import './style.scss';
 const { Content } = Layout;
 
 export const Slider: React.FunctionComponent<Props> = ({ sliderRef }) => {
-  const handlerLeft: () => void = () => sliderRef.current.prev();
-  const handleRight: () => void = () => sliderRef.current.next();
+  const handlerLeft = () => sliderRef.current.prev();
+  const handlerRight = () => sliderRef.current.next();
 
   return (
     <Carousel
@@ -41,7 +41,7 @@ export const Slider: React.FunctionComponent<Props> = ({ sliderRef }) => {
                 <Button
                   type="ghost"
                   className="control-right control"
-                  onClick={handleRight}
+                  onClick={handlerRight}
                 >
                   <Image src={right} alt="right" preview={false} />
                 </Button>
@@ -64,5 +64,3 @@ export const Slider: React.FunctionComponent<Props> = ({ sliderRef }) => {
   );
 };
 
-// `btn-${index} btn`
-// `background background-${index}`
