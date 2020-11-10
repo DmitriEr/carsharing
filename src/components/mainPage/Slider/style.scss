@@ -8,40 +8,41 @@
 
 .ant-carousel {
   width: 43%;
+  font-family: $fonts;
 
   & .main-page__slider {
     width: 100%;
     height: 100%;
 
-    & .slide__wrapper {
+    & .wrapper {
       display: flex;
       position: relative;
 
-        & .slide__background-0 img,
-        & .slide__background-3 img {
+        & .background-0 img,
+        & .background-3 img {
           @extend %background;
           object-fit: cover;
         }
 
-        & .slide__background-1 img,
-        & .slide__background-2 img {
+        & .background-1 img,
+        & .background-2 img {
           @extend %background;
           width: auto;
         }
 
-      & .slide__content {
+      & .content {
         position: absolute;
         color: $white;
         top: 30%;
         left: 14%;
 
-        & .slide__title {
+        & .title {
           font-size: 40px;
           font-weight: 500;
           line-height: 46px;
         }
 
-        & .slide__description {
+        & .description {
           font-weight: 300;
           font-size: 24px;
           line-height: 90%;
@@ -51,7 +52,7 @@
           margin-right: 64px;
         }
 
-        & .slide__btn {
+        & .btn {
           font-weight: 500;
           font-size: 18px;
           line-height: 21px;
@@ -61,24 +62,24 @@
           border: none;
         }
 
-        & .slide__btn-0 {
+        & .btn-0 {
           background: $slideZero;
         }
 
-        & .slide__btn-1 {
+        & .btn-1 {
           background: $slideOne;
         }
 
-        & .slide__btn-2 {
+        & .btn-2 {
           background: $slideTwo;
         }
 
-        & .slide__btn-3 {
+        & .btn-3 {
           background: $slideThree;
         }
       }
 
-      & .slide__filter {
+      & .filter {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -87,7 +88,7 @@
         background: $sliderDark;
       }
 
-      & .slide__control {
+      & .control {
         position: absolute;
         top: 0px;
         height: 100%;
@@ -102,11 +103,11 @@
         }
       }
       
-      & .slide__control-left {
+      & .control-left {
         left: 0px;
       }
 
-      & .slide__control-right {
+      & .control-right {
         right: 0px;
       }
     }

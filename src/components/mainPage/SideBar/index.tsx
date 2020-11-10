@@ -1,62 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Button, Image } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Menu, Image } from 'antd';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
 import { Props } from '../../../interfaces/mainPage';
-import burgerFull from '../../../assets/mainPage/sideBar/menu_btn_full.svg';
-import burgerMini from '../../../assets/mainPage/sideBar/menu_btn_mini.svg';
-import closeBurger from '../../../assets/mainPage/sideBar/close.svg';
 import './style.scss';
 
 const { Sider } = Layout;
 const { Item } = Menu;
 
 export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
-  const [image, setImage] = useState<string>(burgerFull);
   const [widthPercent, setWidthPercent] = useState<string | number>(80);
-  const [windowSize, setWindowSize] = useState<number>(0);
+  const [sideOpen, setSideOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    windowSize >= 500 || windowSize === 0
-      ? setImage(burgerFull)
-      : setImage(burgerMini);
-  }, [windowSize]);
-
-  window.addEventListener('resize', () => setWindowSize(window.innerWidth));
-
-  const showMenu: () => void = () => {
-    if (image === burgerMini || image === burgerFull) {
-      setImage(closeBurger);
-      setWidthPercent('100%');
-    } else {
-      windowSize >= 500 ? setImage(burgerFull) : setImage(burgerMini);
+  const showMenu = () => {
+    if (sideOpen) {
       setWidthPercent(80);
+      setSideOpen(false);
+    } else {
+      setWidthPercent('100%');
+      setSideOpen(true);
     }
   };
 
-  const switchSlide: (num: number) => void = (num: number) => {
-    window.innerWidth >= 500 ? setImage(burgerFull) : setImage(burgerMini);
+  const switchSlide = (num: number) => {
+    setSideOpen(false);
     setWidthPercent(80);
     sliderRef.current.goTo(num);
   };
 
   const showContent: () => null | JSX.Element = () => {
-    if (image === closeBurger) {
+    if (sideOpen) {
       return (
-        <div className="sidebar__menu">
-          <div className="sidebar__menu-open">
-            <div className="sidebar__menu-inner-wrapper">
-              <Menu className="sidebar__items">
+        <div className="menu">
+          <div className="menu-open">
+            <div className="inner-wrapper">
+              <Menu className="items">
                 {menuItems.map((item: string, index: number) => (
                   <Item
                     key={item}
-                    className="sidebar__item"
+                    className="item"
                     onClick={() => switchSlide(index)}
                   >
                     {item.toUpperCase()}
                   </Item>
                 ))}
               </Menu>
-              <ul className="sidebar__links">
+              <ul className="links">
                 {socialNetworks.map(
                   (network: {
                     picture: string;
@@ -65,13 +53,13 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
                   }) => {
                     const { picture, name, link } = network;
                     return (
-                      <a
-                        href={link}
-                        target="blank"
-                        key={name}
-                        className="sidebar__link"
-                      >
-                        <Image src={picture} alt="social" preview={false} />
+                      <a href={link} target="blank" key={name} className="link">
+                        <Image
+                          src={picture}
+                          alt="social"
+                          preview={false}
+                          className="img"
+                        />
                       </a>
                     );
                   }
@@ -79,7 +67,7 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
               </ul>
             </div>
           </div>
-          <div className="sidebar__menu-full"></div>
+          <div className="menu-full"></div>
         </div>
       );
     }
@@ -88,11 +76,9 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
 
   return (
     <Sider className="sidebar" width={widthPercent}>
-      <Button
-        type="link"
+      <div
         onClick={showMenu}
-        className="sidebar__btn"
-        icon={<img src={image} alt="btn" className="sidebar__burger-menu" />}
+        className={sideOpen ? 'btn-off btn' : 'btn-on btn'}
       />
       {showContent()}
     </Sider>

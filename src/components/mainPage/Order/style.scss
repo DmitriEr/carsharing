@@ -10,28 +10,28 @@
 .main-page__order {
   width: 53%;
   height: 100vh;
-  font-family: 'Roboto';
   margin-left: 80px;
   z-index: 16;
+  font-family: $fonts;
 
-  & .order__header {
+  & .header {
     @extend %display;
     justify-content: space-between;
     align-items: flex-end;
 
-    & .header__logo {
+    & .logo {
       color: $mainAccent;
       font-weight: 700;
       font-size: 30px;
       line-height: 30px;
     }
 
-    & .header__location {
+    & .location {
       @extend %display;
       justify-content: center;
       align-items: flex-end;
 
-      & .header__city {
+      & .city {
         margin-left: 13px;
         font-weight: 400;
         font-size: 14px;
@@ -40,40 +40,40 @@
     }
   }
 
-  & .order__content {
+  & .content {
     padding-top: 22%;
     background-color: $white;
 
-    & .order__wrapper {
+    & .wrapper {
       @extend %display;
       height: 200px;
 
-      & .content__common {
+      & .common {
         width: 100%;
         margin-left: 32px;
       }
 
-      & .order__name {
+      & .name {
         font-size: 70px;
         line-height: 70px;
         color: $black;
         font-weight: bold;
       }
   
-      & .order__title {
+      & .title {
         font-size: 70px;
         line-height: 70px;
         color: $mainAccent;
         font-weight: bold;
       }
   
-      .order__description {
+      .description {
         color: $gray;
         font-size: 26px;
         font-weight: 300;
       }
 
-      & .content__btn {
+      & .btn {
         background: $orderButton;
         background-blend-mode: darken;
         border-radius: 8px;
@@ -91,7 +91,7 @@
     }
   }
 
-  & .order__footer {
+  & .footer {
     @extend %display;
     font-size: 13px;
     justify-content: space-between;
@@ -109,20 +109,20 @@
 @media (max-width: 800px) {
 
   .main-page__order {
-    & .order__content {  
-      & .order__wrapper {
+    & .content {  
+      & .wrapper {
   
-        & .order__name {
+        & .name {
           font-size: 50px;
           line-height: 100%;
         }
     
-        & .order__title {
+        & .title {
           font-size: 50px;
           line-height: 100%;
         }
     
-        & .order__description {
+        & .description {
           font-size: 18px;
           line-height: 21px;
         }
@@ -135,43 +135,43 @@
   .main-page__order {
     margin: 0px;
   
-    & .order__header {
+    & .header {
       justify-content: flex-end;
       height: 80px;
       padding: 16px 16px 0px 0px;
 
-      & .header__logo {
+      & .logo {
         width: 100%;
         text-align: end;
       }
 
-      & .header__location {
+      & .location {
         padding-top: 10px;
       }
     }
   
-    & .order__content {
+    & .content {
       padding-top: 38px;
   
-      & .order__wrapper {
+      & .wrapper {
   
-        & .order__name {
+        & .name {
           font-size: 32px;
           line-height: 100%;
         }
     
-        & .order__title {
+        & .title {
           font-size: 32px;
           line-height: 100%;
         }
     
-        & .order__description {
+        & .description {
           font-size: 18px;
           line-height: 21px;
           margin: 16px 0px 6px 32px;
         }
   
-        & .content__btn {
+        & .btn {
           width: 100%;
           margin-top: 32px;
           margin-left: 0px;
@@ -180,7 +180,7 @@
       }
     }
   
-    & .order__footer {
+    & .footer {
       justify-content: flex-end;
       background: $backgroundBlack;
       padding: 16px 16px 16px 131px;

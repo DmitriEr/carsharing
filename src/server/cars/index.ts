@@ -1,6 +1,4 @@
-import { carPromiseType } from './interface';
-
-export const getCars: () => Promise<carPromiseType> = async () => {
+export const getCars: () => Promise<string> = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/car';
     const response = await fetch(url, {
@@ -19,3 +17,5 @@ export const getCars: () => Promise<carPromiseType> = async () => {
     throw new Error(`Error in database cars: ${error.message}`);
   }
 };
+
+export type TypeGetCars = ReturnType<typeof getCars>;

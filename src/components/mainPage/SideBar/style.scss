@@ -9,12 +9,35 @@
   left: 0px;
   top: 0px;
   height: 100%;
+  font-family: $fonts;
 
-  & .sidebar__btn {
+  & .btn {
     position: absolute;
+    z-index: 18;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    left: 20px;
+    top: 30px;
+    
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
   }
 
-  & .sidebar__burger-menu {
+  & .btn-on {
+    background-image: url('../../../assets/mainPage/sideBar/menu_btn_full.svg');
+  }
+
+  & .btn-off {
+    background-image: url('../../../assets/mainPage/sideBar/close.svg');
+  }
+
+  & .burger-menu {
     margin-top: 30px;
     margin-left: 20px;
     position: absolute;
@@ -26,7 +49,7 @@
   & .ant-layout-sider-children {
     width: inherit;
 
-    & .sidebar__menu {
+    & .menu {
       display: flex;
       flex-wrap: nowrap;
       justify-content: center;
@@ -34,7 +57,7 @@
       width: inherit;
       height: 100%;
   
-      & .sidebar__menu-open {
+      & .menu-open {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
@@ -49,16 +72,16 @@
         z-index: 17;
         overflow: hidden;
 
-        & .sidebar__menu-inner-wrapper {
+        & .inner-wrapper {
           width: 100%;
 
-          & .sidebar__items {
+          & .items {
             width: 100%;
             background-color: transparent;
             border: none;
             margin-left: 97px;
 
-            & .sidebar__item {
+            & .item {
               width: inherit;
               font-weight: 500;
               font-size: 32px;
@@ -78,29 +101,29 @@
             background-color: transparent !important;
           }
 
-          & .sidebar__links {
+          & .links {
             margin-left: 97px;
             margin-top: 38px;
             padding: 0px;
 
-            & .sidebar__link {
+            & .link {
               margin-right: 24px;
             }
           }
         }
 
-        & .sidebar__item-img {
+        & .img {
           width: inherit;
         }
       }
   
-      & .sidebar__menu-full {
+      & .menu-full {
         width: 48%;
         opacity: 0.5;
         z-index: 1;
         height: 100%;
         background: #151B1F 81%;
-        ;
+        z-index: 18;
       }
     }
   }
@@ -109,31 +132,39 @@
 @media (max-width: 1023px) {
   .ant-layout .sidebar {
 
-    & .ant-layout-sider-children .sidebar__menu {
-      & .sidebar__menu-open {
+    & .ant-layout-sider-children .menu {
+      & .menu-open {
         width: 100%;
   
-        & .sidebar__menu-inner-wrapper {
+        & .inner-wrapper {
   
-          & .sidebar__items {
+          & .items {
             margin-left: 80px;
   
-            & .sidebar__item {
+            & .item {
               margin-left: 0px;
               font-size: 28px;
               line-height: 33px;
             }
           }
   
-          & .sidebar__links {
+          & .links {
             margin-left: 80px;
           }
         }
       }
   
-      & .sidebar__menu-full {
+      & .menu-full {
         width: 0%;
       }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .ant-layout .sidebar {
+    & .btn-on {
+      background-image: url('../../../assets/mainPage/sideBar/menu_btn_mini.svg');
     }
   }
 }
@@ -141,30 +172,30 @@
 @media (max-width: 400px) {
   .ant-layout .sidebar {
 
-    & .sidebar__burger-menu {
+    & .burger-menu {
 
       & svg path {
         stroke: path(red);
       }
     }
   
-    & .ant-layout-sider-children .sidebar__menu {
-      & .sidebar__menu-open {
+    & .ant-layout-sider-children .menu {
+      & .menu-open {
         align-items: flex-start;
   
-        & .sidebar__menu-inner-wrapper {
+        & .inner-wrapper {
           margin-top: 80px;
   
-          & .sidebar__items {
+          & .items {
             margin-left: 28px;
   
-            & .sidebar__item {
+            & .item {
               font-size: 22px;
               line-height: 26px;
             }          
           }
   
-          & .sidebar__links {
+          & .links {
             margin-left: 28px;
           }
         }
