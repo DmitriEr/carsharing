@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Select } from 'antd';
 import { Map } from './Map';
 import { changeUserCity, changeUserPoint } from '../../../redux/actions';
-import { getCities } from '../../../server/data';
+import { getCities, getPoints } from '../../../server/data';
 import { Cities } from '../../../server/data/interface';
 import { RootReducer } from '../../../interfaces/redux';
 import './style.scss';
@@ -15,7 +15,7 @@ export const Location: React.FunctionComponent = () => {
 
   const [cities, setCities] = useState<Array<string>>([]);
   const [points, setPionts] = useState<Array<string>>([]);
-  // const [pointsTest, setPointTest] = useState<Array<string>>([]);
+  const [pointsTest, setPointTest] = useState<Array<string>>([]);
 
   const cityData = useSelector((state: RootReducer) => state.information);
 
@@ -31,20 +31,20 @@ export const Location: React.FunctionComponent = () => {
   }, []);
 
   // получение данных по поинтам из сваггера
-  // useEffect(() => {
-  //   const arr: string[] = [];
-  //   if (userCity.length) {
-  //     getPoints()
-  //       .then((point) => {
-  //         point.data.forEach((item) => {
-  //           if (item.cityId.name === userCity) {
-  //             arr.push(item);
-  //           }
-  //         });
-  //       })
-  //       .then(() => setPointTest(arr));
-  //   }
-  // }, [userCity]);
+  useEffect(() => {
+    const arr: string[] = [];
+    if (userCity.length) {
+      getPoints()
+        .then((point) => {
+          point.data.forEach((item) => {
+            if (item.cityId.name === userCity) {
+              arr.push(item);
+            }
+          });
+        })
+        .then(() => setPointTest(arr));
+    }
+  }, [userCity]);
 
   const showSelect: (name: string, array: string[]) => JSX.Element = (
     name: string,
@@ -86,7 +86,7 @@ export const Location: React.FunctionComponent = () => {
       </div>
       <div className="location__map">
         <span className="location__map-name">Выбрать на карте:</span>
-        <Map setPionts={setPionts} />
+        <Map setPionts={setPionts} pointsTest={pointsTest} />
       </div>
     </div>
   );

@@ -5,10 +5,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { RootReducer } from '../../../../interfaces/redux';
 import { coordinatesData } from '../../../../interfaces/orderPage';
-import { getLocation, getAddress } from '../../../../server/geocodeLocation';
+import { getCoordinates } from '../../../../server/geocodeLocation';
 import './style.scss';
 
-export const Map: React.FunctionComponent<any> = ({ setPionts }) => {
+export const Map: React.FunctionComponent<any> = ({
+  setPionts,
+  pointsTest,
+}) => {
   const userData = useSelector((state: RootReducer) => state.information);
   const { userCity } = userData;
 
@@ -23,26 +26,27 @@ export const Map: React.FunctionComponent<any> = ({ setPionts }) => {
 
   useEffect(() => {
     if (userCity) {
-      getLocation(userCity).then((data) => {
-        const [long, lat] = data.features[0].center;
+      getCoordinates(userCity).then(({ results }) => {
+        const [{ geometry }] = results;
+        const { lat, lng } = geometry;
         setUserCoordsData({
           ...userCoordsData,
           latitude: lat,
-          longtitude: long,
+          longtitude: lng,
         });
       });
     }
   }, [userCity]);
 
   useEffect(() => {
+    // тестовые данные пока api не работает
+    const arr = ['Самара, проспект Ленина 1', 'Самара, Ерошевского 10'];
     if (userCity && map) {
-      getAddress(userCity).then((data) => {
-        const { features } = data;
-        setPionts([]);
-        features.forEach((address) => {
-          const { center, place_name } = address;
-          setPionts((prev) => [...prev, place_name]);
-          new mapboxgl.Marker().setLngLat(center).addTo(map);
+      arr.forEach((nameStreet) => {
+        getCoordinates(nameStreet).then(({ results }) => {
+          const [{ geometry }] = results;
+          const { lat, lng } = geometry;
+          new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
         });
       });
     }
