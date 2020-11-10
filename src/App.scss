@@ -1,4 +1,13 @@
-.App {
-  text-align: center;
+.layout {
+  height: 100vh;
+
+  & .sidebar {
+    background: #fff;
+  }
 }
+
+.main-page_header {
+  background-color: #fff;
+}
+
 

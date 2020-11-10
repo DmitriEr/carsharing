@@ -1,0 +1,140 @@
+@import '../../../styles/variables.scss';
+%background {
+  display: inherit;
+  text-align: center;
+  height: 100vh;
+  background: $sliderDark;
+}
+
+.ant-carousel {
+  width: 43%;
+  font-family: $fonts;
+
+  & .main-page__slider {
+    width: 100%;
+    height: 100%;
+
+    & .wrapper {
+      display: flex;
+      position: relative;
+
+        & .background-0 img,
+        & .background-3 img {
+          @extend %background;
+          object-fit: cover;
+        }
+
+        & .background-1 img,
+        & .background-2 img {
+          @extend %background;
+          width: auto;
+        }
+
+      & .content {
+        position: absolute;
+        color: $white;
+        top: 30%;
+        left: 14%;
+
+        & .title {
+          font-size: 40px;
+          font-weight: 500;
+          line-height: 46px;
+        }
+
+        & .description {
+          font-weight: 300;
+          font-size: 24px;
+          line-height: 90%;
+          max-width: 495px;
+          margin-top: 8px;
+          margin-bottom: 32px;
+          margin-right: 64px;
+        }
+
+        & .btn {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 21px;
+          border-radius: 4px;
+          width: 164px;
+          height: 48px;
+          border: none;
+        }
+
+        & .btn-0 {
+          background: $slideZero;
+        }
+
+        & .btn-1 {
+          background: $slideOne;
+        }
+
+        & .btn-2 {
+          background: $slideTwo;
+        }
+
+        & .btn-3 {
+          background: $slideThree;
+        }
+      }
+
+      & .filter {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: $sliderDark;
+      }
+
+      & .control {
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        width: 64px;
+        border: none;
+        outline: none;
+        opacity: 0.2;
+        z-index: 14;
+
+        &:hover {
+          background: $mainAccent;
+        }
+      }
+      
+      & .control-left {
+        left: 0px;
+      }
+
+      & .control-right {
+        right: 0px;
+      }
+    }
+
+    & .slick-dots {
+      & li {
+        &.slick-active button {
+          background-color: $mainAccent;
+        }
+        & button {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #fff;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .ant-carousel {
+    width: 0%;
+  
+    & .main-page__slider {
+      display: none;
+    }
+  }
+}
