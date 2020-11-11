@@ -9,21 +9,21 @@ const { Content, Footer } = Layout;
 export const Order: React.FunctionComponent = () => (
   <Layout className="main-page__order">
     <Head />
-    <Content className="order__content">
-      <div className="order__wrapper">
-        <div className="order__name content__common">Каршеринг</div>
-        <div className="order__title content__common">Need for drive</div>
-        <div className="order__description content__common">
+    <Content className="content">
+      <div className="wrapper">
+        <div className="name common">Каршеринг</div>
+        <div className="title common">Need for drive</div>
+        <div className="description common">
           Поминутная аренда авто твоего города
         </div>
         <Link to="/carsharing/order">
-          <Button className="content__btn" type="primary">
+          <Button className="btn" type="primary">
             Забронировать
           </Button>
         </Link>
       </div>
     </Content>
-    <Footer className="order__footer">
+    <Footer className="footer">
       <span>© 2016-2019 «Need for drive»</span>
       <a href="tel:8-495-234-22-44">8 (495) 234-22-44</a>
     </Footer>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Carousel, Image, Layout, Button } from 'antd';
+import classNames from 'classnames';
 import { sliderItems } from '../../../constants/mainPage';
 import { sliderInterface } from '../../../interfaces/mainPage';
 import { Props } from '../../../interfaces/common';
@@ -11,57 +12,58 @@ import './style.scss';
 const { Content } = Layout;
 
 export const Slider: React.FunctionComponent<Props> = ({ sliderRef }) => {
-  const handlerLeft: () => void = () => sliderRef.current.prev();
-  const handleRight: () => void = () => sliderRef.current.next();
+  const handlerLeft = () => sliderRef.current.prev();
+  const handlerRight = () => sliderRef.current.next();
 
   return (
     <Carousel
       className="main-page__slider"
-      dots={{ className: 'slider__btn-down' }}
+      dots={{ className: 'btn-down' }}
       ref={sliderRef}
     >
-      {sliderItems.map((slide: sliderInterface, index: number) => {
-        const { title, content, background } = slide;
-        return (
-          <Layout key={title} className="slide__wrapper">
-            <Content className="slide">
-              <Image
-                src={background}
-                alt={title}
-                className={`slide__background slide__background-${index}`}
-                preview={false}
-              />
-              <div className="slide__filter"></div>
-              <Button
-                type="ghost"
-                className="slide__control-left slide__control"
-                onClick={handlerLeft}
-              >
-                <Image src={left} alt="left" preview={false} />
-              </Button>
-              <Button
-                type="ghost"
-                className="slide__control-right slide__control"
-                onClick={handleRight}
-              >
-                <Image src={right} alt="right" preview={false} />
-              </Button>
-              <div className="slide__content">
-                <span className="slide__title">{title}</span>
-                <div className="slide__description">{content}</div>
-                <Link to="/carsharing/order">
-                  <Button
-                    className={`slide__btn-${index} slide__btn`}
-                    type="primary"
-                  >
-                    Подробнее
-                  </Button>
-                </Link>
-              </div>
-            </Content>
-          </Layout>
-        );
-      })}
+      {sliderItems.map(
+        ({ title, content, background }: sliderInterface, index: number) => {
+          return (
+            <Layout key={title} className="wrapper">
+              <Content className="slide">
+                <Image
+                  src={background}
+                  alt={title}
+                  className={classNames('background', `background-${index}`)}
+                  preview={false}
+                />
+                <div className="filter"></div>
+                <Button
+                  type="ghost"
+                  className="control-left control"
+                  onClick={handlerLeft}
+                >
+                  <Image src={left} alt="left" preview={false} />
+                </Button>
+                <Button
+                  type="ghost"
+                  className="control-right control"
+                  onClick={handlerRight}
+                >
+                  <Image src={right} alt="right" preview={false} />
+                </Button>
+                <div className="content">
+                  <span className="title">{title}</span>
+                  <div className="description">{content}</div>
+                  <Link to="/carsharing/order">
+                    <Button
+                      className={classNames('btn', `btn-${index}`)}
+                      type="primary"
+                    >
+                      Подробнее
+                    </Button>
+                  </Link>
+                </div>
+              </Content>
+            </Layout>
+          );
+        }
+      )}
     </Carousel>
   );
 };

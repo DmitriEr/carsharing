@@ -4,7 +4,6 @@ import { Select } from 'antd';
 import { Map } from './Map';
 import { changeUserCity, changePoint } from '../../../redux/actions';
 import { getCities, getPoints } from '../../../server/data';
-import { Cities } from '../../../server/data/interface';
 import { RootReducer } from '../../../interfaces/redux';
 import './style.scss';
 
@@ -20,12 +19,11 @@ export const Location: React.FunctionComponent = () => {
   const userPoint = useSelector((state: RootReducer) => state.order.orderList);
 
   const { userCity } = cityData;
-  // const [{ value }] = userPoint;
 
   useEffect(() => {
     const arr: string[] = [];
     getCities()
-      .then((city: Cities) => {
+      .then((city: any) => {
         city.data.forEach((item) => arr.push(item.name));
       })
       .then(() => setCities(arr));
@@ -35,7 +33,7 @@ export const Location: React.FunctionComponent = () => {
     const set: Set<string> = new Set();
     if (userCity.length) {
       getPoints()
-        .then((point) => {
+        .then((point: any) => {
           point.data.forEach((item) => {
             if (item.cityId.name === userCity) {
               set.add(item.address);
