@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Select } from 'antd';
 import { Map } from './Map';
-import { changeUserCity, changeUserPoint } from '../../../redux/actions';
+import { changeUserCity, changePoint } from '../../../redux/actions';
 import { getCities, getPoints } from '../../../server/data';
 import { Cities } from '../../../server/data/interface';
 import { RootReducer } from '../../../interfaces/redux';
@@ -14,12 +14,13 @@ export const Location: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const [cities, setCities] = useState<Array<string>>([]);
-  const [points, setPionts] = useState<Array<string>>([]);
-  const [pointsTest, setPointTest] = useState<Array<string>>([]);
+  const [points, setPointTest] = useState<Array<string>>([]);
 
   const cityData = useSelector((state: RootReducer) => state.information);
+  const userPoint = useSelector((state: RootReducer) => state.order.orderList);
 
-  const { userCity, userPoint } = cityData;
+  const { userCity } = cityData;
+  // const [{ value }] = userPoint;
 
   useEffect(() => {
     const arr: string[] = [];
@@ -30,41 +31,37 @@ export const Location: React.FunctionComponent = () => {
       .then(() => setCities(arr));
   }, []);
 
-  // получение данных по поинтам из сваггера
   useEffect(() => {
-    const arr: string[] = [];
+    const set: Set<string> = new Set();
     if (userCity.length) {
       getPoints()
         .then((point) => {
           point.data.forEach((item) => {
             if (item.cityId.name === userCity) {
-              arr.push(item);
+              set.add(item.address);
             }
           });
         })
-        .then(() => setPointTest(arr));
+        .then(() => setPointTest(Array.from(set)));
     }
   }, [userCity]);
 
-  const showSelect: (name: string, array: string[]) => JSX.Element = (
-    name: string,
-    array: string[]
-  ) => (
+  const showSelect = (name: string, array: string[]) => (
     <Select
       placeholder={`Начните вводить ${name}`}
-      className="location__select"
+      className="select"
       showArrow={false}
       showSearch={true}
       bordered={false}
       onChange={(value: string) => {
         if (name === 'город') {
           dispatch(changeUserCity(value));
-          dispatch(changeUserPoint(''));
+          dispatch(changePoint(''));
         } else {
-          dispatch(changeUserPoint(value));
+          dispatch(changePoint(value));
         }
       }}
-      value={name === 'город' ? userCity : userPoint}
+      value={name === 'город' ? userCity : userPoint[0].value}
     >
       {array.map((item: string) => (
         <Option value={item} label={item} key={item}>
@@ -76,17 +73,17 @@ export const Location: React.FunctionComponent = () => {
 
   return (
     <div className="location">
-      <div className="location__city">
-        <span className="location__input-name">Город:</span>
+      <div className="city">
+        <span className="name">Город:</span>
         {showSelect('город', cities)}
       </div>
-      <div className="location__point">
-        <span className="location__input-name">Пункт выдачи:</span>
+      <div className="point">
+        <span className="name">Пункт выдачи:</span>
         {showSelect('пункт', points)}
       </div>
-      <div className="location__map">
-        <span className="location__map-name">Выбрать на карте:</span>
-        <Map setPionts={setPionts} pointsTest={pointsTest} />
+      <div className="map">
+        <span className="name">Выбрать на карте:</span>
+        <Map points={points} />
       </div>
     </div>
   );

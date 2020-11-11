@@ -8,7 +8,6 @@ import { RootReducer } from '../../../interfaces/redux';
 import location from '../../../assets/common/location.svg';
 import { translateCityName } from '../../../constants/common';
 import './style.scss';
-import { getCars } from '../../../server/data';
 
 const { Header } = Layout;
 

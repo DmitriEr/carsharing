@@ -6,17 +6,22 @@ import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Props } from '../../interfaces/common';
 import { statuses } from '../../constants/orderPage';
-import { RootReducer } from '../../interfaces/redux';
+import { RootReducer, OrderType } from '../../interfaces/redux';
 import './style.scss';
 
 const { Content } = Layout;
 
 export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
   const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
+  const [numberStatus, setNumberStatus] = useState(0);
 
-  const userPoint = useSelector(
-    (state: RootReducer) => state.information.userPoint
+  // const userPoint = useSelector(
+  //   (state: RootReducer) => state.information.userPoint
+  // );
+  const userCity = useSelector(
+    (state: RootReducer) => state.information.userCity
   );
+  const orderList = useSelector((state: RootReducer) => state.order.orderList);
 
   const checkCurrentStatus: (text: string) => string | null = (
     text: string
@@ -38,15 +43,15 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
       style={{ overflow: 'hidden', background: '#fff' }}
     >
       <SideBar sliderRef={sliderRef} />
-      <Content className="order-page__wrapper">
+      <Content className="wrapper">
         <Layout>
           <Head />
-          <Content className="order-page__content">
-            <div className="order__statuses">
+          <Content className="content">
+            <div className="statuses">
               {statuses.map((status: string, index: number) => (
                 <span
                   key={status}
-                  className={`order__status ${checkCurrentStatus(
+                  className={`status ${checkCurrentStatus(
                     status
                   )} ${checkPrevStatus(index)}`}
                 >
@@ -54,21 +59,27 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
                 </span>
               ))}
             </div>
-            <div className="order__forms">
+            <div className="forms">
               <Location />
             </div>
-            <div className="order__result">
+            <div className="result">
               <h2>Ваш заказ</h2>
-              <div className="result__list">
-                <div className="result__list-dots result__list-link">
-                  <span className="result__list-field">Пункт выдачи</span>
-                </div>
-                <span className="result__list-address">{userPoint}</span>
-              </div>
-              <div className="result__list-price">
+              {orderList.map(({ name, value, orderNumber }: OrderType) => {
+                if (orderNumber <= numberStatus) {
+                  return (
+                    <div className="list" key={name}>
+                      <div className="dots link">
+                        <span className="field">{name}</span>
+                      </div>
+                      <span className="address">{`${userCity}, ${value}`}</span>
+                    </div>
+                  );
+                }
+              })}
+              <div className="price">
                 <span>Цена:</span> от 8 000 до 12 000 ₽
               </div>
-              <Button disabled={true} className="result__list-btn">
+              <Button disabled={true} className="btn">
                 Выбрать модель
               </Button>
             </div>

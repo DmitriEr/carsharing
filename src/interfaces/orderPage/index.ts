@@ -3,3 +3,7 @@ export interface coordinatesData {
   longtitude: number;
   zoom: number;
 }
+
+export interface PointsProps {
+  points: string[];
+}

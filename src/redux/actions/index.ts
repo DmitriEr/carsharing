@@ -1,5 +1,4 @@
-import { CHANGE_USER_CITY, CHANGE_USER_POINT } from '../type';
-// import { ActionType } from '../../interfaces/redux';
+import { CHANGE_USER_CITY, CHANGE_POINT } from '../type';
 
 export function changeUserCity(item: string) {
   return {
@@ -8,9 +7,9 @@ export function changeUserCity(item: string) {
   };
 }
 
-export function changeUserPoint(item: string) {
+export function changePoint(item: string) {
   return {
-    type: CHANGE_USER_POINT,
+    type: CHANGE_POINT,
     payload: item,
   };
 }

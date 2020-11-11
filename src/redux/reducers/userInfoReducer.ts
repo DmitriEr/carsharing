@@ -1,9 +1,8 @@
-import { CHANGE_USER_CITY, CHANGE_USER_POINT } from '../type';
+import { CHANGE_USER_CITY } from '../type';
 import { UserCityType } from '../../interfaces/redux';
 
 const currentState = {
   userCity: '',
-  userPoint: '',
 };
 
 export const userInfoReducer = (state = currentState, action: UserCityType) => {
@@ -11,8 +10,6 @@ export const userInfoReducer = (state = currentState, action: UserCityType) => {
   switch (type) {
     case CHANGE_USER_CITY:
       return { ...state, userCity: payload };
-    case CHANGE_USER_POINT:
-      return { ...state, userPoint: payload };
     default:
       return state;
   }

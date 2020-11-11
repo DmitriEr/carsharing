@@ -12,19 +12,19 @@
   margin-left: 64px;
   margin-right: 64px;
 
-  .location__city,
-  .location__point {
+  .city,
+  .point {
     width: 100%;
     margin-top: 13px;
 
-    & .location__input-name {
+    & .name {
       display: inline-block;
       text-align: end;
       width: 91px;
       margin-right: 5px;
     }
 
-    & .location__select {
+    & .select {
       width: 224px;
 
       & .ant-select-selector {
@@ -33,11 +33,11 @@
     }
   }
 
-  & .location__map {
+  & .map {
     margin-top: 45px;
     width: -webkit-fill-available;
 
-    & .location__map-name {
+    & .name {
       display: inline-block;
       margin-bottom: 16px;
     }
