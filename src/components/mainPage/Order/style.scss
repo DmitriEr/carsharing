@@ -170,12 +170,16 @@
           line-height: 21px;
           margin: 16px 0px 6px 32px;
         }
-  
-        & .btn {
-          width: 100%;
-          margin-top: 32px;
-          margin-left: 0px;
-          border-radius: 0px;
+
+        & a {
+          width: 100vw;
+
+          & .btn {
+            width: inherit;
+            margin-top: 32px;
+            margin-left: 0px;
+            border-radius: 0px;
+          }
         }
       }
     }

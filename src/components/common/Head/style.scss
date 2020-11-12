@@ -34,16 +34,20 @@
 }
 
 @media (max-width: 500px) {
-  & .order__header {
-    justify-content: flex-end;
-    height: 80px;
-    padding: 16px 16px 0px 0px;
-    & .header__logo {
-      width: 100%;
-      text-align: end;
-    }
-    & .header__location {
-      padding-top: 10px;
+  .ant-layout {
+    & .order__header {
+      justify-content: flex-end;
+      height: 80px;
+      padding: 16px 16px 0px 0px;
+  
+      & .header__logo {
+        width: 100%;
+        text-align: end;
+      }
+  
+      & .header__location {
+        padding-top: 10px;
+      }
     }
   }
 }

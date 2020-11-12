@@ -1,4 +1,4 @@
-export const getCars: () => Promise<string> = async () => {
+export const getCars = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/car';
     const response = await fetch(url, {
@@ -18,7 +18,7 @@ export const getCars: () => Promise<string> = async () => {
   }
 };
 
-export const getCities: () => Promise<string> = async () => {
+export const getCities = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/city';
     const response = await fetch(url, {
@@ -38,9 +38,7 @@ export const getCities: () => Promise<string> = async () => {
   }
 };
 
-export type TypeGetCity = ReturnType<typeof getCities>;
-
-export const getPoints: () => Promise<string> = async () => {
+export const getPoints = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/point';
     const response = await fetch(url, {

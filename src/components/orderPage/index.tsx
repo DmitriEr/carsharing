@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Button } from 'antd';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Location } from './Location';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Props } from '../../interfaces/common';
 import { statuses } from '../../constants/orderPage';
+import { changePage } from '../../redux/actions';
 import { RootReducer, OrderType } from '../../interfaces/redux';
 import './style.scss';
 
 const { Content } = Layout;
 
 export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
+  const dispatch = useDispatch();
+
   const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
   const [numberStatus, setNumberStatus] = useState(0);
 
-  // const userPoint = useSelector(
-  //   (state: RootReducer) => state.information.userPoint
-  // );
+  useEffect(() => {
+    dispatch(changePage('order'));
+  }, []);
+
   const userCity = useSelector(
     (state: RootReducer) => state.information.userCity
   );
@@ -29,12 +33,12 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
     if (currentStatus === text) {
       return 'status-active';
     }
-    return null;
+    return '';
   };
 
   const checkPrevStatus: (num: number) => string | null = (num: number) => {
     const numberStatus = statuses.findIndex((item) => item === currentStatus);
-    return num < numberStatus ? 'status-prev' : null;
+    return num < numberStatus ? 'status-prev' : '';
   };
 
   return (
@@ -42,7 +46,7 @@ export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
       className="order-page"
       style={{ overflow: 'hidden', background: '#fff' }}
     >
-      <SideBar sliderRef={sliderRef} />
+      <SideBar />
       <Content className="wrapper">
         <Layout>
           <Head />

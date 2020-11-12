@@ -11,41 +11,65 @@ import './style.scss';
 
 export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
   const userData = useSelector((state: RootReducer) => state.information);
-  const { userCity } = userData;
-
+  const userPoint = useSelector((state: RootReducer) => state.order.orderList);
+  const [dataBase, setDataBase] = useState<Array<string>>([]);
   const [userCoordsData, setUserCoordsData] = useState<coordinatesData>({
     latitude: 0,
     longtitude: 0,
     zoom: 10,
   });
-
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState(null);
 
+  const { userCity } = userData;
+  const { value } = userPoint[0];
+
   useEffect(() => {
-    if (userCity) {
-      getCoordinates(userCity).then(({ results }) => {
+    if (value.length) {
+      getCoordinates(`${userCity}, ${value}`).then(({ results }) => {
         const [{ geometry }] = results;
         const { lat, lng } = geometry;
         setUserCoordsData({
-          ...userCoordsData,
           latitude: lat,
           longtitude: lng,
+          zoom: 15,
         });
       });
+    } else if (userCity) {
+      console.log(userCity);
+      getCoordinates(userCity).then(({ results }) => {
+        if (userCity === 'Ульяновск') {
+          setUserCoordsData({
+            latitude: 54.3,
+            longtitude: 48.3,
+            zoom: 10,
+          });
+        } else {
+          const [{ geometry }] = results;
+          const { lat, lng } = geometry;
+          setUserCoordsData({
+            latitude: lat,
+            longtitude: lng,
+            zoom: 10,
+          });
+        }
+      });
     }
-  }, [userCity]);
+  }, [userCity, value]);
 
   useEffect(() => {
     if (userCity && map && points) {
       points.forEach((address) => {
-        getCoordinates(`${userCity}, ${address}`).then(({ results }) => {
-          if (results.length) {
-            const { geometry } = results[0];
-            const { lat, lng } = geometry;
-            new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
-          }
-        });
+        if (!dataBase.includes(address)) {
+          setDataBase((prev) => [...prev, address]);
+          getCoordinates(`${userCity}, ${address}`).then(({ results }) => {
+            if (results.length) {
+              const { geometry } = results[0];
+              const { lat, lng } = geometry;
+              new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+            }
+          });
+        }
       });
     }
   }, [userCity, map, points]);
@@ -68,6 +92,7 @@ export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
           style: 'mapbox://styles/mapbox/outdoors-v11',
           center: [longtitude, latitude],
           zoom,
+          bearing: 0,
         });
 
         setMap(map);
@@ -83,6 +108,7 @@ export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
       map.flyTo({
         center: [userCoordsData.longtitude, userCoordsData.latitude],
         essential: true,
+        zoom: userCoordsData.zoom,
       });
     }
   }, [userCoordsData]);

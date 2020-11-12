@@ -47,3 +47,21 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .location {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    & .city,
+    & .point {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    & .map {
+      margin-top: 20px;
+    }
+  }
+}

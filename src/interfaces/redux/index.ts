@@ -16,6 +16,7 @@ export interface RootReducer {
   order: {
     orderList: OrderType[];
   };
+  page: string;
 }
 
 export interface CommonType {
