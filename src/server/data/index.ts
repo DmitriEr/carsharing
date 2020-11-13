@@ -2,7 +2,8 @@ import { HTTPResponseCity, HTTPResponsePoint } from '../../interfaces/redux';
 
 export const getCars: () => Promise<string> = async () => {
   try {
-    const url = 'http://api-factory.simbirsoft1.com/api/db/car';
+    const url =
+      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car';
     const response = await fetch(url, {
       headers: {
         'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
@@ -22,7 +23,8 @@ export const getCars: () => Promise<string> = async () => {
 
 export const getCities: () => Promise<HTTPResponseCity> = async () => {
   try {
-    const url = 'http://api-factory.simbirsoft1.com/api/db/city';
+    const url =
+      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/city';
     const response = await fetch(url, {
       headers: {
         'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
@@ -42,7 +44,8 @@ export const getCities: () => Promise<HTTPResponseCity> = async () => {
 
 export const getPoints: () => Promise<HTTPResponsePoint> = async () => {
   try {
-    const url = 'http://api-factory.simbirsoft1.com/api/db/point';
+    const url =
+      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point';
     const response = await fetch(url, {
       headers: {
         'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
