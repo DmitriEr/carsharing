@@ -1,4 +1,6 @@
-export const getCars = async () => {
+import { HTTPResponseCity, HTTPResponsePoint } from '../../interfaces/redux';
+
+export const getCars: () => Promise<string> = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/car';
     const response = await fetch(url, {
@@ -18,7 +20,7 @@ export const getCars = async () => {
   }
 };
 
-export const getCities = async () => {
+export const getCities: () => Promise<HTTPResponseCity> = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/city';
     const response = await fetch(url, {
@@ -38,7 +40,7 @@ export const getCities = async () => {
   }
 };
 
-export const getPoints = async () => {
+export const getPoints: () => Promise<HTTPResponsePoint> = async () => {
   try {
     const url = 'http://api-factory.simbirsoft1.com/api/db/point';
     const response = await fetch(url, {

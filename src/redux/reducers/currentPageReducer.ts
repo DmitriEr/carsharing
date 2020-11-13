@@ -3,10 +3,10 @@ import { UserCityType } from '../../interfaces/redux';
 
 const currentState = 'main';
 
-export const currentPageReducer = (
-  state = currentState,
+export const currentPageReducer: (
+  state: string,
   action: UserCityType
-) => {
+) => string = (state = currentState, action: UserCityType) => {
   const { type, payload } = action;
   switch (type) {
     case CHANGE_PAGE:

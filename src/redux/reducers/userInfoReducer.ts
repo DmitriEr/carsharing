@@ -5,7 +5,12 @@ const currentState = {
   userCity: '',
 };
 
-export const userInfoReducer = (state = currentState, action: UserCityType) => {
+export const userInfoReducer: (
+  state: {
+    userCity: string;
+  },
+  action: UserCityType
+) => { userCity: string } = (state = currentState, action: UserCityType) => {
   const { type, payload } = action;
   switch (type) {
     case CHANGE_USER_CITY:

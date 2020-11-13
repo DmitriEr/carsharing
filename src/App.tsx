@@ -16,7 +16,7 @@ const App: React.FunctionComponent = () => {
             <MainPage sliderRef={sliderRef} />
           </Route>
           <Route exact path="/carsharing/order">
-            <OrderPage sliderRef={sliderRef} />
+            <OrderPage />
           </Route>
         </Switch>
       </Router>

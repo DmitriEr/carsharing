@@ -23,3 +23,15 @@ export interface CommonType {
   type: string;
   payload: string;
 }
+
+export interface HTTPResponseCity {
+  data: { name: string }[];
+}
+
+export interface HTTPResponsePoint {
+  data: { cityId: { name: string }; address: string }[];
+}
+
+export interface HTTPResponseCoords {
+  results: { geometry: { lat: number; lng: number } }[];
+}

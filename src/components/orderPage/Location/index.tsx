@@ -23,8 +23,8 @@ export const Location: React.FunctionComponent = () => {
   useEffect(() => {
     const arr: string[] = [];
     getCities()
-      .then((city: any) => {
-        city.data.forEach((item) => arr.push(item.name));
+      .then((city) => {
+        city.data.forEach(({ name }) => arr.push(name));
       })
       .then(() => setCities(arr));
   }, []);
@@ -33,7 +33,7 @@ export const Location: React.FunctionComponent = () => {
     const set: Set<string> = new Set();
     if (userCity.length) {
       getPoints()
-        .then((point: any) => {
+        .then((point) => {
           point.data.forEach((item) => {
             if (item.cityId.name === userCity) {
               set.add(item.address);
@@ -61,11 +61,16 @@ export const Location: React.FunctionComponent = () => {
       }}
       value={name === 'город' ? userCity : userPoint[0].value}
     >
-      {array.map((item: string) => (
-        <Option value={item} label={item} key={item}>
-          {item}
-        </Option>
-      ))}
+      {array.map((item: string) => {
+        if (item === 'Нариманова 1, корп.2') {
+          return null;
+        }
+        return (
+          <Option value={item} label={item} key={item}>
+            {item}
+          </Option>
+        );
+      })}
     </Select>
   );
 

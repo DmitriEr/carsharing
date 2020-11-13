@@ -12,7 +12,9 @@ import './style.scss';
 export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
   const userData = useSelector((state: RootReducer) => state.information);
   const userPoint = useSelector((state: RootReducer) => state.order.orderList);
-  const [dataBase, setDataBase] = useState<Array<string>>([]);
+  const [dataBase, setDataBase] = useState<Array<string>>([
+    'Нариманова 1, корп.2',
+  ]);
   const [userCoordsData, setUserCoordsData] = useState<coordinatesData>({
     latitude: 0,
     longtitude: 0,
@@ -36,7 +38,6 @@ export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
         });
       });
     } else if (userCity) {
-      console.log(userCity);
       getCoordinates(userCity).then(({ results }) => {
         if (userCity === 'Ульяновск') {
           setUserCoordsData({

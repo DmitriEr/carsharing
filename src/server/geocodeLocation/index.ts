@@ -1,4 +1,8 @@
-export const getCoordinates = async (placeName: string) => {
+import { HTTPResponseCoords } from '../../interfaces/redux';
+
+export const getCoordinates: (
+  placeName: string
+) => Promise<HTTPResponseCoords> = async (placeName: string) => {
   try {
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${placeName}&key=${process.env.REACT_APP_OPENCAGEDATA}`;
     const response = await fetch(url);

@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Location } from './Location';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
-import { Props } from '../../interfaces/common';
 import { statuses } from '../../constants/orderPage';
 import { changePage } from '../../redux/actions';
 import { RootReducer, OrderType } from '../../interfaces/redux';
@@ -12,7 +11,7 @@ import './style.scss';
 
 const { Content } = Layout;
 
-export const OrderPage: React.FunctionComponent<Props> = ({ sliderRef }) => {
+export const OrderPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
