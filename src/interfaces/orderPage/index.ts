@@ -7,3 +7,10 @@ export interface coordinatesData {
 export interface PointsProps {
   points: string[];
 }
+
+export interface CarsData {
+  name: string;
+  priceMin: number;
+  priceMax: number;
+  picture: string;
+}

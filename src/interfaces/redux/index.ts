@@ -35,3 +35,16 @@ export interface HTTPResponsePoint {
 export interface HTTPResponseCoords {
   results: { geometry: { lat: number; lng: number } }[];
 }
+
+export interface HTTPResponseCars {
+  data: {
+    categoryId: { name: string };
+    colors: string[];
+    description: string;
+    name: string;
+    number: string;
+    priceMax: number;
+    priceMin: number;
+    thumbnail: { originalname: string; path: string };
+  }[];
+}

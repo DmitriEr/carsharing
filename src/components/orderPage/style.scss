@@ -32,6 +32,11 @@
           font-size: 14px;
           line-height: 16px;
           position: relative;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.7;
+          }
   
           &:first-of-type {
             padding-left: 48px;
@@ -105,16 +110,23 @@
         }
   
         & .btn {
-          background: $grayFooter;
           border-radius: 8px;
-          color: $white;
           width: 287px;
           height: 48px;
+          color: $white;
           font-weight: 500;
           font-size: 18px;
           line-height: 21px;
           text-align: center;
           margin-top: 32px;
+        }
+
+        & .btn-disable {
+          background: $grayFooter;
+        }
+
+        & .btn-active {
+          background: $mainAccent;
         }
       }
     }

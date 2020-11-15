@@ -1,6 +1,10 @@
-import { HTTPResponseCity, HTTPResponsePoint } from '../../interfaces/redux';
+import {
+  HTTPResponseCity,
+  HTTPResponsePoint,
+  HTTPResponseCars,
+} from '../../interfaces/redux';
 
-export const getCars: () => Promise<string> = async () => {
+export const getCars: () => Promise<HTTPResponseCars> = async () => {
   try {
     const url =
       'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car';
