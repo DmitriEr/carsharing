@@ -1,3 +1,5 @@
+import { RouterState } from 'connected-react-router';
+
 export interface UserCityType {
   type: string;
   payload: string;
@@ -8,7 +10,6 @@ export interface OrderType {
   value: string;
   orderNumber: number;
 }
-
 export interface RootReducer {
   information: {
     userCity: string;
@@ -17,6 +18,7 @@ export interface RootReducer {
     orderList: OrderType[];
   };
   page: string;
+  router: RouterState;
 }
 
 export interface CommonType {
