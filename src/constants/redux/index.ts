@@ -1,4 +1,4 @@
-import { OrderType } from '../../interfaces/redux';
+import { OrderType } from '../../interfaces';
 
 export const initState: OrderType[] = [
   {

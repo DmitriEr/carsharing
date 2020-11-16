@@ -1,13 +1,14 @@
-import { HTTPResponseCity, HTTPResponsePoint } from '../../interfaces/redux';
+const urlCommon =
+  'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
+const headerCommon = {
+  'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+};
 
 export const getCars: () => Promise<string> = async () => {
   try {
-    const url =
-      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car';
+    const url = `${urlCommon}car`;
     const response = await fetch(url, {
-      headers: {
-        'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-      },
+      headers: headerCommon,
     });
 
     if (!response.ok) {
@@ -21,14 +22,13 @@ export const getCars: () => Promise<string> = async () => {
   }
 };
 
-export const getCities: () => Promise<HTTPResponseCity> = async () => {
+export const getCities: () => Promise<{
+  data: { name: string }[];
+}> = async () => {
   try {
-    const url =
-      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/city';
+    const url = `${urlCommon}city`;
     const response = await fetch(url, {
-      headers: {
-        'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-      },
+      headers: headerCommon,
     });
 
     if (!response.ok) {
@@ -42,14 +42,13 @@ export const getCities: () => Promise<HTTPResponseCity> = async () => {
   }
 };
 
-export const getPoints: () => Promise<HTTPResponsePoint> = async () => {
+export const getPoints: () => Promise<{
+  data: { cityId: { name: string }; address: string }[];
+}> = async () => {
   try {
-    const url =
-      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point';
+    const url = `${urlCommon}point`;
     const response = await fetch(url, {
-      headers: {
-        'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-      },
+      headers: headerCommon,
     });
 
     if (!response.ok) {

@@ -5,7 +5,6 @@ import background_4 from '../../assets/mainPage/slider/Slide_4.png';
 import facebook from '../../assets/mainPage/sideBar/Facebook_white.svg';
 import instagram from '../../assets/mainPage/sideBar/Instagram.svg';
 import telegram from '../../assets/mainPage/sideBar/Telegram_white.svg';
-import { sliderInterface } from '../../interfaces/mainPage';
 
 export const menuItems: string[] = [
   'парковка',
@@ -36,7 +35,7 @@ export const socialNetworks: {
   },
 ];
 
-export const sliderItems: sliderInterface[] = [
+export const sliderItems: { [x: string]: string }[] = [
   {
     title: 'Бесплатный парковка',
     content:

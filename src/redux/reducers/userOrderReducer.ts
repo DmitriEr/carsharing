@@ -1,7 +1,6 @@
 import { initState } from '../../constants/redux';
-import { CommonType } from '../../interfaces/redux';
 import { CHANGE_POINT } from '../../redux/type';
-import { OrderType } from '../../interfaces/redux';
+import { OrderType } from '../../interfaces';
 
 const currentState = {
   orderList: initState,
@@ -9,11 +8,8 @@ const currentState = {
 
 export const userOrderReducer: (
   state: { orderList: OrderType[] },
-  action: CommonType
-) => { orderList: OrderType[] } = (
-  state = currentState,
-  action: CommonType
-) => {
+  action: { type: string; payload: string }
+) => { orderList: OrderType[] } = (state = currentState, action) => {
   const { type, payload } = action;
   switch (type) {
     case CHANGE_POINT:

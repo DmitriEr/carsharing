@@ -3,23 +3,27 @@ import { useSelector } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { RootReducer } from '../../../../interfaces/redux';
-import { coordinatesData } from '../../../../interfaces/orderPage';
+import { RootReducer } from '../../../../interfaces';
 import { getCoordinates } from '../../../../server/geocodeLocation';
-import { PointsProps } from '../../../../interfaces/orderPage';
 import './style.scss';
 
-export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
-  const userData = useSelector((state: RootReducer) => state.information);
-  const userPoint = useSelector((state: RootReducer) => state.order.orderList);
-  const [dataBase, setDataBase] = useState<Array<string>>([
-    'Нариманова 1, корп.2',
-  ]);
-  const [userCoordsData, setUserCoordsData] = useState<coordinatesData>({
-    latitude: 0,
-    longtitude: 0,
-    zoom: 10,
-  });
+export const Map: React.FunctionComponent<{ points: string[] }> = ({
+  points,
+}) => {
+  const info = (state: RootReducer) => state.information;
+  const place = (state: RootReducer) => state.order.orderList;
+  const userData = useSelector(info);
+  const userPoint = useSelector(place);
+
+  const [dataBase, setDataBase] = useState<string[]>([]);
+
+  const [userCoordsData, setUserCoordsData] = useState<{ [x: string]: number }>(
+    {
+      latitude: 0,
+      longtitude: 0,
+      zoom: 10,
+    }
+  );
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState(null);
 
@@ -27,33 +31,29 @@ export const Map: React.FunctionComponent<PointsProps> = ({ points }) => {
   const { value } = userPoint[0];
 
   useEffect(() => {
-    if (value.length) {
-      getCoordinates(`${userCity}, ${value}`).then(({ results }) => {
-        const [{ geometry }] = results;
-        const { lat, lng } = geometry;
+    if (userCity || value.length) {
+      getCoordinates(`${userCity} ${value}`).then(({ results }) => {
+        let lat;
+        let lng;
+        if (value.length === 0) {
+          const cityList = results.filter((item) => {
+            if (item.components._type === 'city') {
+              return true;
+            }
+          });
+          const [{ geometry }] = cityList;
+          lng = geometry.lng;
+          lat = geometry.lat;
+        } else {
+          const [{ geometry }] = results;
+          lng = geometry.lng;
+          lat = geometry.lat;
+        }
         setUserCoordsData({
           latitude: lat,
           longtitude: lng,
-          zoom: 15,
+          zoom: value.length ? 15 : 10,
         });
-      });
-    } else if (userCity) {
-      getCoordinates(userCity).then(({ results }) => {
-        if (userCity === 'Ульяновск') {
-          setUserCoordsData({
-            latitude: 54.3,
-            longtitude: 48.3,
-            zoom: 10,
-          });
-        } else {
-          const [{ geometry }] = results;
-          const { lat, lng } = geometry;
-          setUserCoordsData({
-            latitude: lat,
-            longtitude: lng,
-            zoom: 10,
-          });
-        }
       });
     }
   }, [userCity, value]);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Layout, Menu, Image } from 'antd';
-import { RootReducer } from '../../../interfaces/redux';
+import { RootReducer } from '../../../interfaces';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
 import './style.scss';
 
@@ -10,7 +10,8 @@ const { Sider } = Layout;
 const { Item } = Menu;
 
 export const SideBar: React.FunctionComponent = () => {
-  const currentPage = useSelector((state: RootReducer) => state.page);
+  const page = (state: RootReducer) => state.router.location.pathname;
+  const currentPage = useSelector(page).split('/');
 
   const [widthPercent, setWidthPercent] = useState<string | number>(80);
   const [sideOpen, setSideOpen] = useState<boolean>(false);
@@ -70,7 +71,9 @@ export const SideBar: React.FunctionComponent = () => {
           </div>
           <div
             className={
-              currentPage === 'main' ? 'menu-full light' : 'menu-full dark'
+              currentPage[currentPage.length - 1] === 'order'
+                ? 'menu-full dark'
+                : 'menu-full light'
             }
           ></div>
         </div>
