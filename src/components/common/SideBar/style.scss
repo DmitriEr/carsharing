@@ -119,11 +119,18 @@
   
       & .menu-full {
         width: 48%;
-        opacity: 0.5;
         z-index: 1;
         height: 100%;
         background: #151B1F 81%;
         z-index: 18;
+      }
+
+      & .light {
+        opacity: 0.5;
+      }
+
+      & .dark {
+        opacity: 1;
       }
     }
   }
@@ -163,8 +170,13 @@
 
 @media (max-width: 500px) {
   .ant-layout .sidebar {
-    & .btn-on {
-      background-image: url('../../../assets/mainPage/sideBar/menu_btn_mini.svg');
+
+    & .ant-layout-sider-children {
+      background: #fff;
+
+      & .btn-on {
+        background-image: url('../../../assets/mainPage/sideBar/menu_btn_mini.svg');
+      }
     }
   }
 }

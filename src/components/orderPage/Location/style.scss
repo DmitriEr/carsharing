@@ -1,0 +1,67 @@
+@import '../../../styles/variables.scss';
+
+.location {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-wrap: wrap;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+  margin-left: 64px;
+  margin-right: 64px;
+
+  .city,
+  .point {
+    width: 100%;
+    margin-top: 13px;
+
+    & .name {
+      display: inline-block;
+      text-align: end;
+      width: 91px;
+      margin-right: 5px;
+    }
+
+    & .select {
+      width: 224px;
+
+      & .ant-select-selector {
+        border-bottom: 1px solid $gray !important;
+      }
+    }
+  }
+
+  & .map {
+    margin-top: 45px;
+    width: -webkit-fill-available;
+
+    & .name {
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    
+    & .mapContainer {
+      width: inherit;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .location {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    & .city,
+    & .point {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    & .map {
+      margin-top: 20px;
+    }
+  }
+}

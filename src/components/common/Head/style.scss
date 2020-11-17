@@ -1,0 +1,53 @@
+@import '../../../styles/variables.scss';
+
+%display {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.order__header {
+  @extend %display;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff !important;
+
+  & .header__logo {
+    color: $mainAccent;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  & .header__location {
+    @extend %display;
+    justify-content: center;
+    align-items: flex-end;
+
+    & .header__city {
+      margin-left: 13px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .ant-layout {
+    & .order__header {
+      justify-content: flex-end;
+      height: 80px;
+      padding: 16px 16px 0px 0px;
+  
+      & .header__logo {
+        width: 100%;
+        text-align: end;
+      }
+  
+      & .header__location {
+        padding-top: 10px;
+      }
+    }
+  }
+}

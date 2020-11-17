@@ -1,0 +1,2 @@
+export const CHANGE_USER_CITY = 'CHANGE_USER_CITY';
+export const CHANGE_POINT = 'CHANGE_POINT';

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Layout, Menu, Image } from 'antd';
+import { RootReducer } from '../../../interfaces';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
-import { Props } from '../../../interfaces/mainPage';
 import './style.scss';
 
 const { Sider } = Layout;
 const { Item } = Menu;
 
-export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
+export const SideBar: React.FunctionComponent = () => {
+  const page = (state: RootReducer) => state.router.location.pathname;
+  const currentPage = useSelector(page).split('/');
+
   const [widthPercent, setWidthPercent] = useState<string | number>(80);
   const [sideOpen, setSideOpen] = useState<boolean>(false);
 
@@ -21,26 +26,23 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
     }
   };
 
-  const switchSlide = (num: number) => {
+  const switchSlide = () => {
     setSideOpen(false);
     setWidthPercent(80);
-    sliderRef.current.goTo(num);
   };
 
-  const showContent: () => null | JSX.Element = () => {
+  const showContent = () => {
     if (sideOpen) {
       return (
         <div className="menu">
           <div className="menu-open">
             <div className="inner-wrapper">
               <Menu className="items">
-                {menuItems.map((item: string, index: number) => (
-                  <Item
-                    key={item}
-                    className="item"
-                    onClick={() => switchSlide(index)}
-                  >
-                    {item.toUpperCase()}
+                {menuItems.map((item: string) => (
+                  <Item onClick={() => switchSlide()} key={item}>
+                    <Link to="/carsharing" className="item">
+                      {item.toUpperCase()}
+                    </Link>
                   </Item>
                 ))}
               </Menu>
@@ -67,7 +69,13 @@ export const SideBar: React.FunctionComponent<Props> = ({ sliderRef }) => {
               </ul>
             </div>
           </div>
-          <div className="menu-full"></div>
+          <div
+            className={
+              currentPage[currentPage.length - 1] === 'order'
+                ? 'menu-full dark'
+                : 'menu-full light'
+            }
+          ></div>
         </div>
       );
     }
