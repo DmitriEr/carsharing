@@ -25,15 +25,18 @@ export const Cars: React.FunctionComponent = () => {
       {cars.map(({ name, priceMin, priceMax, picture }, index) => {
         return (
           <Card
+            size="small"
             title={
               <>
-                <div>{name}</div>
-                <div>{`${priceMin} - ${priceMax} Р`}</div>
+                <div className="title">{name}</div>
+                <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
               </>
             }
             key={index}
+            className="card"
           >
             <img
+              className="image"
               src={`http://api-factory.simbirsoft1.com${picture}`}
               alt={name}
             />

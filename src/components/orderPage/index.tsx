@@ -62,7 +62,7 @@ export const OrderPage: React.FunctionComponent = () => {
       <Content className="wrapper">
         <Layout>
           <Head />
-          <Content className="content">
+          <Content>
             <div className="statuses">
               {statuses.map((status: string, index: number) => (
                 <span
@@ -76,6 +76,8 @@ export const OrderPage: React.FunctionComponent = () => {
                 </span>
               ))}
             </div>
+          </Content>
+          <Content className="content">
             <div className="forms">{showCurrentStatus()}</div>
             <div className="result">
               <h2>Ваш заказ</h2>

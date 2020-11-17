@@ -1,0 +1,35 @@
+@import '../../../styles/variables.scss';
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  & .card {
+    width: 45%;
+    height: 224px;
+
+    & .title {
+      font-weight: 400;
+      font-size: 18px;
+      color: $black;
+    }
+
+    & .price {
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: normal;
+      color: $gray;
+    }
+
+    & .ant-card-body {
+      display: flex;
+      justify-content: flex-end;
+
+      & .image {
+        width: 256px;
+        height: 116px;
+      }
+    }
+  }
+}

@@ -8,15 +8,12 @@
 
     & .ant-layout {
       height: 100vh;
+      background: #fff;
     }
 
-    & .content {
-      display: flex;
-      justify-content: space-between;
-      align-items: stretch;
-      flex-wrap: wrap;
-      background: $white;
-  
+    & .ant-layout-content {
+      flex: none;
+
       & .statuses {
         display: flex;
         align-items: center;
@@ -24,6 +21,7 @@
         background: $white;
         border-top: 1px solid $grayFooter;
         border-bottom: 1px solid $grayFooter;
+        max-height: 40px;
   
         & .status {
           color: $gray;
@@ -33,7 +31,7 @@
           line-height: 16px;
           position: relative;
           cursor: pointer;
-
+  
           &:hover {
             opacity: 0.7;
           }
@@ -63,6 +61,15 @@
           color: $black;
         }
       }
+    }
+
+    & .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-wrap: wrap;
+      background: $white;
+      flex-grow: inherit;
   
       & .forms {
         width: 65%;
