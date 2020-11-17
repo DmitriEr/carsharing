@@ -1,88 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Select } from 'antd';
+import { useSelector } from 'react-redux';
 import { Map } from './Map';
-import { changeUserCity, changePoint } from '../../../redux/actions';
 import { getCities, getPoints } from '../../../server/data';
-import { RootReducer } from '../../../interfaces/redux';
+import { changePoint, changeUserCity } from '../../../redux/actions';
+import { info } from '../../../redux/selectors';
+import { SelectAddress } from './SelectAddress';
 import './style.scss';
 
-const { Option } = Select;
-
 export const Location: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const [cities, setCities] = useState<string[]>([]);
+  const [points, setPointTest] = useState<string[]>([]);
 
-  const [cities, setCities] = useState<Array<string>>([]);
-  const [points, setPointTest] = useState<Array<string>>([]);
-
-  const cityData = useSelector((state: RootReducer) => state.information);
-  const userPoint = useSelector((state: RootReducer) => state.order.orderList);
+  const cityData = useSelector(info);
 
   const { userCity } = cityData;
 
   useEffect(() => {
-    const arr: string[] = [];
-    getCities()
-      .then((city) => {
-        city.data.forEach(({ name }) => arr.push(name));
-      })
-      .then(() => setCities(arr));
+    getCities().then((city) => {
+      const result = city.data.map(({ name }) => name);
+      setCities(result);
+    });
   }, []);
 
   useEffect(() => {
-    const set: Set<string> = new Set();
     if (userCity.length) {
-      getPoints()
-        .then((point) => {
-          point.data.forEach((item) => {
-            if (item.cityId.name === userCity) {
-              set.add(item.address);
+      getPoints().then((point) => {
+        const set: Set<string> = new Set();
+        point.data.forEach((item) => {
+          if (item.cityId.name === userCity) {
+            if (item.address === 'Нариманова 1, корп.2') {
+              item.address = 'Нариманова 1';
             }
-          });
-        })
-        .then(() => setPointTest(Array.from(set)));
+            set.add(item.address);
+          }
+        });
+        setPointTest(Array.from(set));
+      });
     }
   }, [userCity]);
-
-  const showSelect = (name: string, array: string[]) => (
-    <Select
-      placeholder={`Начните вводить ${name}`}
-      className="select"
-      showArrow={false}
-      showSearch={true}
-      bordered={false}
-      onChange={(value: string) => {
-        if (name === 'город') {
-          dispatch(changeUserCity(value));
-          dispatch(changePoint(''));
-        } else {
-          dispatch(changePoint(value));
-        }
-      }}
-      value={name === 'город' ? userCity : userPoint[0].value}
-    >
-      {array.map((item: string) => {
-        if (item === 'Нариманова 1, корп.2') {
-          return null;
-        }
-        return (
-          <Option value={item} label={item} key={item}>
-            {item}
-          </Option>
-        );
-      })}
-    </Select>
-  );
 
   return (
     <div className="location">
       <div className="city">
         <span className="name">Город:</span>
-        {showSelect('город', cities)}
+        <SelectAddress
+          options={cities}
+          name={'город'}
+          changeOption={changeUserCity}
+          initValue={userCity}
+        />
       </div>
       <div className="point">
         <span className="name">Пункт выдачи:</span>
-        {showSelect('пункт', points)}
+        <SelectAddress
+          options={points}
+          name={'пункт'}
+          changeOption={changePoint}
+        />
       </div>
       <div className="map">
         <span className="name">Выбрать на карте:</span>

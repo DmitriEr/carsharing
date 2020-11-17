@@ -1,18 +1,15 @@
 import { initState } from '../../constants/redux';
-import { CommonType } from '../../interfaces/redux';
 import { CHANGE_POINT } from '../../redux/type';
-import { OrderType } from '../../interfaces/redux';
+import { OrderType } from '../../interfaces';
+import { GenericAction } from '../../interfaces';
 
 const currentState = {
   orderList: initState,
 };
 
-export const userOrderReducer: (
-  state: { orderList: OrderType[] },
-  action: CommonType
-) => { orderList: OrderType[] } = (
-  state = currentState,
-  action: CommonType
+export const userOrderReducer = (
+  state: { orderList: OrderType[] } = currentState,
+  action: GenericAction
 ) => {
   const { type, payload } = action;
   switch (type) {

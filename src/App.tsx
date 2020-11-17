@@ -1,27 +1,34 @@
-import React, { useRef } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { ConnectedRouter } from 'connected-react-router';
 import { MainPage } from './components/mainPage';
 import { OrderPage } from './components/orderPage';
 import 'antd/dist/antd.css';
 import './App.scss';
+import { createRootReducer } from './redux/rootReducer';
 
-const App: React.FunctionComponent = () => {
-  const sliderRef = useRef(null);
+import { createBrowserHistory } from 'history';
 
-  return (
-    <div>
-      <Router>
-        <Switch>
-          <Route exact path="/carsharing/">
-            <MainPage sliderRef={sliderRef} />
-          </Route>
-          <Route exact path="/carsharing/order">
-            <OrderPage />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
-};
+const history = createBrowserHistory();
+
+const store = createStore(createRootReducer(history), composeWithDevTools());
+
+const App: React.FunctionComponent = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route exact path="/carsharing/">
+          <MainPage />
+        </Route>
+        <Route exact path="/carsharing/order">
+          <OrderPage />
+        </Route>
+      </Switch>
+    </ConnectedRouter>
+  </Provider>
+);
 
 export default App;

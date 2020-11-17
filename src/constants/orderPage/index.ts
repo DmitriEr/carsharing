@@ -1,4 +1,6 @@
-export const statuses: string[] = [
+type ArrayStatuses = [string, string, string, string];
+
+export const statuses: ArrayStatuses = [
   'Местоположение',
   'Модель',
   'Дополнительно',

@@ -1,43 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout, Button } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { Location } from './Location';
 import { Cars } from './Cars';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { statuses } from '../../constants/orderPage';
-import { changePage } from '../../redux/actions';
-import { RootReducer, OrderType } from '../../interfaces/redux';
+import { place, list } from '../../redux/selectors';
 import './style.scss';
 
 const { Content } = Layout;
 
 export const OrderPage: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
-
-  const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
+  const [currentStatus, setCurrentStatus] = useState('Местоположение');
   const [numberStatus, setNumberStatus] = useState(0);
 
-  useEffect(() => {
-    dispatch(changePage('order'));
-  }, []);
-
-  const userCity = useSelector(
-    (state: RootReducer) => state.information.userCity
-  );
-  const orderList = useSelector((state: RootReducer) => state.order.orderList);
+  const userCity = useSelector(place);
+  const orderList = useSelector(list);
 
   const checkCurrentStatus = (text: string) => {
-    if (currentStatus === text) {
-      return 'status-active';
-    }
-    return '';
+    return currentStatus === text ? 'status-active' : '';
   };
 
-  const checkPrevStatus = (num: number) => {
+  const checkPrevStatus = (indexStatus: number) => {
     const numberStatus = statuses.findIndex((item) => item === currentStatus);
-    return num < numberStatus ? 'status-prev' : '';
+    return indexStatus < numberStatus ? 'status-prev' : '';
   };
 
   const showCurrentStatus = () => {
@@ -67,10 +55,11 @@ export const OrderPage: React.FunctionComponent = () => {
               {statuses.map((status: string, index: number) => (
                 <span
                   key={status}
-                  onClick={() => setCurrentStatus(status)}
-                  className={`status ${checkCurrentStatus(
-                    status
-                  )} ${checkPrevStatus(index)}`}
+                  className={classnames(
+                    'status',
+                    checkCurrentStatus(status),
+                    checkPrevStatus(index)
+                  )}
                 >
                   {status}
                 </span>
@@ -81,7 +70,7 @@ export const OrderPage: React.FunctionComponent = () => {
             <div className="forms">{showCurrentStatus()}</div>
             <div className="result">
               <h2>Ваш заказ</h2>
-              {orderList.map(({ name, value, orderNumber }: OrderType) => {
+              {orderList.map(({ name, value, orderNumber }) => {
                 if (orderNumber <= numberStatus) {
                   return (
                     <div className="list" key={name}>

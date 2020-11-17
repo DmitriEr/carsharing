@@ -1,4 +1,4 @@
-import { CHANGE_USER_CITY, CHANGE_POINT, CHANGE_PAGE } from '../type';
+import { CHANGE_USER_CITY, CHANGE_POINT } from '../type';
 
 export function changeUserCity(
   item: string
@@ -12,13 +12,6 @@ export function changeUserCity(
 export function changePoint(item: string): { type: string; payload: string } {
   return {
     type: CHANGE_POINT,
-    payload: item,
-  };
-}
-
-export function changePage(item: string): { type: string; payload: string } {
-  return {
-    type: CHANGE_PAGE,
     payload: item,
   };
 }

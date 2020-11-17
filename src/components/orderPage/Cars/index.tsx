@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import { getCars } from '../../../server/data';
-import { CarsData } from '../../../interfaces/orderPage';
 import './style.scss';
 
+interface CarsData {
+  name: string;
+  priceMin: number;
+  priceMax: number;
+  picture: string;
+}
+
 export const Cars: React.FunctionComponent = () => {
-  const [cars, setCars] = useState<Array<CarsData>>([]);
+  const [cars, setCars] = useState<CarsData[]>([]);
 
   useEffect(() => {
     getCars().then(({ data }) => {

@@ -14,7 +14,8 @@
   },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true, "endOfLine": "auto" }],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "react": {

@@ -1,6 +1,4 @@
-import { TypeTranslate } from '../../interfaces/common';
-
-export const translateCityName: TypeTranslate = {
+export const translateCityName: { [x: string]: string } = {
   Samara: 'Самара',
   Ulyanovsk: 'Ульяновск',
   Saransk: 'Саранск',
