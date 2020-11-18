@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import classnames from 'classnames';
+import { Card, Spin } from 'antd';
 import { getCars } from '../../../server/data';
+import { changeModel } from '../../../redux/actions';
+import { list } from '../../../redux/selectors';
 import './style.scss';
 
 interface CarsData {
@@ -11,6 +15,11 @@ interface CarsData {
 }
 
 export const Cars: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+
+  const userCar = useSelector(list);
+  const currentCar = userCar[1].value;
+
   const [cars, setCars] = useState<CarsData[]>([]);
 
   useEffect(() => {
@@ -26,8 +35,13 @@ export const Cars: React.FunctionComponent = () => {
     });
   }, []);
 
+  const showSpin = () => {
+    return !cars.length ? <Spin /> : null;
+  };
+
   return (
     <div className="cards">
+      {showSpin()}
       {cars.map(({ name, priceMin, priceMax, picture }, index) => {
         return (
           <Card
@@ -39,7 +53,10 @@ export const Cars: React.FunctionComponent = () => {
               </>
             }
             key={index}
-            className="card"
+            className={
+              currentCar === name ? classnames('active', 'card') : 'card'
+            }
+            onClick={() => dispatch(changeModel(name))}
           >
             <img
               className="image"

@@ -7,34 +7,37 @@ import { Cars } from './Cars';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { statuses } from '../../constants/orderPage';
-import { place, list } from '../../redux/selectors';
+import { list } from '../../redux/selectors';
 import './style.scss';
 
 const { Content } = Layout;
 
 export const OrderPage: React.FunctionComponent = () => {
-  const [currentStatus, setCurrentStatus] = useState('Местоположение');
-  const [numberStatus, setNumberStatus] = useState(0);
+  const [numberStatus, setNumberStatus] = useState<{
+    active: number;
+    current: number;
+  }>({ active: 0, current: 0 });
 
-  const userCity = useSelector(place);
   const orderList = useSelector(list);
 
-  const checkCurrentStatus = (text: string) => {
-    return currentStatus === text ? 'status-active' : '';
+  const checkCurrentStatus = (ind: number) => {
+    return numberStatus.current === ind ? 'status-active' : '';
   };
 
   const checkPrevStatus = (indexStatus: number) => {
-    const numberStatus = statuses.findIndex((item) => item === currentStatus);
-    return indexStatus < numberStatus ? 'status-prev' : '';
+    const prevStatus = statuses.findIndex(
+      (_, index) => index === numberStatus.current
+    );
+    return indexStatus < prevStatus ? 'status-prev' : '';
   };
 
   const showCurrentStatus = () => {
-    switch (currentStatus) {
-      case 'Местоположение':
+    switch (numberStatus.active) {
+      case 0:
         return <Location />;
-      case 'Модель':
+      case 1:
         return <Cars />;
-      case 'Дополнительно':
+      case 2:
         return <div />;
       default:
         return <div />;
@@ -55,9 +58,14 @@ export const OrderPage: React.FunctionComponent = () => {
               {statuses.map((status: string, index: number) => (
                 <span
                   key={status}
+                  onClick={() =>
+                    index <= numberStatus.current
+                      ? setNumberStatus({ ...numberStatus, active: index })
+                      : null
+                  }
                   className={classnames(
                     'status',
-                    checkCurrentStatus(status),
+                    checkCurrentStatus(index),
                     checkPrevStatus(index)
                   )}
                 >
@@ -71,13 +79,13 @@ export const OrderPage: React.FunctionComponent = () => {
             <div className="result">
               <h2>Ваш заказ</h2>
               {orderList.map(({ name, value, orderNumber }) => {
-                if (orderNumber <= numberStatus) {
+                if (orderNumber <= numberStatus.current) {
                   return (
                     <div className="list" key={name}>
                       <div className="dots link">
                         <span className="field">{name}</span>
                       </div>
-                      <span className="address">{`${userCity}, ${value}`}</span>
+                      <span className="address">{value}</span>
                     </div>
                   );
                 }
@@ -88,18 +96,14 @@ export const OrderPage: React.FunctionComponent = () => {
               <Button
                 disabled={orderList[0].value.length ? false : true}
                 onClick={() => {
-                  switch (currentStatus) {
-                    case 'Местоположение':
-                      setCurrentStatus('Модель');
-                      break;
-                    case 'Модель':
-                      setCurrentStatus('Дополнительно');
-                      break;
-                    case 'Дополнительно':
-                      setCurrentStatus('Итого');
-                      break;
-                    default:
-                      setCurrentStatus('Результат');
+                  const nextStatus = numberStatus.active + 1;
+                  if (nextStatus > numberStatus.current) {
+                    setNumberStatus({
+                      current: nextStatus,
+                      active: nextStatus,
+                    });
+                  } else {
+                    setNumberStatus({ ...numberStatus, active: nextStatus });
                   }
                 }}
                 className={
@@ -108,7 +112,7 @@ export const OrderPage: React.FunctionComponent = () => {
                     : classnames('btn', 'btn-disable')
                 }
               >
-                {statuses[statuses.indexOf(currentStatus) + 1]}
+                {statuses[numberStatus.active + 1]}
               </Button>
             </div>
           </Content>

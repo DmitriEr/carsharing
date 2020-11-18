@@ -5,9 +5,19 @@
   flex-wrap: wrap;
   justify-content: center;
 
+  & .active {
+    border-color: $mainAccent;
+  }
+
   & .card {
     width: 45%;
     height: 224px;
+    cursor: pointer;
+    border-width: 3px;
+
+    &:hover {
+      border-color: $gray;
+    }
 
     & .title {
       font-weight: 400;
