@@ -1,11 +1,12 @@
-const urlCommon = 'http://api-factory.simbirsoft1.com/api/db/';
-//   'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
+const urlCommon =
+  'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
 const headerCommon = {
   'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
 };
 
 export const getCars: () => Promise<{
   data: {
+    categoryId: { name: string };
     name: string;
     priceMin: number;
     priceMax: number;

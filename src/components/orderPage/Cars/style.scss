@@ -5,6 +5,11 @@
   flex-wrap: wrap;
   justify-content: center;
 
+  & .radio-btns {
+    width: 100%;
+    margin: 0px 0px 10px 40px;
+  }
+
   & .active {
     border-color: $mainAccent;
   }
@@ -40,6 +45,15 @@
         width: 256px;
         height: 116px;
       }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .cards {
+
+    & .card {
+      width: 90%;
     }
   }
 }

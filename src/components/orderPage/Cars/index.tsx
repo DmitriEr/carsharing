@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
-import { Card, Spin } from 'antd';
+import { Card, Radio } from 'antd';
+import { Loader } from '../../common/Loader';
 import { getCars } from '../../../server/data';
 import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
+import { radioBtnsText } from '../../../constants/orderPage';
 import './style.scss';
 
 interface CarsData {
@@ -21,27 +23,52 @@ export const Cars: React.FunctionComponent = () => {
   const currentCar = userCar[1].value;
 
   const [cars, setCars] = useState<CarsData[]>([]);
+  const [radioBtn, setRadioBtn] = useState('Все модели');
+  const [condition, setCondition] = useState(true);
 
   useEffect(() => {
     getCars().then(({ data }) => {
-      data.forEach(({ name, priceMin, priceMax, thumbnail }) => {
+      const path = data.filter(({ thumbnail }) => {
         if (thumbnail.path.startsWith('/files/')) {
-          setCars((prev) => [
-            ...prev,
-            { priceMin, priceMax, name, picture: thumbnail.path },
-          ]);
+          return true;
         }
       });
+      const result = path
+        .filter(({ categoryId }) => {
+          switch (radioBtn) {
+            case categoryId.name:
+              return true;
+            case radioBtnsText[0]:
+              return true;
+            default:
+              return false;
+          }
+        })
+        .map(({ priceMin, priceMax, name, thumbnail }) => {
+          return { priceMin, priceMax, name, picture: thumbnail.path };
+        });
+      setCars(result);
     });
-  }, []);
+  }, [radioBtn]);
 
-  const showSpin = () => {
-    return !cars.length ? <Spin /> : null;
-  };
+  useEffect(() => {
+    cars.length === 0 ? setCondition(true) : setCondition(false);
+  }, [cars]);
 
   return (
     <div className="cards">
-      {showSpin()}
+      <Loader condition={condition} />
+      <Radio.Group
+        onChange={(e) => setRadioBtn(e.target.value)}
+        value={radioBtn}
+        className="radio-btns"
+      >
+        {radioBtnsText.map((text) => (
+          <Radio value={text} key={text}>
+            {text}
+          </Radio>
+        ))}
+      </Radio.Group>
       {cars.map(({ name, priceMin, priceMax, picture }, index) => {
         return (
           <Card

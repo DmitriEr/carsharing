@@ -31,6 +31,23 @@ export const OrderPage: React.FunctionComponent = () => {
     return indexStatus < prevStatus ? 'status-prev' : '';
   };
 
+  const hiddenMobile = (ind: number) => {
+    const current = numberStatus.active;
+    return ind >= current - 1 && ind <= current + 1 ? '' : 'status-mobile';
+  };
+
+  const switchForm = () => {
+    const nextStatus = numberStatus.active + 1;
+    if (nextStatus > numberStatus.current) {
+      setNumberStatus({
+        current: nextStatus,
+        active: nextStatus,
+      });
+    } else {
+      setNumberStatus({ ...numberStatus, active: nextStatus });
+    }
+  };
+
   const showCurrentStatus = () => {
     switch (numberStatus.active) {
       case 0:
@@ -53,7 +70,7 @@ export const OrderPage: React.FunctionComponent = () => {
       <Content className="wrapper">
         <Layout>
           <Head />
-          <Content>
+          <Content className="tabs">
             <div className="statuses">
               {statuses.map((status: string, index: number) => (
                 <span
@@ -66,7 +83,8 @@ export const OrderPage: React.FunctionComponent = () => {
                   className={classnames(
                     'status',
                     checkCurrentStatus(index),
-                    checkPrevStatus(index)
+                    checkPrevStatus(index),
+                    hiddenMobile(index)
                   )}
                 >
                   {status}
@@ -94,20 +112,12 @@ export const OrderPage: React.FunctionComponent = () => {
                 <span>Цена:</span> от 8 000 до 12 000 ₽
               </div>
               <Button
-                disabled={orderList[0].value.length ? false : true}
-                onClick={() => {
-                  const nextStatus = numberStatus.active + 1;
-                  if (nextStatus > numberStatus.current) {
-                    setNumberStatus({
-                      current: nextStatus,
-                      active: nextStatus,
-                    });
-                  } else {
-                    setNumberStatus({ ...numberStatus, active: nextStatus });
-                  }
-                }}
+                disabled={
+                  orderList[numberStatus.active].value.length ? false : true
+                }
+                onClick={() => switchForm()}
                 className={
-                  orderList[0].value.length
+                  orderList[numberStatus.active].value.length
                     ? classnames('btn', 'btn-active')
                     : classnames('btn', 'btn-disable')
                 }

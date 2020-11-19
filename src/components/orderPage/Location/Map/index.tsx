@@ -78,7 +78,7 @@ export const Map: React.FunctionComponent<{ points: string[] }> = ({
       mapboxgl.accessToken = process.env.REACT_APP_MAP;
 
       const initMap = (
-        setMap: React.Dispatch<React.SetStateAction<any>>,
+        setMap: React.Dispatch<React.SetStateAction<mapboxgl.Map>>,
         mapContainer: React.RefObject<HTMLDivElement>
       ) => {
         if (!mapContainer.current) {

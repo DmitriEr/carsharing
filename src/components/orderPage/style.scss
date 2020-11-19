@@ -87,6 +87,7 @@
         border-left: solid 1px $gray;
 
         & .list {
+          margin-bottom: 10px;
 
           & .dots { 
             background: url('https://i.stack.imgur.com/otJN0.png') repeat-x bottom; 
@@ -142,11 +143,8 @@
 
 @media (max-width: 1050px) {
   .order-page {
-  
     & .wrapper {
-  
-      & .content {
-    
+      & .ant-layout {
         & .statuses {
           & .status {
             justify-content: space-between;
@@ -180,31 +178,43 @@
     margin-left: 0px;
 
     & .wrapper {
-  
-      & .content {
-        z-index: 10;
+      & .ant-layout {
+        & .tabs {
 
-        & .statuses {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          background: $white;
-          border-top: 1px solid $grayFooter;
-          border-bottom: 1px solid $grayFooter;
-    
-          & .status {
-            display: none;
+          & .statuses {
+            font-weight: 400;
+            font-size: 12px;
+
+            & .status {
+              padding-right: 10px;
+              
+              &:first-of-type {
+                padding-left: 10px;
+              }
+            }
+
+            & .status-mobile {
+              display: none;
+            }
+      
+            & .status-active {
+              display: block;
+            }
           }
-    
-          & .status-active {
-            display: block;
+  
+          & .result {
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
           }
         }
 
-        & .result {
-          width: 100%;
-          margin-left: 10px;
-          margin-right: 10px;
+        & .content {
+          z-index: 10;
+
+          & .result {
+            margin-left: 10px;
+          }
         }
       }
     }
