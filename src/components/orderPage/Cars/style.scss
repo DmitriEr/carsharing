@@ -19,6 +19,7 @@
     height: 224px;
     cursor: pointer;
     border-width: 3px;
+    margin-bottom: 20px;
 
     &:hover {
       border-color: $gray;
@@ -51,6 +52,10 @@
 
 @media (max-width: 700px) {
   .cards {
+
+    & .radio-btns {
+      margin: 0px 0px 10px 10px;
+    }
 
     & .card {
       width: 90%;

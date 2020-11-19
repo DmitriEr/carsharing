@@ -14,6 +14,7 @@ interface CarsData {
   priceMin: number;
   priceMax: number;
   picture: string;
+  cat: string;
 }
 
 export const Cars: React.FunctionComponent = () => {
@@ -25,6 +26,7 @@ export const Cars: React.FunctionComponent = () => {
   const [cars, setCars] = useState<CarsData[]>([]);
   const [radioBtn, setRadioBtn] = useState('Все модели');
   const [condition, setCondition] = useState(true);
+  const [arrayCars, setArrayCars] = useState<CarsData[]>([]);
 
   useEffect(() => {
     getCars().then(({ data }) => {
@@ -33,22 +35,34 @@ export const Cars: React.FunctionComponent = () => {
           return true;
         }
       });
-      const result = path
-        .filter(({ categoryId }) => {
-          switch (radioBtn) {
-            case categoryId.name:
-              return true;
-            case radioBtnsText[0]:
-              return true;
-            default:
-              return false;
-          }
-        })
-        .map(({ priceMin, priceMax, name, thumbnail }) => {
-          return { priceMin, priceMax, name, picture: thumbnail.path };
-        });
+      const result = path.map(
+        ({ priceMin, priceMax, name, thumbnail, categoryId }) => {
+          return {
+            priceMin,
+            priceMax,
+            name,
+            picture: thumbnail.path,
+            cat: categoryId.name,
+          };
+        }
+      );
       setCars(result);
+      setArrayCars(result);
     });
+  }, []);
+
+  useEffect(() => {
+    const result = arrayCars.filter(({ cat }) => {
+      switch (radioBtn) {
+        case cat:
+          return true;
+        case radioBtnsText[0]:
+          return true;
+        default:
+          return false;
+      }
+    });
+    setCars(result);
   }, [radioBtn]);
 
   useEffect(() => {

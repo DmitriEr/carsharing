@@ -19,3 +19,8 @@ export interface GenericAction {
   type: string;
   payload: string;
 }
+
+export interface NumberForms {
+  current: number;
+  active: number;
+}
