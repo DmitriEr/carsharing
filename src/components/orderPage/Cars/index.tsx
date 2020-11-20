@@ -101,8 +101,10 @@ export const Cars: React.FunctionComponent = () => {
           >
             <img
               className="image"
-              src={`http://api-factory.simbirsoft1.com${picture}`}
+              src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${picture}`}
               alt={name}
+              referrerPolicy="origin"
+              crossOrigin="anonymous"
             />
           </Card>
         );
