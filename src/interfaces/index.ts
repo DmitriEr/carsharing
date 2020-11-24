@@ -4,6 +4,7 @@ export interface OrderType {
   name: string;
   value: string;
   orderNumber: number;
+  count?: number;
 }
 export interface RootReducer {
   information: {
@@ -17,10 +18,15 @@ export interface RootReducer {
 }
 export interface GenericAction {
   type: string;
-  payload: string;
+  payload: { value: string; count: number };
 }
 
 export interface NumberForms {
   current: number;
   active: number;
+}
+
+export interface DiffTimeProps {
+  start: number;
+  end: number;
 }

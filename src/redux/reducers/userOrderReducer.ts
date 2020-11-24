@@ -1,5 +1,11 @@
 import { initState } from '../../constants/redux';
-import { CHANGE_POINT, CHANGE_MODEL } from '../../redux/type';
+import {
+  CHANGE_POINT,
+  CHANGE_MODEL,
+  CHANGE_COLOR,
+  CHANGE_TIME,
+  CHANGE_PRICE,
+} from '../../redux/type';
 import { OrderType } from '../../interfaces';
 import { GenericAction } from '../../interfaces';
 
@@ -23,6 +29,28 @@ export const userOrderReducer = (
       return {
         orderList: state.orderList.map((item, index) => {
           return index === 1 ? { ...item, value: payload } : item;
+        }),
+      };
+    case CHANGE_COLOR:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 2 ? { ...item, value: payload } : item;
+        }),
+      };
+    case CHANGE_TIME:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 3
+            ? { ...item, value: payload.value, count: payload.count }
+            : item;
+        }),
+      };
+    case CHANGE_PRICE:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 4
+            ? { ...item, value: payload.value, count: payload.count }
+            : item;
         }),
       };
     default:

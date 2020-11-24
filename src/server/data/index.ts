@@ -12,6 +12,7 @@ export const getCars: () => Promise<{
     priceMin: number;
     priceMax: number;
     thumbnail: { path: string };
+    colors: string[];
   }[];
 }> = async () => {
   try {

@@ -20,11 +20,13 @@ export const initState: OrderType[] = [
     name: 'Длительность аренды',
     value: '',
     orderNumber: 2,
+    count: 0,
   },
   {
     name: 'Тариф',
     value: '',
     orderNumber: 2,
+    count: 0,
   },
   {
     name: 'Полный бак',

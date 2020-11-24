@@ -15,9 +15,14 @@ interface CarsData {
   priceMax: number;
   picture: string;
   cat: string;
+  colors: string[];
 }
 
-export const Cars: React.FunctionComponent = () => {
+interface CarsProps {
+  setColorsOpt: (color: string[]) => void;
+}
+
+export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   const dispatch = useDispatch();
 
   const userCar = useSelector(list);
@@ -36,13 +41,14 @@ export const Cars: React.FunctionComponent = () => {
         }
       });
       const result = path.map(
-        ({ priceMin, priceMax, name, thumbnail, categoryId }) => {
+        ({ priceMin, priceMax, name, thumbnail, categoryId, colors }) => {
           return {
             priceMin,
             priceMax,
             name,
             picture: thumbnail.path,
             cat: categoryId.name,
+            colors,
           };
         }
       );
@@ -83,7 +89,7 @@ export const Cars: React.FunctionComponent = () => {
           </Radio>
         ))}
       </Radio.Group>
-      {cars.map(({ name, priceMin, priceMax, picture }, index) => {
+      {cars.map(({ name, priceMin, priceMax, picture, colors }, index) => {
         return (
           <Card
             size="small"
@@ -97,7 +103,10 @@ export const Cars: React.FunctionComponent = () => {
             className={
               currentCar === name ? classnames('active', 'card') : 'card'
             }
-            onClick={() => dispatch(changeModel(name))}
+            onClick={() => {
+              dispatch(changeModel(name));
+              setColorsOpt(colors);
+            }}
           >
             <img
               className="image"
