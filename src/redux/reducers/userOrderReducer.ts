@@ -5,6 +5,7 @@ import {
   CHANGE_COLOR,
   CHANGE_TIME,
   CHANGE_PRICE,
+  CHANGE_OPTION,
 } from '../../redux/type';
 import { OrderType } from '../../interfaces';
 import { GenericAction } from '../../interfaces';
@@ -28,7 +29,8 @@ export const userOrderReducer = (
     case CHANGE_MODEL:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index === 1 ? { ...item, value: payload } : item;
+          const { value, min, max } = payload;
+          return index === 1 ? { ...item, value, min, max } : item;
         }),
       };
     case CHANGE_COLOR:
@@ -50,6 +52,14 @@ export const userOrderReducer = (
         orderList: state.orderList.map((item, index) => {
           return index === 4
             ? { ...item, value: payload.value, count: payload.count }
+            : item;
+        }),
+      };
+    case CHANGE_OPTION:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index >= 5 && item.name === payload.value
+            ? { ...item, visible: payload.visibility }
             : item;
         }),
       };

@@ -4,3 +4,5 @@ export const CHANGE_MODEL = 'CHANGE_MODEL';
 export const CHANGE_COLOR = 'CHANGE_COLOR';
 export const CHANGE_TIME = 'CHANGE_TIME';
 export const CHANGE_PRICE = 'CHANGE_PRICE';
+export const CHANGE_OPTION = 'CHANGE_OPTION';
+export const CALCULATE_PRICE = 'CALCULATE_PRICE';

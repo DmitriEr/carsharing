@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'antd';
 import classnames from 'classnames';
-import { useSelector } from 'react-redux';
-import { list } from '../../../redux/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { list, resultMoney } from '../../../redux/selectors';
 import { statuses } from '../../../constants/orderPage';
 import { NumberForms } from '../../../interfaces';
 import './style.scss';
+import { calculatPrice } from '../../../redux/actions';
 
 interface ResultInterface {
   numberStatus: NumberForms;
@@ -16,7 +17,32 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
   numberStatus,
   switchForm,
 }) => {
+  const dispatch = useDispatch();
+
   const orderList = useSelector(list);
+  const results = useSelector(resultMoney);
+  const [, car, color, date, price, petrol, seat, steer] = orderList;
+
+  const checkOption = (bool, value) => (bool ? value : 0);
+
+  useEffect(() => {
+    let result;
+    if (price.count === 7) {
+      result =
+        date.count * price.count +
+        checkOption(petrol.visible, petrol.count) +
+        checkOption(seat.visible, seat.count) +
+        checkOption(steer.visible, steer.count);
+    } else {
+      result =
+        (date.count / 1440) * price.count +
+        checkOption(petrol.visible, petrol.count) +
+        checkOption(seat.visible, seat.count) +
+        checkOption(steer.visible, steer.count);
+    }
+
+    dispatch(calculatPrice(parseInt(result, 10)));
+  }, [price, date, petrol, seat, steer]);
 
   const checkStatus = () => {
     if (
@@ -24,14 +50,27 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
       orderList[numberStatus.active].value.length
     ) {
       return true;
+    } else if (color.value && date.value && price.value) {
+      return true;
+    }
+  };
+
+  const showMoney = () => {
+    switch (numberStatus.active) {
+      case 1:
+        return `${car.min}-${car.max}`;
+      case 2:
+        return results;
+      default:
+        return '';
     }
   };
 
   return (
     <div className="result">
       <h2>Ваш заказ</h2>
-      {orderList.map(({ name, value, orderNumber }) => {
-        if (orderNumber <= numberStatus.current) {
+      {orderList.map(({ name, value, orderNumber, visible }) => {
+        if (orderNumber <= numberStatus.current && visible) {
           return (
             <div className="list" key={name}>
               <div className="dots link">
@@ -43,7 +82,8 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
         }
       })}
       <div className="price">
-        <span>Цена:</span> от 8 000 до 12 000 ₽
+        <span>{'Цена: '}</span>
+        <span>{showMoney()}</span>
       </div>
       <Button
         disabled={checkStatus() ? false : true}

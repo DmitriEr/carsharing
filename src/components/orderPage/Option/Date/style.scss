@@ -1,0 +1,17 @@
+@import '../../../../styles/variables.scss';
+
+.date-value {
+  width: 20px;
+  display: inline-block;
+}
+
+.date-picker {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: $black;
+
+  & .date {
+    width: 250px;
+  }
+}

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Checkbox } from 'antd';
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
-import { price } from '../../../constants/orderPage';
-import { changeColor, changeTime, changePrice } from '../../../redux/actions';
+import { price, options } from '../../../constants/orderPage';
+import {
+  changeColor,
+  changeTime,
+  changePrice,
+  changeOption,
+} from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
+import './style.scss';
 
 interface OptionProps {
   colorsOpt: string[];
@@ -36,9 +43,13 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
     const { start, end } = diffTime;
     const minutes = (end - start) / (60 * 1000);
 
-    const day = `${Math.floor(minutes / 1440)}д`;
-    const hour = `${Math.floor((minutes % 1440) / 60)}ч`;
-    const minute = `${Math.floor(minutes % 60)}м`;
+    const dayCount = Math.floor(minutes / 1440);
+    const hourCount = Math.floor((minutes % 1440) / 60);
+    const minuteCount = Math.floor(minutes % 60);
+
+    const day = dayCount > 0 ? `${dayCount}д` : '';
+    const hour = hourCount > 0 ? `${hourCount}ч` : '';
+    const minute = minuteCount > 0 ? `${minuteCount}м` : '';
 
     if (minutes < 60) {
       dispacth(changeTime({ value: `${minute}`, count: minutes }));
@@ -60,30 +71,58 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
     return new Date(option).valueOf() >= new Date(selectedDate).valueOf();
   };
 
+  const selectOption = (checkedValues) => {
+    options.forEach((item) => {
+      const [value] = item.split(',');
+      const checkValue = checkedValues.find((value) => value === item);
+      if (checkValue === undefined) {
+        dispacth(changeOption({ value, visibility: false }));
+      } else {
+        dispacth(changeOption({ value, visibility: true }));
+      }
+    });
+  };
+
   return (
-    <>
-      <Lists list={colorsOpt} title={'Цвет'} setOption={setColor} />
-      <DateSelect
-        queue={false}
-        setDiffTime={setDiffTime}
-        diffTime={diffTime}
-        disabledDate={disabledDate}
-        option={Date.now()}
-        setMomentEnd={setMomentEnd}
-        setMomentStart={setMomentStart}
-        moments={momentStart}
+    <div className="options-wrapper">
+      <Lists
+        list={colorsOpt}
+        title={'Цвет'}
+        setOption={setColor}
+        option={color}
       />
-      <DateSelect
-        queue={true}
-        setDiffTime={setDiffTime}
-        diffTime={diffTime}
-        disabledDate={disabledDate}
-        option={finishDate}
-        setMomentStart={setMomentStart}
-        setMomentEnd={setMomentEnd}
-        moments={momentEnd}
-      />
-      <Lists list={price} title={'Тариф'} setOption={setMoney} />
-    </>
+      <div className="date-wrapper">
+        <div className="title">Дата аренды</div>
+        <DateSelect
+          queue={false}
+          setDiffTime={setDiffTime}
+          diffTime={diffTime}
+          disabledDate={disabledDate}
+          option={Date.now()}
+          setMomentEnd={setMomentEnd}
+          setMomentStart={setMomentStart}
+          moments={momentStart}
+        />
+        <DateSelect
+          queue={true}
+          setDiffTime={setDiffTime}
+          diffTime={diffTime}
+          disabledDate={disabledDate}
+          option={finishDate}
+          setMomentStart={setMomentStart}
+          setMomentEnd={setMomentEnd}
+          moments={momentEnd}
+        />
+      </div>
+      <Lists list={price} title={'Тариф'} setOption={setMoney} option={money} />
+      <div className="checkbox-wrapper">
+        <div className="title">Доп услуги</div>
+        <Checkbox.Group
+          options={options}
+          onChange={selectOption}
+          className="checkbox"
+        />
+      </div>
+    </div>
   );
 };

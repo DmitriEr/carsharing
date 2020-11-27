@@ -5,6 +5,9 @@ export interface OrderType {
   value: string;
   orderNumber: number;
   count?: number;
+  visible?: boolean;
+  min?: number;
+  max?: number;
 }
 export interface RootReducer {
   information: {
@@ -14,13 +17,19 @@ export interface RootReducer {
     orderList: OrderType[];
   };
   page: string;
+  price: number;
   router: RouterState;
 }
 export interface GenericAction {
   type: string;
-  payload: { value: string; count: number };
+  payload: {
+    value: string;
+    count?: number;
+    visibility?: boolean;
+    min?: number;
+    max?: number;
+  };
 }
-
 export interface NumberForms {
   current: number;
   active: number;

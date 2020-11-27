@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, DatePicker } from 'antd';
 import { Moment } from 'moment';
 import { DiffTimeProps } from '../../../../interfaces';
+import './style.scss';
 
 interface DateProps {
   queue: boolean;
@@ -42,16 +43,18 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
       } else {
         setMomentStart(null);
         setMomentEnd(null);
+        setDiffTime({ start: 0, end: 0 });
       }
     }
   };
 
   return (
     <div>
-      <span>{queue ? 'По' : 'C'}</span>
-      <Space direction="vertical" size={224}>
+      <span className="date-value">{queue ? 'По' : 'C'}</span>
+      <Space direction="vertical" size={300} className="date-picker">
         <DatePicker
           showTime={{ format: 'HH:mm' }}
+          className="date"
           format="DD-MM-YYYY HH:mm"
           disabledDate={(current) => disabledDate(current, option)}
           onOk={getDatahandler}
@@ -60,6 +63,7 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
           placeholder={'Выберите дату и время'}
           value={moments}
           onChange={(e) => updateValue(e)}
+          disabled={queue && diffTime.start === 0 ? true : false}
         />
       </Space>
     </div>

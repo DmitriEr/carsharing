@@ -15,10 +15,8 @@ export const OrderPage: React.FunctionComponent = () => {
   const [numberStatus, setNumberStatus] = useState<{
     active: number;
     current: number;
-  }>({ active: 2, current: 2 });
-  // }>({ active: 0, current: 0 });
+  }>({ active: 0, current: 0 });
   const [colorsOpt, setColorsOpt] = useState<string[]>([]);
-  console.log(colorsOpt);
 
   const switchForm = () => {
     const nextStatus = numberStatus.active + 1;

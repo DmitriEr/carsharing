@@ -5,6 +5,8 @@ import {
   CHANGE_COLOR,
   CHANGE_TIME,
   CHANGE_PRICE,
+  CHANGE_OPTION,
+  CALCULATE_PRICE,
 } from '../type';
 
 export function changeUserCity(
@@ -23,7 +25,11 @@ export function changePoint(item: string): { type: string; payload: string } {
   };
 }
 
-export function changeModel(item: string): { type: string; payload: string } {
+type ModelType = { value: string; min: number; max: number };
+
+export function changeModel(
+  item: ModelType
+): { type: string; payload: ModelType } {
   return {
     type: CHANGE_MODEL,
     payload: item,
@@ -53,6 +59,24 @@ export function changePrice(
 ): { type: string; payload: CommonType } {
   return {
     type: CHANGE_PRICE,
+    payload: item,
+  };
+}
+
+type SelectType = { value: string; visibility: boolean };
+
+export function changeOption(
+  item: SelectType
+): { type: string; payload: SelectType } {
+  return {
+    type: CHANGE_OPTION,
+    payload: item,
+  };
+}
+
+export function calculatPrice(item: number): { type: string; payload: number } {
+  return {
+    type: CALCULATE_PRICE,
     payload: item,
   };
 }

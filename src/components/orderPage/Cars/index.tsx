@@ -104,7 +104,9 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
               currentCar === name ? classnames('active', 'card') : 'card'
             }
             onClick={() => {
-              dispatch(changeModel(name));
+              dispatch(
+                changeModel({ value: name, min: priceMin, max: priceMax })
+              );
               setColorsOpt(colors);
             }}
           >
