@@ -1,6 +1,9 @@
 import React from 'react';
 import { Space, DatePicker } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
+import { list } from '../../../../redux/selectors';
+import { changeModel } from '../../../../redux/actions';
 import { DiffTimeProps } from '../../../../interfaces';
 import './style.scss';
 
@@ -15,6 +18,14 @@ interface DateProps {
   moments: Moment;
 }
 
+const formatter = new Intl.DateTimeFormat('ru', {
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+});
+
 export const DateSelect: React.FunctionComponent<DateProps> = ({
   queue,
   setDiffTime,
@@ -25,6 +36,10 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
   setMomentStart,
   setMomentEnd,
 }) => {
+  const dispatch = useDispatch();
+
+  const carData = useSelector(list)[1];
+
   const getDatahandler = (value) => {
     const timeToSeconds = value._d.getTime();
     if (queue) {
@@ -33,6 +48,9 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
     } else {
       setDiffTime({ ...diffTime, start: timeToSeconds });
       setMomentStart(value);
+      dispatch(
+        changeModel({ ...carData, time: formatter.format(new Date(value._d)) })
+      );
     }
   };
 
@@ -44,6 +62,7 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
         setMomentStart(null);
         setMomentEnd(null);
         setDiffTime({ start: 0, end: 0 });
+        dispatch(changeModel({ ...carData, time: '' }));
       }
     }
   };

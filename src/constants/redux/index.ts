@@ -14,6 +14,9 @@ export const initState: OrderType[] = [
     visible: true,
     min: 0,
     max: 0,
+    number: '',
+    pathImg: '',
+    time: '',
   },
   {
     name: 'Цвет',

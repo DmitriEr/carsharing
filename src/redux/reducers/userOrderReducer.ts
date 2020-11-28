@@ -29,8 +29,10 @@ export const userOrderReducer = (
     case CHANGE_MODEL:
       return {
         orderList: state.orderList.map((item, index) => {
-          const { value, min, max } = payload;
-          return index === 1 ? { ...item, value, min, max } : item;
+          const { value, min, max, number, pathImg, time } = payload;
+          return index === 1
+            ? { ...item, value, min, max, number, pathImg, time }
+            : item;
         }),
       };
     case CHANGE_COLOR:

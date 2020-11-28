@@ -25,7 +25,14 @@ export function changePoint(item: string): { type: string; payload: string } {
   };
 }
 
-type ModelType = { value: string; min: number; max: number };
+type ModelType = {
+  value: string;
+  min?: number;
+  max?: number;
+  number?: string;
+  pathImg?: string;
+  time?: string;
+};
 
 export function changeModel(
   item: ModelType

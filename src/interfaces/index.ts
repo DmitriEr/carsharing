@@ -8,6 +8,9 @@ export interface OrderType {
   visible?: boolean;
   min?: number;
   max?: number;
+  number?: string;
+  pathImg?: string;
+  time?: string;
 }
 export interface RootReducer {
   information: {
@@ -28,6 +31,9 @@ export interface GenericAction {
     visibility?: boolean;
     min?: number;
     max?: number;
+    number?: string;
+    pathImg?: string;
+    time?: string;
   };
 }
 export interface NumberForms {
