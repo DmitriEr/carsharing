@@ -1,5 +1,5 @@
-type ArrayStatuses = [string, string, string, string];
-type ArrayBtn = [string, string, string];
+type ArrayStatuses = ['Местоположение', 'Модель', 'Дополнительно', 'Итого'];
+type ArrayBtn = ['Все модели', 'Эконом', 'Премиум'];
 
 export const statuses: ArrayStatuses = [
   'Местоположение',

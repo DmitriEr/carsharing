@@ -10,11 +10,13 @@ import './style.scss';
 
 const { Content } = Layout;
 
+type StatusType = { active: number; current: number };
+
 export const OrderPage: React.FunctionComponent = () => {
-  const [numberStatus, setNumberStatus] = useState<{
-    active: number;
-    current: number;
-  }>({ active: 0, current: 0 });
+  const [numberStatus, setNumberStatus] = useState<StatusType>({
+    active: 0,
+    current: 0,
+  });
 
   const switchForm = () => {
     const nextStatus = numberStatus.active + 1;

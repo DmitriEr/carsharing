@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Select } from 'antd';
+import { GenericAction } from '../../../../interfaces';
 
 const { Option } = Select;
 
 interface AddressType {
   options: string[];
   name: string;
-  changeOption: (item: string) => { type: string; payload: string };
+  changeOption: (item: string) => GenericAction;
   initValue: string;
-  deletePoint?: (item: string) => { type: string; payload: string };
+  deletePoint?: (item: string) => GenericAction;
   deleteOption: boolean;
 }
 
