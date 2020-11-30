@@ -1,4 +1,5 @@
-type ArrayStatuses = [string, string, string, string];
+type ArrayStatuses = ['Местоположение', 'Модель', 'Дополнительно', 'Итого'];
+type ArrayBtn = ['Все модели', 'Эконом', 'Премиум'];
 
 export const statuses: ArrayStatuses = [
   'Местоположение',
@@ -6,3 +7,5 @@ export const statuses: ArrayStatuses = [
   'Дополнительно',
   'Итого',
 ];
+
+export const radioBtnsText: ArrayBtn = ['Все модели', 'Эконом', 'Премиум'];

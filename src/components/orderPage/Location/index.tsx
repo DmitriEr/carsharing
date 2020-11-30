@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Map } from './Map';
 import { getCities, getPoints } from '../../../server/data';
 import { changePoint, changeUserCity } from '../../../redux/actions';
-import { RootReducer } from '../../../interfaces';
+import { info, list } from '../../../redux/selectors';
 import { SelectAddress } from './SelectAddress';
 import './style.scss';
 
@@ -11,9 +11,10 @@ export const Location: React.FunctionComponent = () => {
   const [cities, setCities] = useState<string[]>([]);
   const [points, setPointTest] = useState<string[]>([]);
 
-  const info = (state: RootReducer) => state.information;
-
   const cityData = useSelector(info);
+  const pointValue = useSelector(list);
+
+  const checkPoint = pointValue[0].value;
 
   const { userCity } = cityData;
 
@@ -49,7 +50,9 @@ export const Location: React.FunctionComponent = () => {
           options={cities}
           name={'город'}
           changeOption={changeUserCity}
+          deletePoint={changePoint}
           initValue={userCity}
+          deleteOption={true}
         />
       </div>
       <div className="point">
@@ -58,6 +61,8 @@ export const Location: React.FunctionComponent = () => {
           options={points}
           name={'пункт'}
           changeOption={changePoint}
+          initValue={checkPoint}
+          deleteOption={false}
         />
       </div>
       <div className="map">

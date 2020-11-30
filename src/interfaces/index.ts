@@ -15,3 +15,13 @@ export interface RootReducer {
   page: string;
   router: RouterState;
 }
+
+export type GenericAction = {
+  type: string;
+  payload: string;
+};
+
+export interface NumberForms {
+  current: number;
+  active: number;
+}

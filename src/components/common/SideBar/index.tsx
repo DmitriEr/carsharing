@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Layout, Menu, Image } from 'antd';
-import { RootReducer } from '../../../interfaces';
 import { menuItems, socialNetworks } from '../.././../constants/mainPage';
+import { page } from '../../../redux/selectors';
 import './style.scss';
 
 const { Sider } = Layout;
 const { Item } = Menu;
 
 export const SideBar: React.FunctionComponent = () => {
-  const page = (state: RootReducer) => state.router.location.pathname;
   const currentPage = useSelector(page).split('/');
 
   const [widthPercent, setWidthPercent] = useState<string | number>(80);

@@ -4,16 +4,15 @@ import { changeUserCity } from '../../../redux/actions';
 import { Layout } from 'antd';
 import { getUserLocation } from '../../../server/userLocation';
 import { TypeUserLocation } from '../../../server/userLocation/interface';
-import { RootReducer } from '../../../interfaces';
 import location from '../../../assets/common/location.svg';
 import { translateCityName } from '../../../constants/common';
+import { place } from '../../../redux/selectors';
 import './style.scss';
 
 const { Header } = Layout;
 
 export const Head: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const place = (state: RootReducer) => state.information.userCity;
   const userLocation: string = useSelector(place);
 
   useEffect(() => {

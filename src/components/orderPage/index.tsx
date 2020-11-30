@@ -1,33 +1,46 @@
 import React, { useState } from 'react';
-import { Layout, Button } from 'antd';
-import { useSelector } from 'react-redux';
-import classnames from 'classnames';
+import { Layout } from 'antd';
 import { Location } from './Location';
+import { Cars } from './Cars';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
-import { statuses } from '../../constants/orderPage';
-import { RootReducer } from '../../interfaces';
+import { Result } from './Result';
+import { Tabs } from './Tabs';
 import './style.scss';
 
 const { Content } = Layout;
 
+type StatusType = { active: number; current: number };
+
 export const OrderPage: React.FunctionComponent = () => {
-  const [currentStatus, setCurrentStatus] = useState<string>('Местоположение');
-  const [numberStatus, setNumberStatus] = useState(0);
+  const [numberStatus, setNumberStatus] = useState<StatusType>({
+    active: 0,
+    current: 0,
+  });
 
-  const city = (state: RootReducer) => state.information.userCity;
-  const list = (state: RootReducer) => state.order.orderList;
-
-  const userCity = useSelector(city);
-  const orderList = useSelector(list);
-
-  const checkCurrentStatus = (text: string) => {
-    return currentStatus === text ? 'status-active' : '';
+  const switchForm = () => {
+    const nextStatus = numberStatus.active + 1;
+    if (nextStatus > numberStatus.current) {
+      setNumberStatus({
+        current: nextStatus,
+        active: nextStatus,
+      });
+    } else {
+      setNumberStatus({ ...numberStatus, active: nextStatus });
+    }
   };
 
-  const checkPrevStatus = (indexStatus: number) => {
-    const numberStatus = statuses.findIndex((item) => item === currentStatus);
-    return indexStatus < numberStatus ? 'status-prev' : '';
+  const showCurrentStatus = () => {
+    switch (numberStatus.active) {
+      case 0:
+        return <Location />;
+      case 1:
+        return <Cars />;
+      case 2:
+        return <div />;
+      default:
+        return <div />;
+    }
   };
 
   return (
@@ -39,45 +52,15 @@ export const OrderPage: React.FunctionComponent = () => {
       <Content className="wrapper">
         <Layout>
           <Head />
+          <Content className="tabs">
+            <Tabs
+              numberStatus={numberStatus}
+              setNumberStatus={setNumberStatus}
+            />
+          </Content>
           <Content className="content">
-            <div className="statuses">
-              {statuses.map((status: string, index: number) => (
-                <span
-                  key={status}
-                  className={classnames(
-                    'status',
-                    checkCurrentStatus(status),
-                    checkPrevStatus(index)
-                  )}
-                >
-                  {status}
-                </span>
-              ))}
-            </div>
-            <div className="forms">
-              <Location />
-            </div>
-            <div className="result">
-              <h2>Ваш заказ</h2>
-              {orderList.map(({ name, value, orderNumber }) => {
-                if (orderNumber <= numberStatus) {
-                  return (
-                    <div className="list" key={name}>
-                      <div className="dots link">
-                        <span className="field">{name}</span>
-                      </div>
-                      <span className="address">{`${userCity}, ${value}`}</span>
-                    </div>
-                  );
-                }
-              })}
-              <div className="price">
-                <span>Цена:</span> от 8 000 до 12 000 ₽
-              </div>
-              <Button disabled={true} className="btn">
-                Выбрать модель
-              </Button>
-            </div>
+            <div className="forms">{showCurrentStatus()}</div>
+            <Result numberStatus={numberStatus} switchForm={switchForm} />
           </Content>
         </Layout>
       </Content>

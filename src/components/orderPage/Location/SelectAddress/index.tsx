@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Select } from 'antd';
-import { changePoint } from '../../../../redux/actions';
-import { RootReducer } from '../../../../interfaces';
+import { GenericAction } from '../../../../interfaces';
 
 const { Option } = Select;
 
 interface AddressType {
   options: string[];
   name: string;
-  changeOption: (item: string) => { type: string; payload: string };
-  initValue?: string;
+  changeOption: (item: string) => GenericAction;
+  initValue: string;
+  deletePoint?: (item: string) => GenericAction;
+  deleteOption: boolean;
 }
 
 export const SelectAddress: React.FunctionComponent<AddressType> = ({
@@ -18,20 +19,15 @@ export const SelectAddress: React.FunctionComponent<AddressType> = ({
   name,
   changeOption,
   initValue,
+  deletePoint,
+  deleteOption,
 }) => {
   const dispatch = useDispatch();
 
-  const info = (state: RootReducer) => state.information;
-
-  const cityData = useSelector(info);
-
-  const { userCity } = cityData;
-
-  useEffect(() => {
-    dispatch(changePoint(''));
-  }, [userCity]);
-
   const addAddressToState = (item: string) => {
+    if (deleteOption) {
+      dispatch(deletePoint(''));
+    }
     dispatch(changeOption(item));
   };
 

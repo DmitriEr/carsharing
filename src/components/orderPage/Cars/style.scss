@@ -1,0 +1,73 @@
+@import '../../../styles/variables.scss';
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-left: 50px;
+
+  & .radio-btns {
+    width: 100%;
+    margin-bottom: 48px;
+  }
+
+  & .active {
+    border-color: $mainAccent;
+  }
+
+  & .card {
+    width: 45%;
+    height: 224px;
+    cursor: pointer;
+    border-width: 1px;
+
+    &:hover {
+      border-color: $gray;
+    }
+
+    & .title {
+      font-weight: 400;
+      font-size: 18px;
+      color: $black;
+    }
+
+    & .price {
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: normal;
+      color: $gray;
+    }
+
+    & .ant-card-body {
+      display: flex;
+      justify-content: flex-end;
+
+      & .image {
+        width: 256px;
+        height: 116px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .cards {
+    margin-left: 0px;
+
+    & .radio-btns {
+      margin: 0px 0px 10px 10px;
+      
+      & .ant-radio-wrapper {
+
+        & span {
+          padding: 0px 0px 0px 4px;
+        }
+      }
+    }
+
+    & .card {
+      width: 90%;
+      flex-grow: 1;
+    }
+  }
+}

@@ -2,9 +2,18 @@ const urlCommon =
   'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
 const headerCommon = {
   'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+  'Content-Type': 'application/json',
 };
 
-export const getCars: () => Promise<string> = async () => {
+export const getCars: () => Promise<{
+  data: {
+    categoryId: { name: string };
+    name: string;
+    priceMin: number;
+    priceMax: number;
+    thumbnail: { path: string };
+  }[];
+}> = async () => {
   try {
     const url = `${urlCommon}car`;
     const response = await fetch(url, {
