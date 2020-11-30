@@ -8,42 +8,34 @@ import {
   CHANGE_OPTION,
   CALCULATE_PRICE,
 } from '../type';
+import {
+  GenericActionOrder,
+  GenericActionString,
+  OrderType,
+} from '../../interfaces';
 
-export function changeUserCity(
-  item: string
-): { type: string; payload: string } {
+export function changeUserCity(item: string): GenericActionString {
   return {
     type: CHANGE_USER_CITY,
     payload: item,
   };
 }
 
-export function changePoint(item: string): { type: string; payload: string } {
+export function changePoint(item: string): GenericActionString {
   return {
     type: CHANGE_POINT,
     payload: item,
   };
 }
 
-type ModelType = {
-  value: string;
-  min?: number;
-  max?: number;
-  number?: string;
-  pathImg?: string;
-  time?: string;
-};
-
-export function changeModel(
-  item: ModelType
-): { type: string; payload: ModelType } {
+export function changeModel(item: OrderType): GenericActionOrder {
   return {
     type: CHANGE_MODEL,
     payload: item,
   };
 }
 
-export function changeColor(item: string): { type: string; payload: string } {
+export function changeColor(item: string): GenericActionString {
   return {
     type: CHANGE_COLOR,
     payload: item,
@@ -70,7 +62,7 @@ export function changePrice(
   };
 }
 
-type SelectType = { value: string; visibility: boolean };
+type SelectType = { value: string; visible: boolean };
 
 export function changeOption(
   item: SelectType

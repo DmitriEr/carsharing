@@ -50,7 +50,13 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
       orderList[numberStatus.active].value.length
     ) {
       return true;
-    } else if (color.value && date.value && price.value) {
+    } else if (
+      color.value &&
+      date.value &&
+      price.value &&
+      results >= orderList[1].min &&
+      results <= orderList[1].max
+    ) {
       return true;
     }
   };
@@ -63,6 +69,16 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
         return results;
       default:
         return '';
+    }
+  };
+
+  const showTitle = () => {
+    if (numberStatus.active === 2) {
+      if (results < orderList[1].min) {
+        return `Минимальная сумма заказа ${orderList[1].min}`;
+      } else if (results > orderList[1].max) {
+        return `Максимальная сумма заказа ${orderList[1].max}`;
+      }
     }
   };
 
@@ -93,6 +109,7 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
             ? classnames('btn', 'btn-active')
             : classnames('btn', 'btn-disable')
         }
+        title={showTitle()}
       >
         {statuses[numberStatus.active + 1]}
       </Button>

@@ -29,16 +29,18 @@ export const Tabs: React.FunctionComponent<TabsInterface> = ({
     return ind >= current - 1 && ind <= current + 1 ? '' : 'status-mobile';
   };
 
+  const switchActiveTabs = (ind: number) => {
+    if (ind <= numberStatus.current) {
+      setNumberStatus({ ...numberStatus, active: ind });
+    }
+  };
+
   return (
     <div className="statuses">
       {statuses.map((status: string, index: number) => (
         <span
           key={status}
-          onClick={() =>
-            index <= numberStatus.current
-              ? setNumberStatus({ ...numberStatus, active: index })
-              : null
-          }
+          onClick={() => switchActiveTabs(index)}
           className={classnames(
             'status',
             checkCurrentStatus(index),

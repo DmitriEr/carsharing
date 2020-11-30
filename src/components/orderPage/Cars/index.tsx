@@ -13,8 +13,8 @@ interface CarsData {
   name: string;
   priceMin: number;
   priceMax: number;
-  picture: string;
-  cat: string;
+  thumbnail: { path: string };
+  categoryId: { name: string };
   colors: string[];
   number: string;
 }
@@ -31,46 +31,25 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
 
   const [cars, setCars] = useState<CarsData[]>([]);
   const [radioBtn, setRadioBtn] = useState('Все модели');
-  const [condition, setCondition] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [arrayCars, setArrayCars] = useState<CarsData[]>([]);
 
   useEffect(() => {
     getCars().then(({ data }) => {
-      const path = data.filter(({ thumbnail }) => {
+      const result = data.filter(({ thumbnail }) => {
         if (thumbnail.path.startsWith('/files/')) {
           return true;
         }
       });
-      const result = path.map(
-        ({
-          priceMin,
-          priceMax,
-          name,
-          thumbnail,
-          categoryId,
-          colors,
-          number,
-        }) => {
-          return {
-            priceMin,
-            priceMax,
-            name,
-            picture: thumbnail.path,
-            cat: categoryId.name,
-            colors,
-            number,
-          };
-        }
-      );
       setCars(result);
       setArrayCars(result);
     });
   }, []);
 
   useEffect(() => {
-    const result = arrayCars.filter(({ cat }) => {
+    const result = arrayCars.filter(({ categoryId }) => {
       switch (radioBtn) {
-        case cat:
+        case categoryId.name:
           return true;
         case radioBtnsText[0]:
           return true;
@@ -82,12 +61,12 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   }, [radioBtn]);
 
   useEffect(() => {
-    cars.length === 0 ? setCondition(true) : setCondition(false);
+    cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
   return (
     <div className="cards">
-      <Loader condition={condition} />
+      {isLoading ? <Loader /> : null}
       <Radio.Group
         onChange={(e) => setRadioBtn(e.target.value)}
         value={radioBtn}
@@ -100,7 +79,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
         ))}
       </Radio.Group>
       {cars.map(
-        ({ name, priceMin, priceMax, picture, colors, number }, index) => {
+        ({ name, priceMin, priceMax, thumbnail, number, colors }, index) => {
           return (
             <Card
               size="small"
@@ -122,7 +101,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
                     min: priceMin,
                     max: priceMax,
                     number,
-                    pathImg: picture,
+                    pathImg: thumbnail.path,
                   })
                 );
                 setColorsOpt(colors);
@@ -130,7 +109,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
             >
               <img
                 className="image"
-                src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${picture}`}
+                src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${thumbnail.path}`}
                 alt={name}
                 referrerPolicy="origin"
                 crossOrigin="anonymous"

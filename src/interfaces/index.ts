@@ -23,19 +23,16 @@ export interface RootReducer {
   price: number;
   router: RouterState;
 }
-export interface GenericAction {
+
+export type GenericActionOrder = {
   type: string;
-  payload: {
-    value: string;
-    count?: number;
-    visibility?: boolean;
-    min?: number;
-    max?: number;
-    number?: string;
-    pathImg?: string;
-    time?: string;
-  };
-}
+  payload: OrderType;
+};
+
+export type GenericActionString = {
+  type: string;
+  payload: string;
+};
 export interface NumberForms {
   current: number;
   active: number;

@@ -7,9 +7,9 @@ import { getCoordinates } from '../../../../server/geocodeLocation';
 import { info, list } from '../../../../redux/selectors';
 import './style.scss';
 
-export const Map: React.FunctionComponent<{ points: string[] }> = ({
-  points,
-}) => {
+type MapType = { points: string[] };
+
+export const Map: React.FunctionComponent<MapType> = ({ points }) => {
   const userData = useSelector(info);
   const userPoint = useSelector(list);
 

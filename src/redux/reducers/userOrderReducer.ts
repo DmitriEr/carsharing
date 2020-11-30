@@ -8,7 +8,7 @@ import {
   CHANGE_OPTION,
 } from '../../redux/type';
 import { OrderType } from '../../interfaces';
-import { GenericAction } from '../../interfaces';
+import { GenericActionOrder } from '../../interfaces';
 
 const currentState = {
   orderList: initState,
@@ -16,7 +16,7 @@ const currentState = {
 
 export const userOrderReducer = (
   state: { orderList: OrderType[] } = currentState,
-  action: GenericAction
+  action: GenericActionOrder
 ) => {
   const { type, payload } = action;
   switch (type) {
@@ -61,7 +61,7 @@ export const userOrderReducer = (
       return {
         orderList: state.orderList.map((item, index) => {
           return index >= 5 && item.name === payload.value
-            ? { ...item, visible: payload.visibility }
+            ? { ...item, visible: payload.visible }
             : item;
         }),
       };

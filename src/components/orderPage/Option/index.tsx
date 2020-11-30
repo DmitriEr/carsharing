@@ -76,9 +76,9 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
       const [value] = item.split(',');
       const checkValue = checkedValues.find((value) => value === item);
       if (checkValue === undefined) {
-        dispacth(changeOption({ value, visibility: false }));
+        dispacth(changeOption({ value, visible: false }));
       } else {
-        dispacth(changeOption({ value, visibility: true }));
+        dispacth(changeOption({ value, visible: true }));
       }
     });
   };
