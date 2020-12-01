@@ -20,6 +20,7 @@ export const getCars: () => Promise<{
     const url = `${urlCommon}car`;
     const response = await fetch(url, {
       headers: headerCommon,
+      mode: 'no-cors',
     });
 
     if (!response.ok) {
@@ -40,6 +41,7 @@ export const getCities: () => Promise<{
     const url = `${urlCommon}city`;
     const response = await fetch(url, {
       headers: headerCommon,
+      mode: 'no-cors',
     });
 
     if (!response.ok) {
@@ -60,6 +62,7 @@ export const getPoints: () => Promise<{
     const url = `${urlCommon}point`;
     const response = await fetch(url, {
       headers: headerCommon,
+      mode: 'no-cors',
     });
 
     if (!response.ok) {

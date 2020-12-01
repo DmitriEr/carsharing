@@ -7,6 +7,7 @@ import { Head } from '../common/Head';
 import { Result } from './Result';
 import { Tabs } from './Tabs';
 import { Option } from './Option';
+import { Confirm } from './Confirm';
 import './style.scss';
 
 const { Content } = Layout;
@@ -41,7 +42,7 @@ export const OrderPage: React.FunctionComponent = () => {
       case 2:
         return <Option colorsOpt={colorsOpt} />;
       default:
-        return <div />;
+        return <Confirm />;
     }
   };
 
