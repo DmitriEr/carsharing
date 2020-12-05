@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Checkbox } from 'antd';
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
-import { price, options } from '../../../constants/orderPage';
+import { options } from '../../../constants/orderPage';
 import {
   changeColor,
   changeTime,
@@ -12,6 +12,9 @@ import {
 } from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
 import './style.scss';
+
+//
+import { getRate, getOrderStatus } from '../../../server/data';
 
 interface OptionProps {
   colorsOpt: string[];
@@ -22,10 +25,22 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
 
   const [color, setColor] = useState<string>();
   const [money, setMoney] = useState<string>();
+  const [price, setPrice] = useState<string[]>([]);
+  const [rate, setRates] = useState([]);
   const [diffTime, setDiffTime] = useState<DiffTimeProps>({ start: 0, end: 0 });
   const [finishDate, setFinishDate] = useState(Date.now());
   const [momentStart, setMomentStart] = useState();
   const [momentEnd, setMomentEnd] = useState();
+
+  useEffect(() => {
+    getRate().then(({ data }) => {
+      const newValue = data.map(({ price, rateTypeId }) => {
+        return `${rateTypeId.name}, ${price}₽/${rateTypeId.unit}`;
+      });
+      setRates(data);
+      setPrice(newValue);
+    });
+  }, []);
 
   useEffect(() => {
     dispacth(changeColor(color));
@@ -33,9 +48,12 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
 
   useEffect(() => {
     if (money) {
-      const [name, number] = money.split(',');
-      const tarif = parseInt(number.replace(/\D/g, ''), 10);
-      dispacth(changePrice({ value: name, count: tarif }));
+      const [name] = money.split(',');
+      rate.forEach(({ id, price, rateTypeId }) =>
+        rateTypeId.name === name
+          ? dispacth(changePrice({ value: name, count: price, rateId: id }))
+          : null
+      );
     }
   }, [money]);
 
@@ -52,12 +70,19 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
     const minute = minuteCount > 0 ? `${minuteCount}м` : '';
 
     if (minutes < 60) {
-      dispacth(changeTime({ value: `${minute}`, count: minutes }));
+      dispacth(changeTime({ value: `${minute}`, count: minutes, start, end }));
     } else if (minutes >= 60 && minutes < 1440) {
-      dispacth(changeTime({ value: `${hour} ${minute}`, count: minutes }));
+      dispacth(
+        changeTime({ value: `${hour} ${minute}`, count: minutes, start, end })
+      );
     } else if (minutes >= 1440 && minutes < 365 * 1440) {
       dispacth(
-        changeTime({ value: `${day} ${hour} ${minute}`, count: minutes })
+        changeTime({
+          value: `${day} ${hour} ${minute}`,
+          count: minutes,
+          start,
+          end,
+        })
       );
     }
   }, [diffTime]);

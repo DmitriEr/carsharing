@@ -1,5 +1,5 @@
-const urlCommon =
-  'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
+const urlCommon = 'http://api-factory.simbirsoft1.com/api/db/';
+// 'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/';
 const headerCommon = {
   'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
   'Content-Type': 'application/json',
@@ -8,6 +8,7 @@ const headerCommon = {
 export const getCars: () => Promise<{
   data: {
     categoryId: { name: string };
+    id: string;
     name: string;
     priceMin: number;
     priceMax: number;
@@ -20,7 +21,6 @@ export const getCars: () => Promise<{
     const url = `${urlCommon}car`;
     const response = await fetch(url, {
       headers: headerCommon,
-      mode: 'no-cors',
     });
 
     if (!response.ok) {
@@ -41,7 +41,6 @@ export const getCities: () => Promise<{
     const url = `${urlCommon}city`;
     const response = await fetch(url, {
       headers: headerCommon,
-      mode: 'no-cors',
     });
 
     if (!response.ok) {
@@ -56,13 +55,56 @@ export const getCities: () => Promise<{
 };
 
 export const getPoints: () => Promise<{
-  data: { cityId: { name: string }; address: string }[];
+  data: { cityId: { name: string; id: string }; address: string; id: string }[];
 }> = async () => {
   try {
     const url = `${urlCommon}point`;
     const response = await fetch(url, {
       headers: headerCommon,
-      mode: 'no-cors',
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error in database cars: ${error.message}`);
+  }
+};
+
+export const getRate: () => Promise<{
+  data: {
+    id: string;
+    price: number;
+    rateTypeId: { unit: string; name: string };
+  }[];
+}> = async () => {
+  try {
+    const url = `${urlCommon}rate`;
+    const response = await fetch(url, {
+      headers: headerCommon,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Error in database cars: ${error.message}`);
+  }
+};
+
+export const getOrderStatus: () => Promise<{
+  data: { id: string }[];
+}> = async () => {
+  try {
+    const url = `${urlCommon}orderStatus`;
+    const response = await fetch(url, {
+      headers: headerCommon,
     });
 
     if (!response.ok) {

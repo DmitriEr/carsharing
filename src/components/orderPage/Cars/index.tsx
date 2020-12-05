@@ -17,6 +17,7 @@ interface CarsData {
   categoryId: { name: string };
   colors: string[];
   number: string;
+  id: string;
 }
 
 interface CarsProps {
@@ -79,7 +80,10 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
         ))}
       </Radio.Group>
       {cars.map(
-        ({ name, priceMin, priceMax, thumbnail, number, colors }, index) => {
+        (
+          { name, priceMin, priceMax, thumbnail, number, colors, id },
+          index
+        ) => {
           return (
             <Card
               size="small"
@@ -102,6 +106,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
                     max: priceMax,
                     number,
                     pathImg: thumbnail.path,
+                    carId: id,
                   })
                 );
                 setColorsOpt(colors);

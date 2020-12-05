@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { ConnectedRouter } from 'connected-react-router';
 import { MainPage } from './components/mainPage';
 import { OrderPage } from './components/orderPage';
+import { ConfirmOrder } from './components/confirmOrder';
 import 'antd/dist/antd.css';
 import './App.scss';
 import { createRootReducer } from './redux/rootReducer';
@@ -25,6 +26,9 @@ const App: React.FunctionComponent = () => (
         </Route>
         <Route exact path="/carsharing/order">
           <OrderPage />
+        </Route>
+        <Route exact path={`/carsharing/${localStorage.getItem('data')}`}>
+          <ConfirmOrder />
         </Route>
       </Switch>
     </ConnectedRouter>

@@ -11,7 +11,9 @@ import {
 import {
   GenericActionOrder,
   GenericActionString,
+  GenericActionPoint,
   OrderType,
+  pointInfo,
 } from '../../interfaces';
 
 export function changeUserCity(item: string): GenericActionString {
@@ -21,7 +23,7 @@ export function changeUserCity(item: string): GenericActionString {
   };
 }
 
-export function changePoint(item: string): GenericActionString {
+export function changePoint(item: pointInfo): GenericActionPoint {
   return {
     type: CHANGE_POINT,
     payload: item,
@@ -42,7 +44,13 @@ export function changeColor(item: string): GenericActionString {
   };
 }
 
-type CommonType = { value: string; count: number };
+type CommonType = {
+  value: string;
+  count: number;
+  rateId?: string;
+  start?: number;
+  end?: number;
+};
 
 export function changeTime(
   item: CommonType

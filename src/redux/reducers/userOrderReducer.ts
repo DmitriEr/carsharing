@@ -23,15 +23,16 @@ export const userOrderReducer = (
     case CHANGE_POINT:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index === 0 ? { ...item, value: payload } : item;
+          const { value, cityId, pointId } = payload;
+          return index === 0 ? { ...item, value, cityId, pointId } : item;
         }),
       };
     case CHANGE_MODEL:
       return {
         orderList: state.orderList.map((item, index) => {
-          const { value, min, max, number, pathImg, time } = payload;
+          const { value, min, max, number, pathImg, time, carId } = payload;
           return index === 1
-            ? { ...item, value, min, max, number, pathImg, time }
+            ? { ...item, value, min, max, number, pathImg, time, carId }
             : item;
         }),
       };
@@ -44,17 +45,15 @@ export const userOrderReducer = (
     case CHANGE_TIME:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index === 3
-            ? { ...item, value: payload.value, count: payload.count }
-            : item;
+          const { value, count, start, end } = payload;
+          return index === 3 ? { ...item, value, count, start, end } : item;
         }),
       };
     case CHANGE_PRICE:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index === 4
-            ? { ...item, value: payload.value, count: payload.count }
-            : item;
+          const { value, count, rateId } = payload;
+          return index === 4 ? { ...item, value, count, rateId } : item;
         }),
       };
     case CHANGE_OPTION:
