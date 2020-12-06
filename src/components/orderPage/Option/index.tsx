@@ -11,10 +11,9 @@ import {
   changeOption,
 } from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
+import { getRate } from '../../../server/data';
+import { getTimeToString } from '../../../helper';
 import './style.scss';
-
-//
-import { getRate, getOrderStatus } from '../../../server/data';
 
 interface OptionProps {
   colorsOpt: string[];
@@ -58,33 +57,43 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   }, [money]);
 
   useEffect(() => {
+    // const { start, end } = diffTime;
+    // const minutes = (end - start) / (60 * 1000);
+
+    // const dayCount = Math.floor(minutes / 1440);
+    // const hourCount = Math.floor((minutes % 1440) / 60);
+    // const minuteCount = Math.floor(minutes % 60);
+
+    // const day = dayCount > 0 ? `${dayCount}д` : '';
+    // const hour = hourCount > 0 ? `${hourCount}ч` : '';
+    // const minute = minuteCount > 0 ? `${minuteCount}м` : '';
+
+    // if (minutes < 60) {
+    //   dispacth(changeTime({ value: `${minute}`, count: minutes, start, end }));
+    // } else if (minutes >= 60 && minutes < 1440) {
+    //   dispacth(
+    //     changeTime({ value: `${hour} ${minute}`, count: minutes, start, end })
+    //   );
+    // } else if (minutes >= 1440 && minutes < 365 * 1440) {
+    //   dispacth(
+    //     changeTime({
+    //       value: `${day} ${hour} ${minute}`,
+    //       count: minutes,
+    //       start,
+    //       end,
+    //     })
+    //   );
+    // }
     const { start, end } = diffTime;
     const minutes = (end - start) / (60 * 1000);
-
-    const dayCount = Math.floor(minutes / 1440);
-    const hourCount = Math.floor((minutes % 1440) / 60);
-    const minuteCount = Math.floor(minutes % 60);
-
-    const day = dayCount > 0 ? `${dayCount}д` : '';
-    const hour = hourCount > 0 ? `${hourCount}ч` : '';
-    const minute = minuteCount > 0 ? `${minuteCount}м` : '';
-
-    if (minutes < 60) {
-      dispacth(changeTime({ value: `${minute}`, count: minutes, start, end }));
-    } else if (minutes >= 60 && minutes < 1440) {
-      dispacth(
-        changeTime({ value: `${hour} ${minute}`, count: minutes, start, end })
-      );
-    } else if (minutes >= 1440 && minutes < 365 * 1440) {
-      dispacth(
-        changeTime({
-          value: `${day} ${hour} ${minute}`,
-          count: minutes,
-          start,
-          end,
-        })
-      );
-    }
+    dispacth(
+      changeTime({
+        value: getTimeToString(start, end),
+        count: minutes,
+        start,
+        end,
+      })
+    );
   }, [diffTime]);
 
   useEffect(() => {

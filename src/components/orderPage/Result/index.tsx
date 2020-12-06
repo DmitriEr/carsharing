@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Modal, Button } from 'antd';
+import { Button } from 'antd';
 import classnames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { list, resultMoney } from '../../../redux/selectors';
@@ -7,9 +7,6 @@ import { resultBtnsText } from '../../../constants/orderPage';
 import { NumberForms } from '../../../interfaces';
 import { calculatPrice } from '../../../redux/actions';
 import './style.scss';
-
-//
-import { createOrder } from '../../../server/createOrder';
 
 interface ResultInterface {
   numberStatus: NumberForms;

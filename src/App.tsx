@@ -27,7 +27,7 @@ const App: React.FunctionComponent = () => (
         <Route exact path="/carsharing/order">
           <OrderPage />
         </Route>
-        <Route exact path={`/carsharing/${localStorage.getItem('data')}`}>
+        <Route exact path={`/carsharing/order/${localStorage.getItem('id')}`}>
           <ConfirmOrder />
         </Route>
       </Switch>

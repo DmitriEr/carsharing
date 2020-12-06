@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Modal } from 'antd';
+import { Link } from 'react-router-dom';
+import { Modal, Button } from 'antd';
 import { getOrderStatus } from '../../../server/data';
 import { createOrder } from '../../../server/createOrder';
 import { StatusType } from '../../../interfaces';
@@ -18,10 +19,6 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
 
   const orderValue = useSelector(list);
   const orderMoney = useSelector(resultMoney);
-
-  useEffect(() => {
-    getOrderStatus().then(({ data }) => setStatusId(data[0].id));
-  }, []);
 
   const order = {
     carId: {
@@ -48,11 +45,21 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
     isRightWheel: orderValue[7].visible,
   };
 
+  useEffect(() => {
+    getOrderStatus().then(({ data }) => setStatusId(data[0].id));
+  }, []);
+
+  useEffect(() => {
+    if (statusId.length) {
+      createOrder(order).then((value) =>
+        localStorage.setItem('id', value.data.id)
+      );
+    }
+  }, [statusId]);
+
   return (
     <Modal
       title="Подтвердить заказ"
-      okText="Вернуться"
-      cancelText="Подтвердить"
       maskStyle={{
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         WebkitBoxShadow: 'none',
@@ -60,12 +67,17 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
       visible={true}
       closable={false}
       centered={true}
-      onOk={() => setNumberStatus({ current: 3, active: 3 })}
-      onCancel={() => {
-        createOrder(order).then((value) =>
-          localStorage.setItem('id', value.data.orderStatusId.id)
-        );
-      }}
-    />
+      footer={null}
+    >
+      <Link to={`/carsharing/order/${localStorage.getItem('id')}`}>
+        <Button>Подтвердить</Button>
+      </Link>
+      <Button
+        onClick={() => setNumberStatus({ current: 3, active: 3 })}
+        className="btn-primary"
+      >
+        Вернуться
+      </Button>
+    </Modal>
   );
 };
