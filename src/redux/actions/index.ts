@@ -7,6 +7,7 @@ import {
   CHANGE_PRICE,
   CHANGE_OPTION,
   CALCULATE_PRICE,
+  CLEAR_ORDER,
 } from '../type';
 import {
   GenericActionOrder,
@@ -84,6 +85,15 @@ export function changeOption(
 export function calculatPrice(item: number): { type: string; payload: number } {
   return {
     type: CALCULATE_PRICE,
+    payload: item,
+  };
+}
+
+export function clearOrder(
+  item: OrderType[]
+): { type: string; payload: OrderType[] } {
+  return {
+    type: CLEAR_ORDER,
     payload: item,
   };
 }

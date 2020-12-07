@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.confirm-page {
+  & .title-order {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    color: $black;
+  }
+
+  & .btn-cancel {
+    background: $slideTwo;
+    border-color: none;
+    border-radius: 8px;
+    height: 48px;
+    width: 100%;
+    color: $white;
+    background-blend-mode: darken;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 32px;
+  }
+}

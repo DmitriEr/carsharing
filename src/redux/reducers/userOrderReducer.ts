@@ -6,6 +6,7 @@ import {
   CHANGE_TIME,
   CHANGE_PRICE,
   CHANGE_OPTION,
+  CLEAR_ORDER,
 } from '../../redux/type';
 import { OrderType } from '../../interfaces';
 import { GenericActionOrder } from '../../interfaces';
@@ -64,6 +65,8 @@ export const userOrderReducer = (
             : item;
         }),
       };
+    case CLEAR_ORDER:
+      return { orderList: payload };
     default:
       return state;
   }

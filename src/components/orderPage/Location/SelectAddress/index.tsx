@@ -12,7 +12,7 @@ const { Option } = Select;
 interface AddressType {
   options: pointInfo[];
   name: string;
-  changeOption: (item: any) => GenericActionString | GenericActionPoint;
+  changeOption: (item) => GenericActionString | GenericActionPoint;
   initValue: string;
   deletePoint?: (item: pointInfo) => GenericActionPoint;
   deleteOption: boolean;

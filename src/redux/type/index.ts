@@ -6,3 +6,4 @@ export const CHANGE_TIME = 'CHANGE_TIME';
 export const CHANGE_PRICE = 'CHANGE_PRICE';
 export const CHANGE_OPTION = 'CHANGE_OPTION';
 export const CALCULATE_PRICE = 'CALCULATE_PRICE';
+export const CLEAR_ORDER = 'CLEAR_ORDER';
