@@ -65,6 +65,21 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
     cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
+  const selectCar = (value, min, max, number, pathImg, color, carId) => {
+    dispatch(
+      changeModel({
+        ...userCar[1],
+        value,
+        min,
+        max,
+        number,
+        pathImg,
+        carId,
+      })
+    );
+    setColorsOpt(color);
+  };
+
   return (
     <div className="cards">
       {isLoading ? <Loader /> : null}
@@ -97,20 +112,17 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
               className={
                 currentCar === name ? classnames('active', 'card') : 'card'
               }
-              onClick={() => {
-                dispatch(
-                  changeModel({
-                    ...userCar[1],
-                    value: name,
-                    min: priceMin,
-                    max: priceMax,
-                    number,
-                    pathImg: thumbnail.path,
-                    carId: id,
-                  })
-                );
-                setColorsOpt(colors);
-              }}
+              onClick={() =>
+                selectCar(
+                  name,
+                  priceMin,
+                  priceMax,
+                  number,
+                  thumbnail.path,
+                  colors,
+                  id
+                )
+              }
             >
               <img
                 className="image"

@@ -1,6 +1,13 @@
 @import '../../styles/variables.scss';
 
 .confirm-page {
+
+  & .status {
+    &:after {
+      content: none;
+    }
+  }
+
   & .title-order {
     font-style: normal;
     font-weight: bold;
@@ -21,5 +28,6 @@
     font-size: 18px;
     line-height: 21px;
     margin-top: 32px;
+    margin-right: 10px;
   }
 }

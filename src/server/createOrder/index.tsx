@@ -1,7 +1,7 @@
 export const createOrder = async (item) => {
   try {
     const response = await fetch(
-      'http://api-factory.simbirsoft1.com/api/db/order',
+      'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order',
       {
         method: 'POST',
         headers: {
