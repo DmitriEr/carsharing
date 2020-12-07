@@ -1,5 +1,5 @@
 import { CHANGE_USER_CITY } from '../type';
-import { GenericAction } from '../../interfaces';
+import { GenericActionOrder } from '../../interfaces';
 
 type InfoState = { userCity: string };
 
@@ -9,7 +9,7 @@ const currentState: InfoState = {
 
 export const userInfoReducer = (
   state: InfoState = currentState,
-  action: GenericAction
+  action: GenericActionOrder
 ) => {
   const { type, payload } = action;
   switch (type) {

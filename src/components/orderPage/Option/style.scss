@@ -1,0 +1,71 @@
+@import '../../../styles/variables.scss';
+
+%margin {
+  margin: 16px 0px 16px;
+}
+
+.options-wrapper {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 300;
+  margin-left: 64px;
+
+  & .date-wrapper {
+
+    & .title {
+      color: $black;
+      margin-bottom: 8px;
+      @extend %margin;
+    }
+  }
+
+  & .checkbox-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    & .title {
+      color: $black;
+      @extend %margin;
+    }
+
+    & .checkbox {
+      color: $gray;
+      width: 100%;
+
+      & .ant-checkbox-wrapper {
+        width: 100%;
+        margin: 4px 0px 4px;
+      }
+    
+      & .ant-checkbox-wrapper-checked {
+        color: $black;
+
+        & .ant-checkbox-checked .ant-checkbox-inner {
+          background-color: $white;
+          border-color: $mainAccent;
+          background-color: $white;
+    
+          &::after {
+            -webkit-transform: none;
+            border: none;
+            background-image: url('../../../assets/orderPage/Vector.svg');
+            background-repeat: no-repeat;
+            width: 20px;
+            height: 15px;
+            top: -2px;
+            left: 2px;
+            background-size: contain;
+            opacity: 10;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .options-wrapper {
+    margin-left: 10px;
+  }
+}

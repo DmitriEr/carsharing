@@ -15,9 +15,15 @@ interface CarsData {
   priceMax: number;
   thumbnail: { path: string };
   categoryId: { name: string };
+  colors: string[];
+  number: string;
 }
 
-export const Cars: React.FunctionComponent = () => {
+interface CarsProps {
+  setColorsOpt: (color: string[]) => void;
+}
+
+export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   const dispatch = useDispatch();
 
   const userCar = useSelector(list);
@@ -58,6 +64,20 @@ export const Cars: React.FunctionComponent = () => {
     cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
+  const selectCar = (value, min, max, number, pathImg, color) => {
+    dispatch(
+      changeModel({
+        ...userCar[1],
+        value,
+        min,
+        max,
+        number,
+        pathImg,
+      })
+    );
+    setColorsOpt(color);
+  };
+
   return (
     <div className="cards">
       {isLoading ? <Loader /> : null}
@@ -72,32 +92,43 @@ export const Cars: React.FunctionComponent = () => {
           </Radio>
         ))}
       </Radio.Group>
-      {cars.map(({ name, priceMin, priceMax, thumbnail }, index) => {
-        return (
-          <Card
-            size="small"
-            title={
-              <>
-                <div className="title">{name}</div>
-                <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
-              </>
-            }
-            key={index}
-            className={
-              currentCar === name ? classnames('active', 'card') : 'card'
-            }
-            onClick={() => dispatch(changeModel(name))}
-          >
-            <img
-              className="image"
-              src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${thumbnail.path}`}
-              alt={name}
-              referrerPolicy="origin"
-              crossOrigin="anonymous"
-            />
-          </Card>
-        );
-      })}
+      {cars.map(
+        ({ name, priceMin, priceMax, thumbnail, number, colors }, index) => {
+          return (
+            <Card
+              size="small"
+              title={
+                <>
+                  <div className="title">{name}</div>
+                  <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
+                </>
+              }
+              key={index}
+              className={
+                currentCar === name ? classnames('active', 'card') : 'card'
+              }
+              onClick={() =>
+                selectCar(
+                  name,
+                  priceMin,
+                  priceMax,
+                  number,
+                  thumbnail.path,
+                  colors
+                )
+              }
+            >
+              <img
+                className="image"
+                src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${thumbnail.path}`}
+                alt={name}
+                referrerPolicy="origin"
+                crossOrigin="anonymous"
+              />
+            </Card>
+          );
+        }
+      )}
     </div>
   );
 };

@@ -1,7 +1,14 @@
 import { initState } from '../../constants/redux';
-import { CHANGE_POINT, CHANGE_MODEL } from '../../redux/type';
+import {
+  CHANGE_POINT,
+  CHANGE_MODEL,
+  CHANGE_COLOR,
+  CHANGE_TIME,
+  CHANGE_PRICE,
+  CHANGE_OPTION,
+} from '../../redux/type';
 import { OrderType } from '../../interfaces';
-import { GenericAction } from '../../interfaces';
+import { GenericActionOrder } from '../../interfaces';
 
 const currentState = {
   orderList: initState,
@@ -9,7 +16,7 @@ const currentState = {
 
 export const userOrderReducer = (
   state: { orderList: OrderType[] } = currentState,
-  action: GenericAction
+  action: GenericActionOrder
 ) => {
   const { type, payload } = action;
   switch (type) {
@@ -22,7 +29,40 @@ export const userOrderReducer = (
     case CHANGE_MODEL:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index === 1 ? { ...item, value: payload } : item;
+          const { value, min, max, number, pathImg, time } = payload;
+          return index === 1
+            ? { ...item, value, min, max, number, pathImg, time }
+            : item;
+        }),
+      };
+    case CHANGE_COLOR:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 2 ? { ...item, value: payload } : item;
+        }),
+      };
+    case CHANGE_TIME:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 3
+            ? { ...item, value: payload.value, count: payload.count }
+            : item;
+        }),
+      };
+    case CHANGE_PRICE:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index === 4
+            ? { ...item, value: payload.value, count: payload.count }
+            : item;
+        }),
+      };
+    case CHANGE_OPTION:
+      return {
+        orderList: state.orderList.map((item, index) => {
+          return index >= 5 && item.name === payload.value
+            ? { ...item, visible: payload.visible }
+            : item;
         }),
       };
     default:

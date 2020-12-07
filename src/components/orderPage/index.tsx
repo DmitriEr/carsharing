@@ -6,6 +6,7 @@ import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Result } from './Result';
 import { Tabs } from './Tabs';
+import { Option } from './Option';
 import './style.scss';
 
 const { Content } = Layout;
@@ -17,6 +18,7 @@ export const OrderPage: React.FunctionComponent = () => {
     active: 0,
     current: 0,
   });
+  const [colorsOpt, setColorsOpt] = useState<string[]>([]);
 
   const switchForm = () => {
     const nextStatus = numberStatus.active + 1;
@@ -35,9 +37,9 @@ export const OrderPage: React.FunctionComponent = () => {
       case 0:
         return <Location />;
       case 1:
-        return <Cars />;
+        return <Cars setColorsOpt={setColorsOpt} />;
       case 2:
-        return <div />;
+        return <Option colorsOpt={colorsOpt} />;
       default:
         return <div />;
     }
