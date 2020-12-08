@@ -51,7 +51,6 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
 
   useEffect(() => {
     if (statusId.length) {
-      console.log(order);
       createOrder(order).then((value) =>
         localStorage.setItem('id', value.data.id)
       );

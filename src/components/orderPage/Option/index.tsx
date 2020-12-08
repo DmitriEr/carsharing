@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox } from 'antd';
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
@@ -13,6 +13,7 @@ import {
 import { DiffTimeProps } from '../../../interfaces';
 import { getRate } from '../../../server/data';
 import { getTimeToString } from '../../../helper';
+import { list } from '../../../redux/selectors';
 import './style.scss';
 
 interface OptionProps {
@@ -22,11 +23,16 @@ interface OptionProps {
 export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   const dispacth = useDispatch();
 
+  const currentValue = useSelector(list);
+
   const [color, setColor] = useState<string>();
   const [money, setMoney] = useState<string>();
   const [price, setPrice] = useState<string[]>([]);
   const [rate, setRates] = useState([]);
-  const [diffTime, setDiffTime] = useState<DiffTimeProps>({ start: 0, end: 0 });
+  const [diffTime, setDiffTime] = useState<DiffTimeProps>({
+    start: currentValue[3].start,
+    end: currentValue[3].end,
+  });
   const [finishDate, setFinishDate] = useState(Date.now());
   const [momentStart, setMomentStart] = useState();
   const [momentEnd, setMomentEnd] = useState();
@@ -42,7 +48,9 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   }, []);
 
   useEffect(() => {
-    dispacth(changeColor(color));
+    if (color && typeof color !== 'undefined') {
+      dispacth(changeColor(color));
+    }
   }, [color]);
 
   useEffect(() => {
@@ -67,9 +75,6 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
         end,
       })
     );
-  }, [diffTime]);
-
-  useEffect(() => {
     setFinishDate(diffTime.start);
   }, [diffTime]);
 
@@ -97,6 +102,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
         title={'Цвет'}
         setOption={setColor}
         option={color}
+        currentValue={currentValue[2].value}
       />
       <div className="date-wrapper">
         <div className="title">Дата аренды</div>
@@ -109,6 +115,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
           setMomentEnd={setMomentEnd}
           setMomentStart={setMomentStart}
           moments={momentStart}
+          defaultTime={diffTime.start}
         />
         <DateSelect
           queue={true}
@@ -119,9 +126,16 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
           setMomentStart={setMomentStart}
           setMomentEnd={setMomentEnd}
           moments={momentEnd}
+          defaultTime={diffTime.end}
         />
       </div>
-      <Lists list={price} title={'Тариф'} setOption={setMoney} option={money} />
+      <Lists
+        list={price}
+        title={'Тариф'}
+        setOption={setMoney}
+        option={money}
+        currentValue={`${currentValue[4].value}, ${currentValue[4].count}₽/мин`}
+      />
       <div className="checkbox-wrapper">
         <div className="title">Доп услуги</div>
         <Checkbox.Group

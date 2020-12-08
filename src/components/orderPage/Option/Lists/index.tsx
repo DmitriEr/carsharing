@@ -8,6 +8,7 @@ interface ListsProps {
   setOption: (e: string) => void;
   list: string[];
   option: string;
+  currentValue: string;
 }
 
 export const Lists: React.FunctionComponent<ListsProps> = ({
@@ -15,6 +16,7 @@ export const Lists: React.FunctionComponent<ListsProps> = ({
   setOption,
   list,
   option,
+  currentValue,
 }) => {
   return (
     <div className="select-wrapper">
@@ -22,6 +24,7 @@ export const Lists: React.FunctionComponent<ListsProps> = ({
       <Radio.Group
         onChange={(e) => setOption(e.target.value)}
         className="select-values"
+        value={currentValue}
       >
         {list.map((item) => (
           <Radio

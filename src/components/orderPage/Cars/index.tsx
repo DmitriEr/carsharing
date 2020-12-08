@@ -82,7 +82,6 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
 
   return (
     <div className="cards">
-      {isLoading ? <Loader /> : null}
       <Radio.Group
         onChange={(e) => setRadioBtn(e.target.value)}
         value={radioBtn}
@@ -94,7 +93,53 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
           </Radio>
         ))}
       </Radio.Group>
-      {cars.map(
+      {isLoading ? (
+        <Loader />
+      ) : (
+        cars.map(
+          (
+            { name, priceMin, priceMax, thumbnail, number, colors, id },
+            index
+          ) => {
+            return (
+              <Card
+                size="small"
+                title={
+                  <>
+                    <div className="title">{name}</div>
+                    <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
+                  </>
+                }
+                key={index}
+                className={
+                  currentCar === name ? classnames('active', 'card') : 'card'
+                }
+                onClick={() =>
+                  selectCar(
+                    name,
+                    priceMin,
+                    priceMax,
+                    number,
+                    thumbnail.path,
+                    colors,
+                    id
+                  )
+                }
+              >
+                <img
+                  className="image"
+                  // src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${thumbnail.path}`}
+                  src={`http://api-factory.simbirsoft1.com${thumbnail.path}`}
+                  alt={name}
+                  referrerPolicy="origin"
+                  crossOrigin="anonymous"
+                />
+              </Card>
+            );
+          }
+        )
+      )}
+      {/* {cars.map(
         (
           { name, priceMin, priceMax, thumbnail, number, colors, id },
           index
@@ -134,7 +179,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
             </Card>
           );
         }
-      )}
+      )} */}
     </div>
   );
 };

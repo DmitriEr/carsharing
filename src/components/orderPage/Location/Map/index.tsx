@@ -69,7 +69,12 @@ export const Map: React.FunctionComponent<MapType> = ({ points }) => {
               if (results.length) {
                 const { geometry } = results[0];
                 const { lat, lng } = geometry;
-                new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+                new mapboxgl.Marker()
+                  .setLngLat([lng, lat])
+                  .setPopup(
+                    new mapboxgl.Popup({ offset: 25 }).setHTML(address.value)
+                  )
+                  .addTo(map);
               }
             }
           );
