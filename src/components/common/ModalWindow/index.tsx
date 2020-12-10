@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'antd';
-import { getOrderStatus } from '../../../server/data';
+import { getData } from '../../../server/data';
 import { createOrder } from '../../../server/createOrder';
 import { StatusType } from '../../../interfaces';
 import { list, resultMoney } from '../../../redux/selectors';
@@ -46,7 +46,7 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
   };
 
   useEffect(() => {
-    getOrderStatus().then(({ data }) => setStatusId(data[0].id));
+    getData('orderStatus').then(({ data }) => setStatusId(data[0].id));
   }, []);
 
   useEffect(() => {

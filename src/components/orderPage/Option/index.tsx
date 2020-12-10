@@ -11,7 +11,7 @@ import {
   changeOption,
 } from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
-import { getRate } from '../../../server/data';
+import { getData } from '../../../server/data';
 import { getTimeToString } from '../../../helper';
 import { list } from '../../../redux/selectors';
 import './style.scss';
@@ -38,7 +38,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   const [momentEnd, setMomentEnd] = useState();
 
   useEffect(() => {
-    getRate().then(({ data }) => {
+    getData('rate').then(({ data }) => {
       const newValue = data.map(({ price, rateTypeId }) => {
         return `${rateTypeId.name}, ${price}₽/${rateTypeId.unit}`;
       });

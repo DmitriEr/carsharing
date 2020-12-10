@@ -6,6 +6,7 @@ import {
   GenericActionPoint,
   pointInfo,
 } from '../../../../interfaces';
+import { otherCity } from '../../../../constants/orderPage';
 
 const { Option } = Select;
 
@@ -30,12 +31,12 @@ export const SelectAddress: React.FunctionComponent<AddressType> = ({
 
   const addAddressToState = (item: string) => {
     if (deleteOption) {
-      dispatch(deletePoint({ value: '', cityId: '', pointId: '' }));
+      dispatch(deletePoint(otherCity));
       dispatch(changeOption(item));
     } else {
-      options.forEach((name) =>
-        name.value == item ? dispatch(changeOption(name)) : null
-      );
+      options.forEach((name) => {
+        name.value == item ? dispatch(changeOption(name)) : null;
+      });
     }
   };
 
@@ -46,7 +47,9 @@ export const SelectAddress: React.FunctionComponent<AddressType> = ({
       showArrow={false}
       showSearch={true}
       bordered={false}
-      onChange={(value: string) => addAddressToState(value)}
+      onChange={(value: string) => {
+        addAddressToState(value);
+      }}
       value={initValue}
     >
       {options.map((item, index) => (

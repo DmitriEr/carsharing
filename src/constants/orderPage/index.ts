@@ -23,3 +23,5 @@ export const options: string[] = [
   'Детское кресло, 200р',
   'Правый руль, 1600р',
 ];
+
+export const otherCity = { value: '', cityId: '', pointId: '' };

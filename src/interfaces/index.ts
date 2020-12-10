@@ -50,7 +50,7 @@ export interface DiffTimeProps {
   end: number;
 }
 
-export type pointInfo = { value: string; cityId?: string; pointId?: string };
+export type pointInfo = { value?: string; cityId?: string; pointId?: string };
 
 export type GenericActionPoint = {
   type: string;

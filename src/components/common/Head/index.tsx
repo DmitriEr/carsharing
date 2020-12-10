@@ -19,7 +19,6 @@ export const Head: React.FunctionComponent = () => {
     getUserLocation().then((userCity: TypeUserLocation) => {
       const translate = translateCityName[userCity.city];
       dispatch(changeUserCity(translate));
-      // dispatch(changeUserCity({ userCity: translate, id: '' }));
     });
   }, []);
 

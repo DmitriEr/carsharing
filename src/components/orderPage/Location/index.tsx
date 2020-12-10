@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Map } from './Map';
-import { getCities, getPoints } from '../../../server/data';
+import { getData } from '../../../server/data';
 import { changePoint, changeUserCity } from '../../../redux/actions';
 import { info, list } from '../../../redux/selectors';
 import { SelectAddress } from './SelectAddress';
@@ -20,7 +20,7 @@ export const Location: React.FunctionComponent = () => {
   const { userCity } = cityData;
 
   useEffect(() => {
-    getCities().then((city) => {
+    getData('city').then((city) => {
       const result = city.data.map(({ name }) => {
         return { value: name };
       });
@@ -30,7 +30,7 @@ export const Location: React.FunctionComponent = () => {
 
   useEffect(() => {
     if (userCity.length) {
-      getPoints().then((point) => {
+      getData('point').then((point) => {
         const newPoints = point.data.reduce((item, ind) => {
           if (
             !item.some((obj) => {

@@ -13,15 +13,26 @@ import './style.scss';
 
 const { Content } = Layout;
 
+enum enumOptions {
+  'Пункт выдачи',
+  'Модель',
+  'Цвет',
+  'Длительность аренды',
+  'Тариф',
+  'Полный бак',
+  'Детское кресло',
+  'Правый руль',
+}
+
 const orderTitles: { [x: string]: string | boolean } = {
-  'Пункт выдачи': '',
-  Модель: '',
-  Цвет: '',
-  'Длительность аренды': '',
-  Тариф: '',
-  'Полный бак': false,
-  'Детское кресло': false,
-  'Правый руль': false,
+  0: '',
+  1: '',
+  2: '',
+  3: '',
+  4: '',
+  5: false,
+  6: false,
+  7: false,
 };
 
 export const ConfirmOrder: React.FunctionComponent = () => {
@@ -48,14 +59,14 @@ export const ConfirmOrder: React.FunctionComponent = () => {
         isRightWheel,
       } = data;
       setResult({
-        'Пункт выдачи': `${cityId.name} ${pointId.address}`,
-        Модель: `${carId.name}`,
-        Цвет: `${color}`,
-        'Длительность аренды': getTimeToString(dateFrom, dateTo),
-        Тариф: `${rateId.rateTypeId.name}`,
-        'Полный бак': isFullTank,
-        'Детское кресло': isNeedChildChair,
-        'Правый руль': isRightWheel,
+        0: `${cityId.name} ${pointId.address}`,
+        1: `${carId.name}`,
+        2: `${color}`,
+        3: getTimeToString(dateFrom, dateTo),
+        4: `${rateId.rateTypeId.name}`,
+        5: isFullTank,
+        6: isNeedChildChair,
+        7: isRightWheel,
       });
       setMoney(price);
     });
@@ -82,12 +93,12 @@ export const ConfirmOrder: React.FunctionComponent = () => {
             <div className="result">
               <h2>Ваш заказ</h2>
               {Object.entries(result).map((item) => {
-                const [title, value] = item;
+                const [number, value] = item;
                 if (value) {
                   return (
-                    <div className="list" key={title}>
+                    <div className="list" key={number}>
                       <div className="dots link">
-                        <span className="field">{title}</span>
+                        <span className="field">{enumOptions[number]}</span>
                       </div>
                       <span className="address">{value}</span>
                     </div>

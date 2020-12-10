@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { list } from '../../../redux/selectors';
+import { herokuapp } from '../../../constants/server';
 import './style.scss';
 
 export const Confirm: React.FunctionComponent = () => {
@@ -25,7 +26,7 @@ export const Confirm: React.FunctionComponent = () => {
       </div>
       <div className="picture-car">
         <img
-          src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${pathImg}`}
+          src={`${herokuapp}${pathImg}`}
           crossOrigin="anonymous"
           referrerPolicy="origin"
         />
