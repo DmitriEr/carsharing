@@ -1,0 +1,49 @@
+@import '../../../styles/variables.scss';
+
+
+.ant-modal {
+  & .ant-modal-content {
+    background: transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  
+    & .ant-modal-header {
+      border-bottom: none;
+      padding: 0px;
+    
+      & .ant-modal-title {
+        text-align: center;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 28px;
+        padding-bottom: 0px;
+        margin-bottom: 32px;
+      }
+    }
+    
+    & .ant-modal-body {
+      text-align: center;
+
+      & .ant-btn {
+        background: $orderButton;
+        color: $white;
+        background-blend-mode: darken;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        width: 177px;
+        height: 48px;
+        margin: 0px 8px;
+      }
+  
+      & .btn-primary {
+        background: $slideTwo;
+        border-color: none;
+        border-radius: 4px;
+      }      
+    }
+  }
+}
+
+

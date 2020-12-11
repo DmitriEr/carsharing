@@ -5,9 +5,12 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { getCoordinates } from '../../../../server/geocodeLocation';
 import { info, list } from '../../../../redux/selectors';
+import { pointInfo } from '../../../../interfaces';
 import './style.scss';
 
-type MapType = { points: string[] };
+type MapType = {
+  points: pointInfo[];
+};
 
 export const Map: React.FunctionComponent<MapType> = ({ points }) => {
   const userData = useSelector(info);
@@ -59,15 +62,22 @@ export const Map: React.FunctionComponent<MapType> = ({ points }) => {
   useEffect(() => {
     if (userCity && map && points) {
       points.forEach((address) => {
-        if (!dataBase.includes(address)) {
-          setDataBase((prev) => [...prev, address]);
-          getCoordinates(`${userCity}, ${address}`).then(({ results }) => {
-            if (results.length) {
-              const { geometry } = results[0];
-              const { lat, lng } = geometry;
-              new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+        if (!dataBase.includes(address.value)) {
+          setDataBase((prev) => [...prev, address.value]);
+          getCoordinates(`${userCity}, ${address.value}`).then(
+            ({ results }) => {
+              if (results.length) {
+                const { geometry } = results[0];
+                const { lat, lng } = geometry;
+                new mapboxgl.Marker()
+                  .setLngLat([lng, lat])
+                  .setPopup(
+                    new mapboxgl.Popup({ offset: 25 }).setHTML(address.value)
+                  )
+                  .addTo(map);
+              }
             }
-          });
+          );
         }
       });
     }

@@ -6,6 +6,8 @@ export const initState: OrderType[] = [
     value: '',
     orderNumber: 0,
     visible: true,
+    cityId: '',
+    pointId: '',
   },
   {
     name: 'Модель',
@@ -17,6 +19,7 @@ export const initState: OrderType[] = [
     number: '',
     pathImg: '',
     time: '',
+    carId: '',
   },
   {
     name: 'Цвет',
@@ -30,6 +33,8 @@ export const initState: OrderType[] = [
     orderNumber: 2,
     count: 0,
     visible: true,
+    start: 0,
+    end: 0,
   },
   {
     name: 'Тариф',
@@ -37,6 +42,7 @@ export const initState: OrderType[] = [
     orderNumber: 2,
     count: 0,
     visible: true,
+    rateId: '',
   },
   {
     name: 'Полный бак',

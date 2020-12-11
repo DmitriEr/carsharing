@@ -7,11 +7,12 @@ import { Head } from '../common/Head';
 import { Result } from './Result';
 import { Tabs } from './Tabs';
 import { Option } from './Option';
+import { Confirm } from './Confirm';
+import { StatusType } from '../../interfaces';
+import { ModalWindow } from '../common/ModalWindow';
 import './style.scss';
 
 const { Content } = Layout;
-
-type StatusType = { active: number; current: number };
 
 export const OrderPage: React.FunctionComponent = () => {
   const [numberStatus, setNumberStatus] = useState<StatusType>({
@@ -40,8 +41,10 @@ export const OrderPage: React.FunctionComponent = () => {
         return <Cars setColorsOpt={setColorsOpt} />;
       case 2:
         return <Option colorsOpt={colorsOpt} />;
+      case 3:
+        return <Confirm />;
       default:
-        return <div />;
+        return <ModalWindow setNumberStatus={setNumberStatus} />;
     }
   };
 

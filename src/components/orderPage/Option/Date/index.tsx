@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, DatePicker } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
+import moment from 'moment';
 import { list } from '../../../../redux/selectors';
 import { changeModel } from '../../../../redux/actions';
 import { DiffTimeProps } from '../../../../interfaces';
@@ -16,6 +17,7 @@ interface DateProps {
   setMomentStart?: (value) => void;
   setMomentEnd?: (value) => void;
   moments: Moment;
+  defaultTime: number;
 }
 
 const formatter = new Intl.DateTimeFormat('ru', {
@@ -35,6 +37,7 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
   moments,
   setMomentStart,
   setMomentEnd,
+  defaultTime,
 }) => {
   const dispatch = useDispatch();
 
@@ -83,6 +86,7 @@ export const DateSelect: React.FunctionComponent<DateProps> = ({
           value={moments}
           onChange={(e) => updateValue(e)}
           disabled={queue && diffTime.start === 0 ? true : false}
+          defaultValue={defaultTime !== 0 ? moment(defaultTime) : null}
         />
       </Space>
     </div>

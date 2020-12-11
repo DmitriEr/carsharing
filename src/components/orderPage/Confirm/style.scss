@@ -1,0 +1,77 @@
+@import '../../../styles/variables.scss';
+
+%fonts {
+  & .title {
+    font-weight: bold;
+  }
+
+  & .time {
+    font-weight: normal;
+  }
+}
+
+.confirm {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-left: 64px;
+  color: $black;
+
+  & .data-car {
+    width: 50%;
+    font-size: 14px;
+    line-height: 16px;
+
+    & .modal-car {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 21px;
+    }
+
+    & .number-car {
+      font-weight: normal;
+
+      & span {
+        border: 1px solid #999999;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding: 0 10px;
+      }
+    }
+
+    & .fuels-car {
+      @extend %fonts;
+    }
+
+    & .date {
+      @extend %fonts;
+    }
+  }
+
+  & .picture-car {
+    width: 50%;
+
+    & img {
+      width: 300px;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .confirm {
+    flex-wrap: wrap;
+
+    & .data-car {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .confirm {
+    flex-wrap: wrap;
+    margin-left: 10px;
+  }
+}

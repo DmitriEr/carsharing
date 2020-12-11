@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { Card, Radio } from 'antd';
 import { Loader } from '../../common/Loader';
-import { getCars } from '../../../server/data';
+import { getData } from '../../../server/data';
 import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
 import { radioBtnsText } from '../../../constants/orderPage';
+import { herokuapp } from '../../../constants/server';
 import './style.scss';
 
 interface CarsData {
@@ -17,6 +18,7 @@ interface CarsData {
   categoryId: { name: string };
   colors: string[];
   number: string;
+  id: string;
 }
 
 interface CarsProps {
@@ -35,7 +37,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   const [arrayCars, setArrayCars] = useState<CarsData[]>([]);
 
   useEffect(() => {
-    getCars().then(({ data }) => {
+    getData('car').then(({ data }) => {
       const result = data.filter(({ thumbnail }) => {
         if (thumbnail.path.startsWith('/files/')) {
           return true;
@@ -64,7 +66,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
     cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
-  const selectCar = (value, min, max, number, pathImg, color) => {
+  const selectCar = (value, min, max, number, pathImg, color, carId) => {
     dispatch(
       changeModel({
         ...userCar[1],
@@ -73,6 +75,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
         max,
         number,
         pathImg,
+        carId,
       })
     );
     setColorsOpt(color);
@@ -80,7 +83,6 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
 
   return (
     <div className="cards">
-      {isLoading ? <Loader /> : null}
       <Radio.Group
         onChange={(e) => setRadioBtn(e.target.value)}
         value={radioBtn}
@@ -92,42 +94,50 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
           </Radio>
         ))}
       </Radio.Group>
-      {cars.map(
-        ({ name, priceMin, priceMax, thumbnail, number, colors }, index) => {
-          return (
-            <Card
-              size="small"
-              title={
-                <>
-                  <div className="title">{name}</div>
-                  <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
-                </>
-              }
-              key={index}
-              className={
-                currentCar === name ? classnames('active', 'card') : 'card'
-              }
-              onClick={() =>
-                selectCar(
-                  name,
-                  priceMin,
-                  priceMax,
-                  number,
-                  thumbnail.path,
-                  colors
-                )
-              }
-            >
-              <img
-                className="image"
-                src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${thumbnail.path}`}
-                alt={name}
-                referrerPolicy="origin"
-                crossOrigin="anonymous"
-              />
-            </Card>
-          );
-        }
+      {isLoading ? (
+        <Loader />
+      ) : (
+        cars.map(
+          (
+            { name, priceMin, priceMax, thumbnail, number, colors, id },
+            index
+          ) => {
+            return (
+              <Card
+                size="small"
+                title={
+                  <>
+                    <div className="title">{name}</div>
+                    <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
+                  </>
+                }
+                key={index}
+                className={
+                  currentCar === name ? classnames('active', 'card') : 'card'
+                }
+                onClick={() =>
+                  selectCar(
+                    name,
+                    priceMin,
+                    priceMax,
+                    number,
+                    thumbnail.path,
+                    colors,
+                    id
+                  )
+                }
+              >
+                <img
+                  className="image"
+                  src={`${herokuapp}${thumbnail.path}`}
+                  alt={name}
+                  referrerPolicy="origin"
+                  crossOrigin="anonymous"
+                />
+              </Card>
+            );
+          }
+        )
       )}
     </div>
   );

@@ -1,16 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Select } from 'antd';
-import { GenericActionString } from '../../../../interfaces';
+import {
+  GenericActionString,
+  GenericActionPoint,
+  pointInfo,
+} from '../../../../interfaces';
+import { otherCity } from '../../../../constants/orderPage';
 
 const { Option } = Select;
 
 interface AddressType {
-  options: string[];
+  options: pointInfo[];
   name: string;
-  changeOption: (item: string) => GenericActionString;
+  changeOption: (item) => GenericActionString | GenericActionPoint;
   initValue: string;
-  deletePoint?: (item: string) => GenericActionString;
+  deletePoint?: (item: pointInfo) => GenericActionPoint;
   deleteOption: boolean;
 }
 
@@ -26,9 +31,13 @@ export const SelectAddress: React.FunctionComponent<AddressType> = ({
 
   const addAddressToState = (item: string) => {
     if (deleteOption) {
-      dispatch(deletePoint(''));
+      dispatch(deletePoint(otherCity));
+      dispatch(changeOption(item));
+    } else {
+      options.forEach((name) => {
+        name.value == item ? dispatch(changeOption(name)) : null;
+      });
     }
-    dispatch(changeOption(item));
   };
 
   return (
@@ -38,12 +47,14 @@ export const SelectAddress: React.FunctionComponent<AddressType> = ({
       showArrow={false}
       showSearch={true}
       bordered={false}
-      onChange={(value: string) => addAddressToState(value)}
+      onChange={(value: string) => {
+        addAddressToState(value);
+      }}
       value={initValue}
     >
-      {options.map((item: string) => (
-        <Option value={item} label={item} key={item}>
-          {item}
+      {options.map((item, index) => (
+        <Option value={item.value} label={item.value} key={index}>
+          {item.value}
         </Option>
       ))}
     </Select>

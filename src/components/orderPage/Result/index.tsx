@@ -3,10 +3,10 @@ import { Button } from 'antd';
 import classnames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { list, resultMoney } from '../../../redux/selectors';
-import { statuses } from '../../../constants/orderPage';
+import { resultBtnsText } from '../../../constants/orderPage';
 import { NumberForms } from '../../../interfaces';
-import './style.scss';
 import { calculatPrice } from '../../../redux/actions';
+import './style.scss';
 
 interface ResultInterface {
   numberStatus: NumberForms;
@@ -103,7 +103,7 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
       </div>
       <Button
         disabled={checkStatus() ? false : true}
-        onClick={() => switchForm()}
+        onClick={switchForm}
         className={
           checkStatus()
             ? classnames('btn', 'btn-active')
@@ -111,7 +111,7 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
         }
         title={showTitle()}
       >
-        {statuses[numberStatus.active + 1]}
+        {resultBtnsText[numberStatus.active]}
       </Button>
     </div>
   );
