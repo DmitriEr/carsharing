@@ -2,7 +2,7 @@
   "name": "carsharing",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dmitrier.github.io/carsharing/",
+  "homepage": "https://dmitrier.github.io/",
   "dependencies": {
     "antd": "^4.7.3",
     "classnames": "^2.2.6",

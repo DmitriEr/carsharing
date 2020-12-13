@@ -27,6 +27,7 @@ export interface RootReducer {
   };
   page: string;
   price: number;
+  auth: { [x: string]: boolean };
   router: RouterState;
 }
 
@@ -38,6 +39,11 @@ export type GenericActionOrder = {
 export type GenericActionString = {
   type: string;
   payload: string;
+};
+
+export type GenericBoolean = {
+  type: string;
+  payload: { [x: string]: boolean };
 };
 
 export interface NumberForms {

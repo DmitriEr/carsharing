@@ -5,3 +5,4 @@ export const page = (state: RootReducer) => state.router.location.pathname;
 export const list = (state: RootReducer) => state.order.orderList;
 export const info = (state: RootReducer) => state.information;
 export const resultMoney = (state: RootReducer) => state.price;
+export const authorization = (state: RootReducer) => state.auth;
