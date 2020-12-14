@@ -9,7 +9,11 @@ export const AuthorizationPage: React.FunctionComponent = () => {
   const { isAdmin, isAuth } = auth;
 
   if (isAuth) {
-    return isAdmin ? <Redirect to="/admin/" /> : <Redirect to="/carsharing/" />;
+    return isAdmin ? (
+      <Redirect to="/carsharing/admin/" />
+    ) : (
+      <Redirect to="/carsharing/main/" />
+    );
   } else {
     return <AuthWindow />;
   }

@@ -12,23 +12,19 @@ export const loginUser = async (
   path: string,
   user: { username: string; password: string }
 ): Promise<UserLogin | boolean> => {
-  try {
-    const url = `${urlAuth}${path}`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        ...headerCommon,
-        Authorization: `Basic ${btoa('11d7c9f:4cbcea96de')}`,
-      },
-      body: JSON.stringify(user),
-    });
+  const url = `${urlAuth}${path}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      ...headerCommon,
+      Authorization: `Basic ${btoa('11d7c9f:4cbcea96de')}`,
+    },
+    body: JSON.stringify(user),
+  });
 
-    if (!response.ok) {
-      return false;
-    }
-
-    return true;
-  } catch (error) {
-    throw new Error(`Error in loginUser ${path}: ${error.message}`);
+  if (!response.ok) {
+    return false;
   }
+
+  return true;
 };

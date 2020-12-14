@@ -39,7 +39,7 @@ export const SideBar: React.FunctionComponent = () => {
               <Menu className="items">
                 {menuItems.map((item: string) => (
                   <Item onClick={() => switchSlide()} key={item}>
-                    <Link to="/carsharing" className="item">
+                    <Link to="/carsharing/main" className="item">
                       {item.toUpperCase()}
                     </Link>
                   </Item>

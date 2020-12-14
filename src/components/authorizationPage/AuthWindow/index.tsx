@@ -17,25 +17,18 @@ export const AuthWindow: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState(user);
-  const [isError, setIsError] = useState(false);
 
   const onLogIn = () => {
     loginUser('login', data).then((value) => {
       const { username, password } = data;
+
       if (value) {
-        username == 'intern' && password === 'intern-S!'
+        username == process.env.REACT_APP_NAME &&
+        password === process.env.REACT_APP_PASSWORD
           ? dispatch(login({ admin: true, auth: true }))
           : dispatch(login({ admin: false, auth: true }));
-      } else {
-        setIsError(true);
       }
     });
-  };
-
-  const showMessage = () => {
-    if (isError) {
-      return 'Не удаётся войти. Пожалуйста, проверьте правильность написания логина и пароля.';
-    }
   };
 
   return (
@@ -71,7 +64,6 @@ export const AuthWindow: React.FunctionComponent = () => {
             >
               <Input.Password />
             </Form.Item>
-
             <div className="buttons">
               <Form.Item className="registration">
                 <Button
@@ -94,7 +86,6 @@ export const AuthWindow: React.FunctionComponent = () => {
             </div>
           </Form>
         </div>
-        <div className="error">{showMessage()}</div>
       </div>
     </div>
   );

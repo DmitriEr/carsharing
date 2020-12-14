@@ -22,10 +22,10 @@ const App: React.FunctionComponent = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/carsharing/">
           <AuthorizationPage />
         </Route>
-        <Route exact path="/carsharing/">
+        <Route exact path="/carsharing/main/">
           <MainPage />
         </Route>
         <Route exact path="/carsharing/order">
@@ -34,7 +34,7 @@ const App: React.FunctionComponent = () => (
         <Route exact path={`/carsharing/order/${localStorage.getItem('id')}`}>
           <ConfirmOrder />
         </Route>
-        <Route exact path="/admin/">
+        <Route exact path="/carsharing/admin/">
           <div />
         </Route>
       </Switch>
