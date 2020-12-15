@@ -13,10 +13,16 @@ type UserType = { username: ValueType; password: ValueType };
 
 const user: UserType = { username: '', password: '' };
 
+const rule = [
+  { required: true, message: 'Поле должно быть заполнено' },
+  { min: 5, message: 'Минимум 5 символов' },
+];
+
 export const AuthWindow: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState(user);
+  const [userDB, setUserDB] = useState('');
 
   const onLogIn = () => {
     loginUser('login', data).then((value) => {
@@ -27,8 +33,17 @@ export const AuthWindow: React.FunctionComponent = () => {
         password === process.env.REACT_APP_PASSWORD
           ? dispatch(login({ admin: true, auth: true }))
           : dispatch(login({ admin: false, auth: true }));
+      } else {
+        setUserDB('Пользователь не найден');
       }
     });
+  };
+
+  const onChange = (item: UserType) => {
+    if (userDB) {
+      setUserDB('');
+    }
+    setData(item);
   };
 
   return (
@@ -38,19 +53,22 @@ export const AuthWindow: React.FunctionComponent = () => {
           <Image src={logo} alt="logo_auth" className="image" />
           <span className="title">Need for drive</span>
         </div>
-        <div className="entry">Вход</div>
+        <div className="entry">
+          <span>Вход</span>
+          <span>{userDB}</span>
+        </div>
         <div>
           <Form
             name="login-form"
             initialValues={{ remember: true }}
-            onValuesChange={(_, allValues) => setData(allValues)}
+            onValuesChange={(_, allValues) => onChange(allValues)}
           >
             <Form.Item
               label="Почта"
               name="username"
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}
-              rules={[{ required: true }]}
+              rules={rule}
             >
               <Input />
             </Form.Item>
@@ -60,7 +78,7 @@ export const AuthWindow: React.FunctionComponent = () => {
               name="password"
               labelCol={{ span: 24 }}
               wrapperCol={{ span: 24 }}
-              rules={[{ required: true }]}
+              rules={rule}
             >
               <Input.Password />
             </Form.Item>
