@@ -27,5 +27,5 @@ export const loginUser = async (
     return false;
   }
 
-  return true;
+  return response.json();
 };

@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { ConnectedRouter } from 'connected-react-router';
 import { MainPage } from './components/mainPage';
 import { OrderPage } from './components/orderPage';
+import { AdminPage } from './components/adminPage';
 import { ConfirmOrder } from './components/confirmOrder';
 import { AuthorizationPage } from './components/authorizationPage';
 import { createRootReducer } from './redux/rootReducer';
@@ -35,7 +36,7 @@ const App: React.FunctionComponent = () => (
           <ConfirmOrder />
         </Route>
         <Route exact path="/carsharing/admin/">
-          <div />
+          <AdminPage />
         </Route>
       </Switch>
     </ConnectedRouter>
