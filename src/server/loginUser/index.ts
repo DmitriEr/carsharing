@@ -1,4 +1,5 @@
 import { urlAuth, headerCommon } from '../../constants/server';
+import { random } from '../../helper';
 
 interface UserLogin {
   access_token: string;
@@ -17,7 +18,7 @@ export const loginUser = async (
     method: 'POST',
     headers: {
       ...headerCommon,
-      Authorization: `Basic ${btoa('11d7c9f:4cbcea96de')}`,
+      Authorization: `Basic ${btoa(`${random()}:4cbcea96de`)}`,
     },
     body: JSON.stringify(user),
   });

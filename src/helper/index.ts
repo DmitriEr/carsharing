@@ -17,3 +17,5 @@ export const getTimeToString = (start, end) => {
     return `${day} ${hour} ${minute}`;
   }
 };
+
+export const random = () => Math.random().toString(36).substr(2, 7);
