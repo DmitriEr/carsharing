@@ -1,0 +1,50 @@
+@import '../../../styles/variables.scss';
+
+.menu {
+  & .wrapper {
+    & .list {
+      cursor: pointer;
+      box-shadow: inset 0px -1px 0px #E1E5EB;
+      font-size: 15px;  
+      line-height: 17px;
+      height: 57.5px;
+      position: relative;
+
+      & .item {
+        display: flex;
+        align-items: center;
+      }
+
+      &:first-of-type {
+        height: 67.5px;
+        font-size: 16px;
+        line-height: 18px;
+
+        & .avatar {
+          transform: scale(0.5);
+        }
+      }
+
+      &:hover:not(:first-of-type) {
+        .ant-list-item-meta-description,
+        .ant-list-item-meta-avatar .avatar path {
+          color: $buttonsAdmin;
+          fill: $buttonsAdmin;
+        }
+
+        &::after {
+          content: '';
+          top: 0px;
+          height: 100%;
+          width: 3px;
+          background: $buttonsAdmin;
+          position: absolute;
+        }
+      }
+
+      & .avatar {
+        margin-left: 28.5px;
+      }
+    }
+  }
+}
