@@ -1,6 +1,53 @@
 @import '../../styles/variables.scss';
 
-.ant-layout {
-  background: $white;
+.admin-page {
   height: 100%;
+  background: $white;
+
+  & .control {
+    display: none;
+    background: transparent;
+    border: none;
+  }
 }
+
+@media (max-width: 700px) {
+  .admin-page {
+    position: relative;
+
+    & .control {
+      display: block;
+      border: none;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 18px;
+      left: 10px;
+      cursor: pointer;
+      outline: none;
+      z-index: 2;
+    }
+
+    & .btn-on {
+      background-image: url('../../assets/admin/open.svg');
+    }
+    
+    & .btn-off {
+      background-image: url('../../assets/admin/close.svg');
+    }
+
+    & .slider {
+      display: none;
+    }
+
+    & .slider-open {
+      display: block;
+      z-index: 1;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+  }  
+}
+

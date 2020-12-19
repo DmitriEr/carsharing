@@ -1,6 +1,8 @@
 @import '../../../styles/variables.scss';
 
 .menu {
+  height: 100%;
+
   & .wrapper {
     & .list {
       cursor: pointer;
@@ -43,8 +45,14 @@
       }
 
       & .avatar {
-        margin-left: 28.5px;
+        margin-left: 35px;
       }
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .menu {
+    display: none;
   }
 }

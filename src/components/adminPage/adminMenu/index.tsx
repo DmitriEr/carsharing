@@ -25,7 +25,6 @@ export const AdminMenu: React.FunctionComponent = () => {
               description={item.name}
               className="item"
             />
-            {console.log(item)}
           </List.Item>
         )}
       />
