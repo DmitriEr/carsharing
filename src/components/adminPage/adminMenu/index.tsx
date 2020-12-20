@@ -4,7 +4,11 @@ import { MenuLogo } from '../menuLogo';
 import { menu } from '../../../constants/admin';
 import './style.scss';
 
-export const AdminMenu: React.FunctionComponent = () => {
+type PropsAdminMenu = { setIsOpen: (x: boolean) => void };
+
+export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
+  setIsOpen,
+}) => {
   return (
     <Layout className="menu" style={{ background: '#fff' }}>
       <List
@@ -12,7 +16,7 @@ export const AdminMenu: React.FunctionComponent = () => {
         dataSource={menu}
         className="wrapper"
         renderItem={(item) => (
-          <List.Item className="list">
+          <List.Item className="list" onClick={() => setIsOpen(false)}>
             <List.Item.Meta
               avatar={
                 <MenuLogo

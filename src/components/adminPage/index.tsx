@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { authorization } from '../../redux/selectors';
 import { AdminMenu } from './adminMenu';
+import { AdminHeader } from './adminHeader';
+import { AdminFooter } from './adminFooter';
 import { Layout } from 'antd';
 import './style.scss';
 
@@ -21,13 +23,20 @@ export const AdminPage: React.FunctionComponent = () => {
           className={isOpen ? 'control btn-off' : 'control btn-on'}
           onClick={() => setIsOpen(!isOpen)}
         />
-        <Sider width="285px" className={isOpen ? 'slider-open' : 'slider'}>
-          <AdminMenu />
+        <Sider
+          width="285px"
+          className={isOpen ? 'slider-open slider' : 'slider-close slider'}
+        >
+          <AdminMenu setIsOpen={setIsOpen} />
         </Sider>
         <Layout>
-          <Header>Header</Header>
+          <Header className="header">
+            <AdminHeader />
+          </Header>
           <Content>Content</Content>
-          <Footer>Footer</Footer>
+          <Footer className="footer">
+            <AdminFooter />
+          </Footer>
         </Layout>
       </Layout>
     );

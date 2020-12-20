@@ -1,0 +1,40 @@
+@import '../../../styles/variables.scss';
+
+.input {
+  width: 75%;
+}
+
+.notifications {
+  width: 5%;
+  text-align: center;
+  box-shadow: 0.5px 0px 0px $boxShadow, -0.5px 0px 0px $boxShadow;
+}
+
+.admins {
+  width: 20%;
+  border: none;
+
+  & .ant-select-selection-item {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  height: 100% !important;
+}
+
+@media (max-width: 700px) {
+  .input {
+    padding-left: 50px !important;
+    width: 60%;
+  }
+
+  .notifications {
+    width: 10%;
+  }
+
+  .admins {
+    width: 30%;
+  }
+}

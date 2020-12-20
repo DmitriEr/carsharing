@@ -1,0 +1,30 @@
+@import '../../../styles/variables.scss';
+
+.admin-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 68.5px;
+  background: $white;
+  padding: 0px 27.5px;
+
+  & div {
+    & a:first-of-type {
+      margin-right: 16px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-footer {
+    flex-wrap: wrap;
+  
+    & div {
+      & a:first-of-type {
+        // margin-right: 0px;
+        width: 100%;
+      }
+    }
+  } 
+}
