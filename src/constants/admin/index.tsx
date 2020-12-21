@@ -8,6 +8,7 @@ export const menu = [
     name: 'Need for drive',
     width: '45',
     height: '45',
+    type: 'logo',
   },
   {
     picture:
@@ -16,6 +17,7 @@ export const menu = [
     name: 'Карточка автомобиля',
     width: '15',
     height: '15',
+    type: 'card',
   },
   {
     picture:
@@ -24,6 +26,7 @@ export const menu = [
     name: 'Список авто',
     width: '17',
     height: '16',
+    type: 'list',
   },
   {
     picture:
@@ -32,6 +35,7 @@ export const menu = [
     name: 'Заказы',
     width: '13',
     height: '12',
+    type: 'order',
   },
   {
     picture:
@@ -40,6 +44,7 @@ export const menu = [
     name: 'Меню 4',
     width: '13',
     height: '12',
+    type: 'menu4',
   },
   {
     picture:
@@ -48,6 +53,7 @@ export const menu = [
     name: 'Меню 5',
     width: '13',
     height: '13',
+    type: 'menu5',
   },
   {
     picture:
@@ -56,6 +62,7 @@ export const menu = [
     name: 'Меню 6',
     width: '13',
     height: '12',
+    type: 'menu6',
   },
   {
     picture:
@@ -64,5 +71,6 @@ export const menu = [
     name: 'Меню 7',
     width: '15',
     height: '13',
+    type: 'menu7',
   },
 ];

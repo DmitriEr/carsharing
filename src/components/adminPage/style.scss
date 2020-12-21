@@ -12,6 +12,10 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     border: none;
   }
 
+  & .slider {
+    box-shadow: $box;
+  }
+
   & .header {
     display: flex;
     align-items: stretch;
@@ -23,8 +27,10 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     box-shadow: inset 0px -1px 0px #E1E5EB;
   }
 
-  & .slider {
-    box-shadow: $box;
+  & .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   & .footer {

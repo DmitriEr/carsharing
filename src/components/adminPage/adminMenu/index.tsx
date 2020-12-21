@@ -4,11 +4,20 @@ import { MenuLogo } from '../menuLogo';
 import { menu } from '../../../constants/admin';
 import './style.scss';
 
-type PropsAdminMenu = { setIsOpen: (x: boolean) => void };
+type PropsAdminMenu = {
+  setIsOpen: (x: boolean) => void;
+  setPage: (x: string) => void;
+};
 
 export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
   setIsOpen,
+  setPage,
 }) => {
+  const handlerItem = (value: string) => {
+    setIsOpen(false);
+    setPage(value);
+  };
+
   return (
     <Layout className="menu" style={{ background: '#fff' }}>
       <List
@@ -16,7 +25,7 @@ export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
         dataSource={menu}
         className="wrapper"
         renderItem={(item) => (
-          <List.Item className="list" onClick={() => setIsOpen(false)}>
+          <List.Item className="list" onClick={() => handlerItem(item.type)}>
             <List.Item.Meta
               avatar={
                 <MenuLogo
