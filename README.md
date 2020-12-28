@@ -64,3 +64,14 @@ Secret: 4cbcea96de
 Учетная запись: { username: 'intern', password: 'intern-S!' }
 Swagger
 
+Основные сущности
+
+1. city
+2. point
+3. order
+4. rate
+5. rateType
+6. orderStatus
+7. category
+8. car
+

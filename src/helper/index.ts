@@ -19,3 +19,32 @@ export const getTimeToString = (start, end) => {
 };
 
 export const random = () => Math.random().toString(36).substr(2, 7);
+
+export const getCurrentName = (state: string, val1, val2) => {
+  switch (state) {
+    case 'rate':
+      return val1.rateTypeId.name;
+    case 'order':
+      return val2;
+    default:
+      return val1.name;
+  }
+};
+
+export const getCurrentOption = (state: string, value) => {
+  switch (state) {
+    case 'car':
+      return value.description;
+    case 'point':
+      return value.address;
+    case 'order':
+      return `${value.price} рублей`;
+    case 'rate' || 'rateTypeId':
+      return value.rateTypeId.unit;
+    default:
+      return '';
+  }
+};
+
+export const getCurrentNumber = (ind: number, count: number) =>
+  ind + 1 + count * 10;

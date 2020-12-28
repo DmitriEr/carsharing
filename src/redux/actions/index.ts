@@ -15,6 +15,7 @@ import {
   GenericActionString,
   GenericActionPoint,
   GenericBoolean,
+  TypeAuth,
   OrderType,
   pointInfo,
 } from '../../interfaces';
@@ -100,7 +101,7 @@ export function clearOrder(
   };
 }
 
-export function login(item: { [x: string]: boolean }): GenericBoolean {
+export function login(item: TypeAuth): GenericBoolean {
   return {
     type: LOGIN,
     payload: item,

@@ -1,8 +1,11 @@
 import { urlCommon, headerCommon } from '../../constants/server';
 
 interface Data {
+  count: number;
   data: {
     categoryId: { name: string };
+    carId: { name: string };
+    description: string;
     id: string;
     name: string;
     priceMin: number;
@@ -17,9 +20,9 @@ interface Data {
   }[];
 }
 
-export const getData = async (path: string): Promise<Data> => {
+export const getData = async (path: string, page = 0): Promise<Data> => {
   try {
-    const url = `${urlCommon}${path}`;
+    const url = `${urlCommon}${path}?page=${page}&limit=10`;
     const response = await fetch(url, {
       headers: headerCommon,
     });

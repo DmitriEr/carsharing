@@ -12,7 +12,7 @@ interface UserLogin {
 export const loginUser = async (
   path: string,
   user: { username: string; password: string }
-): Promise<UserLogin | boolean> => {
+): Promise<UserLogin> => {
   const url = `${urlAuth}${path}`;
   const response = await fetch(url, {
     method: 'POST',
@@ -24,7 +24,7 @@ export const loginUser = async (
   });
 
   if (!response.ok) {
-    return false;
+    return;
   }
 
   return response.json();

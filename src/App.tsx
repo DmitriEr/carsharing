@@ -38,6 +38,9 @@ const App: React.FunctionComponent = () => (
         <Route exact path="/carsharing/admin/">
           <AdminPage />
         </Route>
+        {/* <Route exact path="/carsharing/">
+          <AdminPage />
+        </Route> */}
       </Switch>
     </ConnectedRouter>
   </Provider>

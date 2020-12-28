@@ -29,10 +29,11 @@ export const AuthWindow: React.FunctionComponent = () => {
       const { username, password } = data;
 
       if (value) {
+        localStorage.setItem('token', value.access_token);
         username == process.env.REACT_APP_NAME &&
         password === process.env.REACT_APP_PASSWORD
-          ? dispatch(login({ admin: true, auth: true }))
-          : dispatch(login({ admin: false, auth: true }));
+          ? dispatch(login({ admin: true, auth: value.access_token }))
+          : dispatch(login({ admin: false, auth: value.access_token }));
       } else {
         setUserDB('Пользователь не найден');
       }

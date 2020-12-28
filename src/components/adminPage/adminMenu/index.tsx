@@ -2,20 +2,25 @@ import React from 'react';
 import { Layout, List } from 'antd';
 import { MenuLogo } from '../menuLogo';
 import { menu } from '../../../constants/admin';
+
+import { startPage } from '../../../constants/admin';
 import './style.scss';
 
 type PropsAdminMenu = {
   setIsOpen: (x: boolean) => void;
   setPage: (x: string) => void;
+  setCurrentPage: (x: number) => void;
 };
 
 export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
   setIsOpen,
   setPage,
+  setCurrentPage,
 }) => {
   const handlerItem = (value: string) => {
     setIsOpen(false);
     setPage(value);
+    setCurrentPage(startPage);
   };
 
   return (

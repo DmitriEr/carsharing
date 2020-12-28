@@ -41,9 +41,11 @@ export type GenericActionString = {
   payload: string;
 };
 
+export type TypeAuth = { admin: boolean; auth: string | boolean };
+
 export type GenericBoolean = {
   type: string;
-  payload: { [x: string]: boolean };
+  payload: TypeAuth;
 };
 
 export interface NumberForms {
@@ -64,3 +66,12 @@ export type GenericActionPoint = {
 };
 
 export type StatusType = { active: number; current: number };
+
+export type TypeTableAdmin = {
+  key: number;
+  number: number;
+  name: string;
+  id: string;
+  page: string;
+  description: string;
+};
