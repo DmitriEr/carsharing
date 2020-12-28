@@ -20,9 +20,13 @@ interface Data {
   }[];
 }
 
-export const getData = async (path: string, page = 0): Promise<Data> => {
+export const getData = async (
+  path: string,
+  page = 0,
+  limit = 50
+): Promise<Data> => {
   try {
-    const url = `${urlCommon}${path}?page=${page}&limit=10`;
+    const url = `${urlCommon}${path}?page=${page}&limit=${limit}`;
     const response = await fetch(url, {
       headers: headerCommon,
     });

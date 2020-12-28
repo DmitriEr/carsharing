@@ -45,7 +45,7 @@ export const AdminPage: React.FunctionComponent = () => {
     if (isCurrentLink) {
       const firstIndex = currentPage - 1;
 
-      getData(page, firstIndex).then((dataEssence) => {
+      getData(page, firstIndex, 10).then((dataEssence) => {
         const currentValues = dataEssence.data.map((item, index) => {
           const number = getCurrentNumber(index, firstIndex);
           const name: string = getCurrentName(page, item, `Заказ №${number}`);
