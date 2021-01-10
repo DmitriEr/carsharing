@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.admin-input {
+
+  & .label {
+    font-weight: normal;
+    font-size: 13px;
+    color: $black;
+    padding: 5px 0px;
+    background: $white;
+  }
+
+  & .input {
+    padding-left: 10px;
+  }
+}

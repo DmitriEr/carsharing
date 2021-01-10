@@ -1,3 +1,5 @@
+import { updateById } from '../server/updateById';
+
 export const getTimeToString = (start, end) => {
   const minutes = (end - start) / (60 * 1000);
 
@@ -20,14 +22,12 @@ export const getTimeToString = (start, end) => {
 
 export const random = () => Math.random().toString(36).substr(2, 7);
 
-export const getCurrentName = (state: string, val1, val2) => {
+export const getCurrentName = (state: string, value) => {
   switch (state) {
     case 'rate':
-      return val1.rateTypeId.name;
-    case 'order':
-      return val2;
+      return value.rateTypeId.name;
     default:
-      return val1.name;
+      return value.name;
   }
 };
 
@@ -37,10 +37,10 @@ export const getCurrentOption = (state: string, value) => {
       return value.description;
     case 'point':
       return value.address;
-    case 'order':
-      return `${value.price} рублей`;
-    case 'rate' || 'rateTypeId':
-      return value.rateTypeId.unit;
+    case 'rateType':
+      return value.unit;
+    case 'rate':
+      return value.price;
     default:
       return '';
   }
@@ -48,3 +48,75 @@ export const getCurrentOption = (state: string, value) => {
 
 export const getCurrentNumber = (ind: number, count: number) =>
   ind + 1 + count * 10;
+
+export const calculateProgress: (...args: string[]) => number = (...args) => {
+  const count = args.reduce((prev, current) => {
+    const num = current.length ? 1 : 0;
+    prev += num;
+    return prev;
+  }, 0);
+  return (count / args.length) * 100;
+};
+
+export const currentBody = (link, obj, id, ...args) => {
+  const {
+    priceMax,
+    priceMin,
+    thumbnail,
+    categoryId,
+    colors,
+    cityId,
+    rateTypeId,
+  } = obj;
+  switch (link) {
+    case 'category':
+      updateById(id, { name: args[0], description: args[1] }, link);
+      break;
+    case 'rateType':
+      updateById(id, { name: args[0], unit: args[1] }, link);
+      break;
+    case 'point':
+      updateById(id, { cityId, name: args[0], address: args[1] }, link);
+      break;
+    case 'rate':
+      updateById(id, { rateTypeId, price: args[0] }, link);
+      break;
+    case 'car':
+      updateById(
+        id,
+        {
+          priceMax,
+          priceMin,
+          thumbnail,
+          categoryId,
+          colors,
+          name: args[0],
+          description: args[1],
+        },
+        link
+      );
+      break;
+    case 'order':
+      updateById(
+        id,
+        {
+          orderStatusId: {},
+          cityId: {},
+          pointId: {},
+          carId: {},
+          color: 'string',
+          dateFrom: 0,
+          dateTo: 0,
+          rateId: {},
+          price: 0,
+          isFullTank: true,
+          isNeedChildChair: true,
+          isRightWheel: true,
+        },
+        link
+      );
+      break;
+    default:
+      updateById(id, { name: args[0] }, link);
+  }
+};

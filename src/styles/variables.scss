@@ -12,6 +12,11 @@ $adminTitles: #3D5170;
 $boxShadow: #CACEDB;
 $colorFix: #818EA3;
 $adminFormBorder: #BECAD6;
+$adminTextGray: #889098;
+$grayTitle: #868E96;
+$grayText: #5A6169;
+$grayButton: #E9ECEF;
+$redButton: #CB3656;
 
 $sliderDark: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
 $slideZero: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
@@ -20,4 +25,45 @@ $slideTwo: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
 $slideThree: linear-gradient(90deg, #281349 0%, #720C7B 100%);
 $orderButton: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
 
-$fonts: 'Roboto', 'Arial', sans-serif;;
+$fonts: 'Roboto', 'Arial', sans-serif;
+
+%pagination {
+  thead[class*="ant-table-thead"] th{
+    background-color: $white !important;
+  }
+
+  & .ant-table-pagination.ant-pagination {
+    margin: 8px 0;
+  }
+
+  & .card-row {
+    height: 36.5px;
+ 
+    & .ant-table-cell {
+      padding: 8px 8px;
+    }
+  }
+
+  & .ant-pagination-item {
+    border: none;
+    background: transparent;
+
+    & a {
+      color: $buttonsAdmin;
+    }
+  }
+
+  & .ant-pagination-options {
+    display: none;
+  }
+
+  & .ant-pagination-item-active {
+    background: $buttonsAdmin;
+    border-radius: 50%;
+    border-color: 1px solid $buttonsAdmin;
+
+    & a {
+      color: $white;
+    }
+  }
+}

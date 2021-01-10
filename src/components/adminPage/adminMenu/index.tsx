@@ -10,17 +10,20 @@ type PropsAdminMenu = {
   setIsOpen: (x: boolean) => void;
   setPage: (x: string) => void;
   setCurrentPage: (x: number) => void;
+  setCurrentTitle: (x: string) => void;
 };
 
 export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
   setIsOpen,
   setPage,
   setCurrentPage,
+  setCurrentTitle,
 }) => {
-  const handlerItem = (value: string) => {
+  const handlerItem = (value: string, name: string) => {
     setIsOpen(false);
     setPage(value);
     setCurrentPage(startPage);
+    setCurrentTitle(name);
   };
 
   return (
@@ -30,7 +33,10 @@ export const AdminMenu: React.FunctionComponent<PropsAdminMenu> = ({
         dataSource={menu}
         className="wrapper"
         renderItem={(item) => (
-          <List.Item className="list" onClick={() => handlerItem(item.type)}>
+          <List.Item
+            className="list"
+            onClick={() => handlerItem(item.type, item.name)}
+          >
             <List.Item.Meta
               avatar={
                 <MenuLogo

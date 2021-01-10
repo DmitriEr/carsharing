@@ -51,6 +51,7 @@ export const AdminList: React.FunctionComponent<TypeProps> = ({
       <Table
         dataSource={tableData}
         columns={columns}
+        size="small"
         onRow={(record) => {
           return {
             onClick: () => handleTable(record),

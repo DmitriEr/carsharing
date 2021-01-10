@@ -4,42 +4,14 @@
   height: 100%;
   font-weight: normal;
 
+  & .card-row {
+    cursor: pointer;
+    height: 38px !important;
+    overflow: hidden;
+  }
+
   & .table {
     background: $white;
-
-    thead[class*="ant-table-thead"] th{
-      background-color: $white !important;
-    }
-
-    & .card-row {
-      height: 36.5px;
-   
-      & .ant-table-cell {
-        padding: 8px 8px;
-      }
-    }
-
-    & .ant-pagination-item {
-      border: none;
-      background: transparent;
-
-      & a {
-        color: $buttonsAdmin;
-      }
-    }
-
-    & .ant-pagination-options {
-      display: none;
-    }
-
-    & .ant-pagination-item-active {
-      background: $buttonsAdmin;
-      border-radius: 50%;
-      border-color: 1px solid $buttonsAdmin;
-
-      & a {
-        color: $white;
-      }
-    }
+    @extend %pagination;
   }
 }

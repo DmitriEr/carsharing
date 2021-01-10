@@ -10,19 +10,21 @@ import { AdminFooter } from './adminFooter';
 import { AdminList } from './adminList';
 import { AdminCard } from './adminCard';
 import { AdminError } from './adminError';
-import { getData } from '../../server/data';
+import { AdminOrders } from './adminOrders';
+import { getData, getOrders } from '../../server/data';
 import {
   getCurrentName,
   getCurrentNumber,
   getCurrentOption,
 } from '../../helper';
-import { TypeTableAdmin } from '../../interfaces';
+import { TypeTableAdmin, Data } from '../../interfaces';
 import {
   startPage,
   links,
   logoApp,
   cardEssence,
   error,
+  order,
 } from '../../constants/admin';
 import './style.scss';
 
@@ -35,6 +37,8 @@ export const AdminPage: React.FunctionComponent = () => {
   const [essence, setEssence] = useState<TypeTableAdmin>();
   const [countPages, setCountPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(startPage);
+  const [ordersInfo, setOrdersInfo] = useState<Data>();
+  const [currentTitle, setCurrentTitle] = useState('Автомобили');
 
   const auth = useSelector(authorization);
   const { isAdmin, isAuth } = auth;
@@ -44,17 +48,23 @@ export const AdminPage: React.FunctionComponent = () => {
 
     if (isCurrentLink) {
       const firstIndex = currentPage - 1;
-
-      getData(page, firstIndex, 10).then((dataEssence) => {
-        const currentValues = dataEssence.data.map((item, index) => {
-          const number = getCurrentNumber(index, firstIndex);
-          const name: string = getCurrentName(page, item, `Заказ №${number}`);
-          const description: string = getCurrentOption(page, item);
-          return { key: index, number, name, id: item.id, page, description };
+      if (page === order) {
+        getOrders(page, firstIndex).then((dataEssence) => {
+          setOrdersInfo(dataEssence);
+          setCountPages(dataEssence.count);
         });
-        setTableData(currentValues);
-        setCountPages(dataEssence.count);
-      });
+      } else {
+        getData(page, firstIndex, 10).then((dataEssence) => {
+          const currentValues = dataEssence.data.map((item, index) => {
+            const number = getCurrentNumber(index, firstIndex);
+            const name: string = getCurrentName(page, item);
+            const description: string = getCurrentOption(page, item);
+            return { key: index, number, name, id: item.id, page, description };
+          });
+          setTableData(currentValues);
+          setCountPages(dataEssence.count);
+        });
+      }
     }
   }, [page, currentPage]);
 
@@ -63,7 +73,18 @@ export const AdminPage: React.FunctionComponent = () => {
       case logoApp:
         return <Redirect to="/carsharing/main" />;
       case cardEssence:
-        return <AdminCard essence={essence} />;
+        return <AdminCard essence={essence} setPage={setPage} />;
+      case order:
+        return (
+          <AdminOrders
+            ordersInfo={ordersInfo}
+            countPages={countPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            setPage={setPage}
+            setEssence={setEssence}
+          />
+        );
       case error:
         return <AdminError />;
       default:
@@ -95,13 +116,17 @@ export const AdminPage: React.FunctionComponent = () => {
             setIsOpen={setIsOpen}
             setPage={setPage}
             setCurrentPage={setCurrentPage}
+            setCurrentTitle={setCurrentTitle}
           />
         </Sider>
         <Layout>
           <Header className="header">
             <AdminHeader />
           </Header>
-          <Content className="content">{showContent()}</Content>
+          <Content className="content">
+            <h1 className="title">{currentTitle}</h1>
+            {showContent()}
+          </Content>
           <Footer className="footer">
             <AdminFooter />
           </Footer>

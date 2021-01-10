@@ -25,13 +25,21 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     padding: 0px;
     height: 67.5px;
     box-shadow: inset 0px -1px 0px #E1E5EB;
+    padding: 0px 20px;
+    font-size: 18px;
   }
 
   & .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 27.5px;
+    width: 100%;
+    padding: 10px 27.5px;
+
+    & .title {
+      font-weight: normal;
+      color: $adminTitles;
+      font-size: 29px;
+      line-height: 33px;
+      width: 100%;
+    }
   }
 
   & .footer {
@@ -63,6 +71,16 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     
     & .btn-off {
       background-image: url('../../assets/admin/close.svg');
+    }
+
+    & .content {
+      padding: 20px;
+
+      & .title {
+        font-size: 18px;
+        line-height: 23px;
+        margin-bottom: 10px;
+      }
     }
 
     & .slider {

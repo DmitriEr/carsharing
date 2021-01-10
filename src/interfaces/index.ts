@@ -68,10 +68,50 @@ export type GenericActionPoint = {
 export type StatusType = { active: number; current: number };
 
 export type TypeTableAdmin = {
-  key: number;
-  number: number;
-  name: string;
+  key?: number;
+  number?: number;
+  name?: string;
   id: string;
   page: string;
-  description: string;
+  description?: string;
+  car?: string;
+  city?: string;
+  point?: string;
+  dateTo?: number;
+  dateFrom?: number;
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+  color?: string;
+  price?: number;
 };
+
+interface DataItem {
+  categoryId?: { name: string };
+  carId?: { name: string; thumbnail: { path: string } };
+  description?: string;
+  id?: string;
+  name?: string;
+  priceMin?: number;
+  priceMax?: number;
+  thumbnail?: { path: string };
+  colors?: string[];
+  number?: string;
+  price?: number;
+  rateTypeId?: { unit: string; name: string };
+  cityId?: { name?: string; id?: string };
+  pointId?: { name: string; id: string; address: string };
+  address?: string;
+  orderStatusId?: { name: string; id: string };
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+  color?: string;
+  dateFrom?: number;
+  dateTo?: number;
+}
+
+export interface Data {
+  count: number;
+  data: DataItem[];
+}

@@ -8,5 +8,5 @@ export const urlAuth = `${herokuapp}api/auth/`;
 export const headerCommon = {
   'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
   'Content-Type': 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
+  Authorization: '4cbcea96de',
 };

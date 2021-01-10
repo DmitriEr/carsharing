@@ -11,14 +11,14 @@ import { herokuapp } from '../../../constants/server';
 import './style.scss';
 
 interface CarsData {
-  name: string;
-  priceMin: number;
-  priceMax: number;
-  thumbnail: { path: string };
-  categoryId: { name: string };
-  colors: string[];
-  number: string;
-  id: string;
+  name?: string;
+  priceMin?: number;
+  priceMax?: number;
+  thumbnail?: { path: string };
+  categoryId?: { name: string };
+  colors?: string[];
+  number?: string;
+  id?: string;
 }
 
 interface CarsProps {
