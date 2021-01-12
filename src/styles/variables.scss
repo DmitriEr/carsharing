@@ -29,7 +29,7 @@ $fonts: 'Roboto', 'Arial', sans-serif;
 
 %pagination {
   thead[class*="ant-table-thead"] th{
-    background-color: $white !important;
+    background-color: $white;
   }
 
   & .ant-table-pagination.ant-pagination {

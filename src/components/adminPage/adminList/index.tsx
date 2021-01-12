@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Table } from 'antd';
 
-import { cardEssence } from '../../../constants/admin';
+import { cardEssence, columns } from '../../../constants/admin';
 import { TypeTableAdmin } from '../../../interfaces';
 
 import './style.scss';
@@ -9,8 +9,8 @@ import './style.scss';
 type TypeProps = {
   tableData: TypeTableAdmin[];
   setPage: (page: string) => void;
-  setEssence: (x: TypeTableAdmin) => void;
-  setCurrentPage: (x: number) => void;
+  setEssence: (essence: TypeTableAdmin) => void;
+  setCurrentPage: (currentPage: number) => void;
   countPages: number;
   currentPage: number;
 };
@@ -23,24 +23,6 @@ export const AdminList: React.FunctionComponent<TypeProps> = ({
   setCurrentPage,
   currentPage,
 }) => {
-  const columns = [
-    {
-      title: 'Номер',
-      dataIndex: 'number',
-      key: 'number',
-    },
-    {
-      title: 'Наименование',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Описание',
-      dataIndex: 'description',
-      key: 'description',
-    },
-  ];
-
   const handleTable = (item: TypeTableAdmin) => {
     setPage(cardEssence);
     setEssence(item);

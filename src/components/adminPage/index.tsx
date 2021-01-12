@@ -28,7 +28,7 @@ import {
 } from '../../constants/admin';
 import './style.scss';
 
-const { Sider, Header, Content, Footer } = Layout;
+const { Sider } = Layout;
 
 export const AdminPage: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -119,17 +119,17 @@ export const AdminPage: React.FunctionComponent = () => {
             setCurrentTitle={setCurrentTitle}
           />
         </Sider>
-        <Layout>
-          <Header className="header">
+        <Layout className="wrapper-content">
+          <header className="header">
             <AdminHeader />
-          </Header>
-          <Content className="content">
+          </header>
+          <main className="content">
             <h1 className="title">{currentTitle}</h1>
             {showContent()}
-          </Content>
-          <Footer className="footer">
+          </main>
+          <footer className="footer">
             <AdminFooter />
-          </Footer>
+          </footer>
         </Layout>
       </Layout>
     );

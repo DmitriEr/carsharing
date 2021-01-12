@@ -4,11 +4,11 @@ import { SelectAdmin } from '../../../common/SelectAdmin';
 
 type TypeOrderOptional = {
   carModel: string;
-  setCarModel: (x: string) => void;
+  setCarModel: (car: string) => void;
   cityName: string;
-  setCityName: (x: string) => void;
+  setCityName: (city: string) => void;
   pointName: string;
-  setPointName: (x: string) => void;
+  setPointName: (point: string) => void;
 };
 
 export const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
@@ -36,9 +36,12 @@ export const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
 
   useEffect(() => {
     getData('point').then((item) => {
-      const arr = item.data
-        .filter((value) => value.cityId.name === cityName)
-        .map((point) => point.name);
+      const arr = item.data.reduce((prev, item) => {
+        if (item.cityId.name === cityName) {
+          prev.push(item.name);
+        }
+        return prev;
+      }, []);
       setPoints(arr);
     });
   }, [cityName]);

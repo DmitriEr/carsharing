@@ -122,3 +122,21 @@ export const translateStatus = {
   confirmed: 'Потдвержден',
   cancelled: 'Отменен',
 };
+
+export const columns = [
+  {
+    title: 'Номер',
+    dataIndex: 'number',
+    key: 'number',
+  },
+  {
+    title: 'Наименование',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Описание',
+    dataIndex: 'description',
+    key: 'description',
+  },
+];

@@ -94,11 +94,7 @@ export const AuthWindow: React.FunctionComponent = () => {
                 </Button>
               </Form.Item>
               <Form.Item className="authorization">
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={() => onLogIn()}
-                >
+                <Button type="primary" htmlType="submit" onClick={onLogIn}>
                   Войти
                 </Button>
               </Form.Item>

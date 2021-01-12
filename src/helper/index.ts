@@ -1,4 +1,5 @@
 import { updateById } from '../server/updateById';
+import { orderValues } from '../constants/common';
 
 export const getTimeToString = (start, end) => {
   const minutes = (end - start) / (60 * 1000);
@@ -97,24 +98,7 @@ export const currentBody = (link, obj, id, ...args) => {
       );
       break;
     case 'order':
-      updateById(
-        id,
-        {
-          orderStatusId: {},
-          cityId: {},
-          pointId: {},
-          carId: {},
-          color: 'string',
-          dateFrom: 0,
-          dateTo: 0,
-          rateId: {},
-          price: 0,
-          isFullTank: true,
-          isNeedChildChair: true,
-          isRightWheel: true,
-        },
-        link
-      );
+      updateById(id, orderValues, link);
       break;
     default:
       updateById(id, { name: args[0] }, link);

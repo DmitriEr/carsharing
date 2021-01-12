@@ -19,9 +19,9 @@ type TypeOrdersInfo = {
   ordersInfo: Data;
   countPages: number;
   currentPage: number;
-  setCurrentPage: (x: number) => void;
-  setPage: (x: string) => void;
-  setEssence: (x: TypeTableAdmin) => void;
+  setCurrentPage: (currentPage: number) => void;
+  setPage: (page: string) => void;
+  setEssence: (essence: TypeTableAdmin) => void;
 };
 
 const { Content, Header, Footer } = Layout;
@@ -73,24 +73,36 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
         .then(() => setUpdateStatus(action));
     };
 
-    return (
-      <Layout className="wrapper-orders">
-        <Header className="header">{`Статус: ${translateStatus[updateStatus]}`}</Header>
-        <Content className="orders">
+    const showImage = () => {
+      if (carId) {
+        return (
           <div className="picture">
             <Image
-              src={`${herokuapp}${carId === null ? '' : carId.thumbnail.path}`}
-              alt={carId === null ? '' : carId.name}
+              src={`${herokuapp}${carId.thumbnail.path}`}
+              alt={carId.name}
               referrerPolicy="origin"
               crossOrigin="anonymous"
               className="image"
             />
           </div>
+        );
+      }
+    };
+
+    const showCarName = () => {
+      if (carId) return carId.name;
+    };
+
+    return (
+      <Layout className="wrapper-orders">
+        <Header className="header">{`Статус: ${translateStatus[updateStatus]}`}</Header>
+        <Content className="orders">
+          {showImage()}
           <div className="information">
             <Content>
-              <span className="words">{carId === null ? '' : carId.name}</span>{' '}
-              в <span className="words">{cityId.name}</span>,
-              {` ${pointId.address}`}
+              <span className="words">{showCarName()}</span>
+              <span className="words">{`в ${cityId.name},`}</span>
+              <span>{` ${pointId.address}`}</span>
             </Content>
             <Content>{`${firstDay} - ${lastDay}`}</Content>
             <Content>{`Цвет: ${color}`}</Content>

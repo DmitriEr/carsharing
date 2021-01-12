@@ -110,8 +110,31 @@ interface DataItem {
   dateFrom?: number;
   dateTo?: number;
 }
-
 export interface Data {
   count: number;
   data: DataItem[];
 }
+
+type CommonType = { [x: string]: string };
+
+type MixType = { [x: string]: string };
+
+export type TypePromiseData = {
+  orderStatusId?: CommonType;
+  colors?: string[];
+  createdAt?: number;
+  description?: string;
+  id?: string;
+  name?: string;
+  number?: string;
+  priceMax?: number;
+  priceMin?: number;
+  tank?: number;
+  thumbnail?: MixType;
+  updatedAt?: number;
+  address?: string;
+  cityId?: CommonType;
+  price?: number;
+  rateTypeId?: CommonType;
+  unit?: string;
+};

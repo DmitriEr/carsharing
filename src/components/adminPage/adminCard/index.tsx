@@ -9,7 +9,7 @@ import { currentBody } from '../../../helper';
 import { InputFolder } from '../../common/Admin';
 import { calculateProgress } from '../../../helper';
 import { titleTranslate } from '../../../constants/admin';
-import { TypeTableAdmin } from '../../../interfaces';
+import { TypeTableAdmin, TypePromiseData } from '../../../interfaces';
 
 import './style.scss';
 
@@ -17,7 +17,7 @@ const { Header, Content, Footer } = Layout;
 
 type TypeCard = {
   essence: TypeTableAdmin;
-  setPage: (x: string) => void;
+  setPage: (page: string) => void;
 };
 
 export const AdminCard: React.FunctionComponent<TypeCard> = ({
@@ -31,7 +31,7 @@ export const AdminCard: React.FunctionComponent<TypeCard> = ({
   const [carModel, setCarModel] = useState(car);
   const [cityName, setCityName] = useState(city);
   const [pointName, setPointName] = useState(point);
-  const [dataEssence, setDataEssence] = useState<any>();
+  const [dataEssence, setDataEssence] = useState<TypePromiseData>({});
 
   useEffect(() => {
     getById(page, id).then((item) => setDataEssence(item.data));
@@ -99,7 +99,7 @@ export const AdminCard: React.FunctionComponent<TypeCard> = ({
         </Content>
         <Footer className="footer">
           <div>
-            <Button className="save" onClick={() => updateEssence()}>
+            <Button className="save" onClick={updateEssence}>
               Сохранить
             </Button>
             <Button onClick={() => setPage(page)} className="cancel">

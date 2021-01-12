@@ -68,10 +68,12 @@
       color: $adminTitles;
       box-shadow: none;
       padding: 0px;
+      position: inherit;
     }
 
     & .content {
       padding: 0px;
+      margin: 0px;
     }
 
     & .footer {
@@ -81,6 +83,7 @@
       background: $white;
       box-sizing: border-box;
       margin-top: 50px;
+      position: inherit;
 
       & .save {
         background: $buttonsAdmin;

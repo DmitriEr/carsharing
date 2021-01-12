@@ -16,6 +16,7 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     box-shadow: $box;
   }
 
+    
   & .header {
     display: flex;
     align-items: stretch;
@@ -27,11 +28,16 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     box-shadow: inset 0px -1px 0px #E1E5EB;
     padding: 0px 20px;
     font-size: 18px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-left: 2px;
   }
 
   & .content {
     width: 100%;
-    padding: 10px 27.5px;
+    padding: 20px 27.5px;
+    margin: 70px 0px;
 
     & .title {
       font-weight: normal;
@@ -44,6 +50,12 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
 
   & .footer {
     padding: 0px;
+    height: 67.5px;
+    box-shadow: inset 0px -1px 0px #E1E5EB;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-left: 2px;
   }
 }
 
