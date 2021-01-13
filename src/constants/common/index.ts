@@ -14,3 +14,18 @@ export const translateCityName: { [x: string]: string } = {
   Krasnoyarsk: 'Красноярск',
   'Naberezhnye Chelny': 'Набережные челны',
 };
+
+export const orderValues = {
+  orderStatusId: {},
+  cityId: {},
+  pointId: {},
+  carId: {},
+  color: 'string',
+  dateFrom: 0,
+  dateTo: 0,
+  rateId: {},
+  price: 0,
+  isFullTank: true,
+  isNeedChildChair: true,
+  isRightWheel: true,
+};

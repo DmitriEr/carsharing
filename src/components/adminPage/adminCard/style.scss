@@ -1,0 +1,165 @@
+@import '../../../styles/variables.scss';
+
+%titleFonts {
+  color: $grayTitle;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  padding-top: 22.5px;
+  background: $white;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+
+  & .card {
+    width: 40%;
+    flex: none;
+    background: $white;
+
+    & .name-wrapper {
+      display: flex;
+      justify-content: center;
+      color: $adminTitles;
+      font-weight: normal;
+      font-size: 24.5px;
+      line-height: 28px;
+      background: $white;
+      padding: 34.5px 27px 22.5px;
+    }
+
+    & .percent-wrapper {
+      @extend %titleFonts;
+      padding: 15px 27px;
+      box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.12), 0px 1px 0px rgba(0, 0, 0, 0.12);
+
+      & .percent {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    & .description-wrapper {
+      @extend %titleFonts;
+      padding: 22.5px 27px 45px;
+      box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.12), 0px 1px 0px rgba(0, 0, 0, 0.12);
+
+      & .description {
+        font-size: 13.5px;
+        line-height: 19px;
+        color: $grayText;
+        margin-top: 13.5px;
+      }
+    }
+  }
+
+  & .form {
+    width: 55%;
+    background: $white !important;
+    flex: none;
+    padding: 18px;
+
+    & .header {
+      font-weight: 500;
+      font-size: 17.5px;
+      color: $adminTitles;
+      box-shadow: none;
+      padding: 0px;
+      position: inherit;
+    }
+
+    & .content {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    & .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      background: $white;
+      box-sizing: border-box;
+      margin-top: 50px;
+      position: inherit;
+
+      & .save {
+        background: $buttonsAdmin;
+        border: 0.5px solid $buttonsAdmin;
+        border-radius: 4px;
+        margin-right: 20px;
+      }
+
+      & .cancel {
+        background: $grayButton;
+        border: 0.5px solid $grayButton;
+        border-radius: 4px;
+      }
+
+      & .delete {
+        background: $redButton;
+        border: 0.5px solid $redButton;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-wrapper {
+    flex-wrap: wrap;
+
+    & .card {
+      width: 100%;
+
+      & .name-wrapper {
+        font-size: 15px;
+        line-height: 18px;
+        padding: 15px 12px 12px;
+      }
+
+      & .percent-wrapper {
+        padding: 10px 12px;
+      }
+  
+      & .description-wrapper {
+        padding: 15px 12px 20px;
+  
+        & .description {
+          line-height: 16px;
+          margin-top: 15px;
+        }
+      }
+    }
+
+    & .form {
+      width: 100%;
+      margin-top: 10px;
+
+      & .header {
+        font-size: 15px;
+        line-height: 25px;
+        height: 30px;
+      }
+
+      & .footer {
+        margin-top: 30px;
+  
+        & .save {
+          margin-right: 5px;
+          font-size: 12px;
+        }
+
+        & .cancel {
+          font-size: 12px;
+        }
+
+        & .delete {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Map } from './Map';
 import { getData } from '../../../server/data';
 import { changePoint, changeUserCity } from '../../../redux/actions';
-import { info, list } from '../../../redux/selectors';
 import { SelectAddress } from './SelectAddress';
 import { pointInfo } from '../../../interfaces';
 import './style.scss';
 
-export const Location: React.FunctionComponent = () => {
+type TypeLocation = {
+  userCity: string;
+  checkPoint: string;
+};
+
+export const Location: React.FunctionComponent<TypeLocation> = ({
+  userCity,
+  checkPoint,
+}) => {
   const [cities, setCities] = useState<pointInfo[]>([]);
   const [points, setPoints] = useState<pointInfo[]>([]);
-
-  const cityData = useSelector(info);
-  const pointValue = useSelector(list);
-
-  const checkPoint = pointValue[0].value;
-
-  const { userCity } = cityData;
 
   useEffect(() => {
     getData('city').then((city) => {

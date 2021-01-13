@@ -1,0 +1,110 @@
+@import '../../../styles/variables.scss';
+
+.authorization-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: $backgroundAdmin;
+
+  & .logo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -60px;
+    left: 20%;
+
+      & .title {
+        display: inline-block;
+        margin-left: 11px;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 28px;
+        color: $adminTitles;
+      }
+  }
+
+  & .wrapper {
+    width: 380px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12), 0px 5px 5px rgba(90, 97, 105, 0.06), 0px 3.5px 35px rgba(90, 97, 105, 0.1);
+    border-radius: 9px;
+    padding: 0px 17px;
+    position: relative;
+
+    & .entry {
+      font-weight: normal;
+      font-size: 17.5px;
+      line-height: 20px;
+      text-align: center;
+      margin-top: 19px;
+      margin-bottom: 9px;
+      color: $adminTitles;
+
+      & span {
+        display: inline-block;
+        width: 100%;
+        margin: 0px 5px;
+
+        &:last-child {
+          color: $red;
+        }
+      }
+    }
+
+    & #login-form {
+      font-weight: normal;
+      font-size: 14px;
+
+      & .ant-form-item {
+        margin-bottom: 15px;
+
+        & .ant-form-item-label {
+          height: 30px;
+        }
+      }
+
+      & .ant-form-item-label > label {
+        font-weight: normal;
+        font-size: 14px;
+      }
+
+      & .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+        content: none;
+      }
+    }
+
+    & .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      & .registration {
+
+        & .ant-btn {
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 12px;
+          color: $buttonsAdmin;
+        }
+      }
+
+      & .authorization {
+        background: $buttonsAdmin;
+        width: 110px;
+        height: 29px;
+
+        & .ant-btn {
+          border: 0.5px solid $buttonsAdmin;
+          box-sizing: border-box;
+          border-radius: 4px;
+          font-size: 14px;
+          color: $white;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -8,11 +8,14 @@ import {
   CHANGE_OPTION,
   CALCULATE_PRICE,
   CLEAR_ORDER,
+  LOGIN,
 } from '../type';
 import {
   GenericActionOrder,
   GenericActionString,
   GenericActionPoint,
+  GenericBoolean,
+  TypeAuth,
   OrderType,
   pointInfo,
 } from '../../interfaces';
@@ -94,6 +97,13 @@ export function clearOrder(
 ): { type: string; payload: OrderType[] } {
   return {
     type: CLEAR_ORDER,
+    payload: item,
+  };
+}
+
+export function login(item: TypeAuth): GenericBoolean {
+  return {
+    type: LOGIN,
     payload: item,
   };
 }

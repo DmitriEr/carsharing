@@ -1,0 +1,138 @@
+@import '../../styles/variables.scss';
+
+$box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12), 0px 7.5px 11px rgba(90, 97, 105, 0.1), 0px 3.5px 17.5px rgba(165, 182, 201, 0.1);
+
+.admin-page {
+  height: 100%;
+  background: $white;
+
+  & .control {
+    display: none;
+    background: transparent;
+    border: none;
+  }
+
+  & .slider {
+    box-shadow: $box;
+  }
+
+    
+  & .header {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-wrap: nowrap;
+    background: $white;
+    padding: 0px;
+    height: 67.5px;
+    box-shadow: inset 0px -1px 0px #E1E5EB;
+    padding: 0px 20px;
+    font-size: 18px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-left: 2px;
+  }
+
+  & .content {
+    width: 100%;
+    padding: 20px 27.5px;
+    margin: 70px 0px;
+
+    & .title {
+      font-weight: normal;
+      color: $adminTitles;
+      font-size: 29px;
+      line-height: 33px;
+      width: 100%;
+    }
+  }
+
+  & .footer {
+    padding: 0px;
+    height: 67.5px;
+    box-shadow: inset 0px -1px 0px #E1E5EB;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-left: 2px;
+  }
+}
+
+@media (max-width: 700px) {
+  .admin-page {
+    position: relative;
+
+    & .control {
+      display: block;
+      border: none;
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 18px;
+      left: 10px;
+      cursor: pointer;
+      outline: none;
+      z-index: 2;
+    }
+
+    & .btn-on {
+      background-image: url('../../assets/admin/open.svg');
+    }
+    
+    & .btn-off {
+      background-image: url('../../assets/admin/close.svg');
+    }
+
+    & .content {
+      padding: 20px;
+
+      & .title {
+        font-size: 18px;
+        line-height: 23px;
+        margin-bottom: 10px;
+      }
+    }
+
+    & .slider {
+      display: block;
+      z-index: 1;
+      position: absolute;
+      top: 0px;
+      height: 100%;
+      box-shadow: $box;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+    }
+
+    & .slider-open {
+      left: 0px;
+      animation-name: side-open;
+    }
+
+    & .slider-close {
+      left: -285px;
+      animation-name: side-close;
+    }
+  }
+  
+  @keyframes side-open {
+    0%{
+      left: -285px;
+    }
+    100%{
+      left: 0px;
+    }
+  }
+
+  @keyframes side-close {
+    0%{
+      left: 0px;
+    }
+    100%{
+      left: -285px;
+    }
+  }
+}
+

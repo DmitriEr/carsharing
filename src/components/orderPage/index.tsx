@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Layout } from 'antd';
 import { Location } from './Location';
 import { Cars } from './Cars';
@@ -10,6 +11,7 @@ import { Option } from './Option';
 import { Confirm } from './Confirm';
 import { StatusType } from '../../interfaces';
 import { ModalWindow } from '../common/ModalWindow';
+import { list, info } from '../../redux/selectors';
 import './style.scss';
 
 const { Content } = Layout;
@@ -20,6 +22,13 @@ export const OrderPage: React.FunctionComponent = () => {
     current: 0,
   });
   const [colorsOpt, setColorsOpt] = useState<string[]>([]);
+
+  const cityData = useSelector(info);
+  const pointValue = useSelector(list);
+
+  const checkPoint = pointValue[0].value;
+
+  const { userCity } = cityData;
 
   const switchForm = () => {
     const nextStatus = numberStatus.active + 1;
@@ -36,7 +45,7 @@ export const OrderPage: React.FunctionComponent = () => {
   const showCurrentStatus = () => {
     switch (numberStatus.active) {
       case 0:
-        return <Location />;
+        return <Location userCity={userCity} checkPoint={checkPoint} />;
       case 1:
         return <Cars setColorsOpt={setColorsOpt} />;
       case 2:

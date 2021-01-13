@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+
+.table-admin {
+  height: 100%;
+  font-weight: normal;
+
+  & .card-row {
+    cursor: pointer;
+    height: 38px;
+    overflow: hidden;
+  }
+
+  & .table {
+    background: $white;
+    @extend %pagination;
+  }
+}

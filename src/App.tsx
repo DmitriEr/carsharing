@@ -6,10 +6,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { ConnectedRouter } from 'connected-react-router';
 import { MainPage } from './components/mainPage';
 import { OrderPage } from './components/orderPage';
+import { AdminPage } from './components/adminPage';
 import { ConfirmOrder } from './components/confirmOrder';
+import { AuthorizationPage } from './components/authorizationPage';
+import { createRootReducer } from './redux/rootReducer';
 import 'antd/dist/antd.css';
 import './App.scss';
-import { createRootReducer } from './redux/rootReducer';
 
 import { createBrowserHistory } from 'history';
 
@@ -22,6 +24,9 @@ const App: React.FunctionComponent = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/carsharing/">
+          <AuthorizationPage />
+        </Route>
+        <Route exact path="/carsharing/main/">
           <MainPage />
         </Route>
         <Route exact path="/carsharing/order">
@@ -29,6 +34,9 @@ const App: React.FunctionComponent = () => (
         </Route>
         <Route exact path={`/carsharing/order/${localStorage.getItem('id')}`}>
           <ConfirmOrder />
+        </Route>
+        <Route exact path="/carsharing/admin/">
+          <AdminPage />
         </Route>
       </Switch>
     </ConnectedRouter>

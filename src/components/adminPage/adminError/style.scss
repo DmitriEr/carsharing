@@ -1,0 +1,76 @@
+@import '../../../styles/variables.scss';
+
+.admin-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  & p {
+    text-align: center;
+    color: $colorFix;
+    margin: 0px;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+  }
+
+  & .code {
+    font-weight: 500;
+    font-size: 75px;
+    line-height: 88px;
+    color: $boxShadow;
+  }
+
+  & .description {
+    font-size: 50px;
+    line-height: 57px;
+    color: $adminTitles;
+    margin: 13px 0px 15px;
+  }
+
+  & button {
+    width: 95px;
+    background: $buttonsAdmin;
+    color: $white;
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-error {
+    & p {
+      font-size: 15px;
+      line-height: 18px;
+    }
+  
+    & .code {
+      font-size: 55px;
+      line-height: 60px;
+    }
+  
+    & .description {
+      font-size: 38px;
+      line-height: 42px;
+      margin: 10px 0px 12px;
+    }
+
+    & button {
+      margin-top: 26px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-error {
+    & .code {
+      font-size: 35px;
+      line-height: 40px;
+    }
+  
+    & .description {
+      font-size: 28px;
+      line-height: 32px;
+    }
+  }
+}

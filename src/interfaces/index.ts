@@ -27,6 +27,7 @@ export interface RootReducer {
   };
   page: string;
   price: number;
+  auth: { [x: string]: boolean };
   router: RouterState;
 }
 
@@ -38,6 +39,13 @@ export type GenericActionOrder = {
 export type GenericActionString = {
   type: string;
   payload: string;
+};
+
+export type TypeAuth = { admin: boolean; auth: string | boolean };
+
+export type GenericBoolean = {
+  type: string;
+  payload: TypeAuth;
 };
 
 export interface NumberForms {
@@ -58,3 +66,75 @@ export type GenericActionPoint = {
 };
 
 export type StatusType = { active: number; current: number };
+
+export type TypeTableAdmin = {
+  key?: number;
+  number?: number;
+  name?: string;
+  id: string;
+  page: string;
+  description?: string;
+  car?: string;
+  city?: string;
+  point?: string;
+  dateTo?: number;
+  dateFrom?: number;
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+  color?: string;
+  price?: number;
+};
+
+interface DataItem {
+  categoryId?: { name: string };
+  carId?: { name: string; thumbnail: { path: string } };
+  description?: string;
+  id?: string;
+  name?: string;
+  priceMin?: number;
+  priceMax?: number;
+  thumbnail?: { path: string };
+  colors?: string[];
+  number?: string;
+  price?: number;
+  rateTypeId?: { unit: string; name: string };
+  cityId?: { name?: string; id?: string };
+  pointId?: { name: string; id: string; address: string };
+  address?: string;
+  orderStatusId?: { name: string; id: string };
+  isFullTank?: boolean;
+  isNeedChildChair?: boolean;
+  isRightWheel?: boolean;
+  color?: string;
+  dateFrom?: number;
+  dateTo?: number;
+}
+export interface Data {
+  count: number;
+  data: DataItem[];
+}
+
+type CommonType = { [x: string]: string };
+
+type MixType = { [x: string]: string };
+
+export type TypePromiseData = {
+  orderStatusId?: CommonType;
+  colors?: string[];
+  createdAt?: number;
+  description?: string;
+  id?: string;
+  name?: string;
+  number?: string;
+  priceMax?: number;
+  priceMin?: number;
+  tank?: number;
+  thumbnail?: MixType;
+  updatedAt?: number;
+  address?: string;
+  cityId?: CommonType;
+  price?: number;
+  rateTypeId?: CommonType;
+  unit?: string;
+};

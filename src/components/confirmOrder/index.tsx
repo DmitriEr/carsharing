@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Confirm } from '../orderPage/Confirm';
-import { getOrderById } from '../../server/getOrderById';
+import { getById } from '../../server/getById';
 import { getTimeToString } from '../../helper';
 import { initState } from '../../constants/redux';
 import { clearOrder } from '../../redux/actions';
@@ -44,7 +44,7 @@ export const ConfirmOrder: React.FunctionComponent = () => {
   const id = localStorage.getItem('id');
 
   useEffect(() => {
-    getOrderById(id).then(({ data }) => {
+    getById('order', id).then(({ data }) => {
       const {
         cityId,
         pointId,

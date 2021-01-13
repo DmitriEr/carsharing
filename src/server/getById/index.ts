@@ -1,6 +1,7 @@
 import { urlCommon, headerCommon } from '../../constants/server';
 
-export const getOrderById: (
+export const getById: (
+  path: string,
   id: string
 ) => Promise<{
   data: {
@@ -15,10 +16,11 @@ export const getOrderById: (
     dateFrom: number;
     dateTo: number;
     rateId: { rateTypeId: { name: string } };
+    orderStatusId: { name: string; id: string };
   };
-}> = async (id) => {
+}> = async (path, id) => {
   try {
-    const url = `${urlCommon}order/${id}`;
+    const url = `${urlCommon}${path}/${id}`;
     const response = await fetch(url, {
       headers: headerCommon,
     });
@@ -30,6 +32,6 @@ export const getOrderById: (
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(`Error in getOrderById: ${error.message}`);
+    throw new Error(`Error in getById: ${error.message}`);
   }
 };
