@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Progress, Button } from 'antd';
 
-import { OrderCard } from './orderCard';
-
+import OrderCard from './orderCard';
 import { getById } from '../../../server/getById';
 import { deleteById } from '../../../server/deleteById';
 import { currentBody } from '../../../helper';
@@ -18,19 +17,18 @@ const { Header, Content, Footer } = Layout;
 type TypeCard = {
   essence: TypeTableAdmin;
   setPage: (page: string) => void;
+  setEssence: (essence: TypeTableAdmin) => void;
 };
 
 export const AdminCard: React.FunctionComponent<TypeCard> = ({
   essence,
   setPage,
+  setEssence,
 }) => {
-  const { page, id, name, description, car, city, point } = essence;
+  const { page, id, name, description, car } = essence;
 
   const [nameEssence, setNameEssence] = useState(name);
   const [descriptionEssence, setDescriptionEssence] = useState(description);
-  const [carModel, setCarModel] = useState(car);
-  const [cityName, setCityName] = useState(city);
-  const [pointName, setPointName] = useState(point);
   const [dataEssence, setDataEssence] = useState<TypePromiseData>({});
 
   useEffect(() => {
@@ -41,20 +39,11 @@ export const AdminCard: React.FunctionComponent<TypeCard> = ({
     currentBody(page, dataEssence, id, nameEssence, descriptionEssence, car);
   };
 
-  const showOrderCard = () => {
-    if (page === 'order') {
-      return (
-        <OrderCard
-          carModel={carModel}
-          setCarModel={setCarModel}
-          cityName={cityName}
-          setCityName={setCityName}
-          pointName={pointName}
-          setPointName={setPointName}
-        />
-      );
-    }
-  };
+  if (page === 'order') {
+    return (
+      <OrderCard essence={essence} setEssence={setEssence} setPage={setPage} />
+    );
+  }
 
   return (
     <div className="card-wrapper">
@@ -95,7 +84,6 @@ export const AdminCard: React.FunctionComponent<TypeCard> = ({
             name={'Описание'}
             setNameEssence={setDescriptionEssence}
           />
-          {showOrderCard()}
         </Content>
         <Footer className="footer">
           <div>

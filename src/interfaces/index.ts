@@ -84,6 +84,7 @@ export type TypeTableAdmin = {
   isRightWheel?: boolean;
   color?: string;
   price?: number;
+  orderStatus?: string;
 };
 
 interface DataItem {

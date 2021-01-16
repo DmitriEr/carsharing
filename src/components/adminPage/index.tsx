@@ -73,7 +73,13 @@ export const AdminPage: React.FunctionComponent = () => {
       case logoApp:
         return <Redirect to="/carsharing/main" />;
       case cardEssence:
-        return <AdminCard essence={essence} setPage={setPage} />;
+        return (
+          <AdminCard
+            essence={essence}
+            setPage={setPage}
+            setEssence={setEssence}
+          />
+        );
       case order:
         return (
           <AdminOrders

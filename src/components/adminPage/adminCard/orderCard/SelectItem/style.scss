@@ -1,0 +1,10 @@
+@import '../../../../../styles/variables.scss';
+
+.settings-item__select {
+  @extend %displayFlex;
+  margin: 20px 0px;
+
+  & .select {
+    width: 80%;
+  }
+}

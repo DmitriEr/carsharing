@@ -5,7 +5,7 @@ import moment from 'moment';
 import { herokuapp } from '../../../constants/server';
 import { AdminError } from '../adminError';
 import { updateById } from '../../../server/updateById';
-import { translateStatus } from '../../../constants/admin';
+import { translateStatus, cardEssence } from '../../../constants/admin';
 import { TypeTableAdmin, Data } from '../../../interfaces';
 import { getData } from '../../../server/data';
 
@@ -31,6 +31,8 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
   countPages,
   currentPage,
   setCurrentPage,
+  setEssence,
+  setPage,
 }) => {
   const [updateStatus, setUpdateStatus] = useState('');
 
@@ -53,6 +55,7 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
       isRightWheel,
       price,
       id,
+      orderStatusId,
     } = ordersInfo.data[0];
 
     const firstDay = moment(dateFrom).format('DD.MM.YYYY hh:mm');
@@ -71,6 +74,24 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
           )
         )
         .then(() => setUpdateStatus(action));
+    };
+
+    const handleChange = () => {
+      setPage(cardEssence);
+      setEssence({
+        id,
+        color,
+        dateFrom,
+        dateTo,
+        car: carId.name,
+        city: cityId.name,
+        orderStatus: orderStatusId.name,
+        isFullTank,
+        isNeedChildChair,
+        isRightWheel,
+        point: pointId.address,
+        page: 'order',
+      });
     };
 
     const showImage = () => {
@@ -95,7 +116,7 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
 
     return (
       <Layout className="wrapper-orders">
-        <Header className="header">{`Статус: ${translateStatus[updateStatus]}`}</Header>
+        <Header className="header-orders">{`Статус: ${translateStatus[updateStatus]}`}</Header>
         <Content className="orders">
           {showImage()}
           <div className="information">
@@ -128,13 +149,13 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
               <Image src={cancel} alt="cancel" className="image" />
               Отмена
             </span>
-            <span>
+            <span onClick={handleChange}>
               <Image src={change} alt="change" className="image" />
               Изменить
             </span>
           </div>
         </Content>
-        <Footer className="footer">
+        <Footer className="footer-orders">
           <Pagination
             className="pagination"
             size="small"

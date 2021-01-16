@@ -1,67 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { getData } from '../../../../server/data';
-import { SelectAdmin } from '../../../common/SelectAdmin';
+import React, { memo } from 'react';
+import { Button } from 'antd';
+
+import SelectItem from './SelectItem';
+import { SwitchItem } from './SwitchItem';
+import { DateItem } from './DateItem';
+
+import { TypeTableAdmin } from '../../../../interfaces';
 
 type TypeOrderOptional = {
-  carModel: string;
-  setCarModel: (car: string) => void;
-  cityName: string;
-  setCityName: (city: string) => void;
-  pointName: string;
-  setPointName: (point: string) => void;
+  essence: TypeTableAdmin;
+  setEssence: (essence: TypeTableAdmin) => void;
+  setPage: (page: string) => void;
 };
 
-export const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
-  carModel,
-  setCarModel,
-  cityName,
-  setCityName,
-  pointName,
-  setPointName,
+const statuses = {
+  car: 'Машина',
+  city: 'Город',
+  point: 'Адресс',
+  orderStatus: 'Статус заказа',
+  color: 'Цвет',
+};
+
+const switches = {
+  isFullTank: 'Полный бак',
+  isNeedChildChair: 'Детское кресло',
+  isRightWheel: 'Правый руль',
+};
+
+const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
+  essence,
+  setEssence,
+  setPage,
 }) => {
-  const [cars, setCars] = useState<string[]>([]);
-  const [cities, setCities] = useState<string[]>([]);
-  const [points, setPoints] = useState<string[]>([]);
-
-  useEffect(() => {
-    getData('car').then((item) => {
-      const arr = item.data.map((value) => value.name);
-      setCars(arr);
-    });
-    getData('city').then((item) => {
-      const arr = item.data.map((value) => value.name);
-      setCities(arr);
-    });
-  }, []);
-
-  useEffect(() => {
-    getData('point').then((item) => {
-      const arr = item.data.reduce((prev, item) => {
-        if (item.cityId.name === cityName) {
-          prev.push(item.name);
-        }
-        return prev;
-      }, []);
-      setPoints(arr);
-    });
-  }, [cityName]);
-
-  if (cars.length) {
-    return (
-      <>
-        <SelectAdmin defaultValue={carModel} array={cars} func={setCarModel} />
-        <SelectAdmin
-          defaultValue={cityName}
-          array={cities}
-          func={setCityName}
+  const { dateTo, dateFrom } = essence;
+  console.log(essence);
+  return (
+    <>
+      {Object.entries(statuses).map(([name, translate], i) => (
+        <SelectItem
+          func={setEssence}
+          essence={essence}
+          property={name}
+          key={`${name}${i}`}
+          trans={translate}
         />
-        <SelectAdmin
-          defaultValue={pointName}
-          array={points}
-          func={setPointName}
+      ))}
+      {Object.entries(switches).map(([name, translate]) => (
+        <SwitchItem
+          func={setEssence}
+          essence={essence}
+          property={name}
+          key={name}
+          trans={translate}
         />
-      </>
-    );
-  }
-  return <div />;
+      ))}
+      {[dateFrom, dateTo].map((item, i) => (
+        <DateItem key={item} func={setEssence} essence={essence} property={i} />
+      ))}
+      <Button onClick={() => setPage('order')}>Отменить</Button>
+      <Button>Сохранить</Button>
+    </>
+  );
 };
+
+export default memo(OrderCard);

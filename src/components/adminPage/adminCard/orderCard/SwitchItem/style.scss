@@ -1,0 +1,6 @@
+@import '../../../../../styles/variables.scss';
+
+.settings-item__switch {
+  @extend %displayFlex;
+  margin: 20px 0px;
+}
