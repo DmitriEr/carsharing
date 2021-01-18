@@ -8,18 +8,8 @@ import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
 import { radioBtnsText } from '../../../constants/orderPage';
 import { herokuapp } from '../../../constants/server';
+import { DataItem } from '../../../interfaces';
 import './style.scss';
-
-interface CarsData {
-  name?: string;
-  priceMin?: number;
-  priceMax?: number;
-  thumbnail?: { path: string };
-  categoryId?: { name: string };
-  colors?: string[];
-  number?: string;
-  id?: string;
-}
 
 interface CarsProps {
   setColorsOpt: (color: string[]) => void;
@@ -31,10 +21,10 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   const userCar = useSelector(list);
   const currentCar = userCar[1].value;
 
-  const [cars, setCars] = useState<CarsData[]>([]);
+  const [cars, setCars] = useState<DataItem[]>([]);
   const [radioBtn, setRadioBtn] = useState('Все модели');
   const [isLoading, setIsLoading] = useState(true);
-  const [arrayCars, setArrayCars] = useState<CarsData[]>([]);
+  const [arrayCars, setArrayCars] = useState<DataItem[]>([]);
 
   useEffect(() => {
     getData('car').then(({ data }) => {

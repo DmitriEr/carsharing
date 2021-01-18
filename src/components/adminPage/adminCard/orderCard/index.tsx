@@ -1,17 +1,14 @@
 import React, { memo } from 'react';
-import { Button } from 'antd';
+import { Button, Layout } from 'antd';
 
 import SelectItem from './SelectItem';
 import { SwitchItem } from './SwitchItem';
 import { DateItem } from './DateItem';
+import { updateById } from '../../../../server/updateById';
 
-import { TypeTableAdmin } from '../../../../interfaces';
+import { DataItem } from '../../../../interfaces';
 
-type TypeOrderOptional = {
-  essence: TypeTableAdmin;
-  setEssence: (essence: TypeTableAdmin) => void;
-  setPage: (page: string) => void;
-};
+import './style.scss';
 
 const statuses = {
   car: 'Машина',
@@ -27,39 +24,85 @@ const switches = {
   isRightWheel: 'Правый руль',
 };
 
+type TypeOrderOptional = {
+  essence: DataItem;
+  setEssence: (essence: DataItem) => void;
+  setPage: (page: string) => void;
+};
+
 const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
   essence,
   setEssence,
   setPage,
 }) => {
-  const { dateTo, dateFrom } = essence;
-  console.log(essence);
+  const {
+    dateTo,
+    dateFrom,
+    id,
+    orderStatus,
+    city,
+    point,
+    car,
+    color,
+    price,
+    isFullTank,
+    isNeedChildChair,
+    isRightWheel,
+  } = essence;
+
+  const handleUpdate = () => {
+    updateById(
+      id,
+      {
+        orderStatusId: orderStatus.id,
+        cityId: city.id,
+        pointId: point.id,
+        carId: car.id,
+        color: color,
+        dateFrom,
+        dateTo,
+        price,
+        isFullTank,
+        isNeedChildChair,
+        isRightWheel,
+      },
+      'order'
+    );
+    setPage('order');
+  };
+
   return (
-    <>
+    <Layout className="setttings-order">
       {Object.entries(statuses).map(([name, translate], i) => (
         <SelectItem
           func={setEssence}
           essence={essence}
           property={name}
-          key={`${name}${i}`}
+          key={i}
           trans={translate}
         />
       ))}
-      {Object.entries(switches).map(([name, translate]) => (
+      {Object.entries(switches).map(([name, translate], i) => (
         <SwitchItem
           func={setEssence}
           essence={essence}
           property={name}
-          key={name}
+          key={i}
           trans={translate}
         />
       ))}
       {[dateFrom, dateTo].map((item, i) => (
         <DateItem key={item} func={setEssence} essence={essence} property={i} />
       ))}
-      <Button onClick={() => setPage('order')}>Отменить</Button>
-      <Button>Сохранить</Button>
-    </>
+      <Layout className="wrapper">
+        <Button onClick={() => setPage('order')} className="cancel">
+          Отменить
+        </Button>
+        <Button onClick={handleUpdate} className="save">
+          Сохранить
+        </Button>
+      </Layout>
+    </Layout>
   );
 };
 

@@ -1,18 +1,21 @@
 import React from 'react';
 import { Layout, Table } from 'antd';
 
-import { cardEssence, columns } from '../../../constants/admin';
-import { TypeTableAdmin } from '../../../interfaces';
+import { updateLetterCase } from '../../../helper';
+
+import { translate, columns, cardEssence } from '../../../constants/admin';
+import { DataItem } from '../../../interfaces';
 
 import './style.scss';
 
 type TypeProps = {
-  tableData: TypeTableAdmin[];
   setPage: (page: string) => void;
-  setEssence: (essence: TypeTableAdmin) => void;
+  setEssence: (essence: DataItem) => void;
   setCurrentPage: (currentPage: number) => void;
+  tableData: DataItem[];
   countPages: number;
   currentPage: number;
+  page: string;
 };
 
 export const AdminList: React.FunctionComponent<TypeProps> = ({
@@ -22,17 +25,24 @@ export const AdminList: React.FunctionComponent<TypeProps> = ({
   countPages,
   setCurrentPage,
   currentPage,
+  page,
 }) => {
-  const handleTable = (item: TypeTableAdmin) => {
+  const handleTable = (item: DataItem) => {
     setPage(cardEssence);
     setEssence(item);
   };
+
+  const value = columns[page].map((item, i) => ({
+    dataIndex: item,
+    key: i,
+    title: updateLetterCase(translate[item]),
+  }));
 
   return (
     <Layout className="table-admin">
       <Table
         dataSource={tableData}
-        columns={columns}
+        columns={value}
         size="small"
         onRow={(record) => {
           return {

@@ -84,17 +84,6 @@ export const menu = [
   },
 ];
 
-export const titleTranslate = {
-  car: 'автомобиля',
-  category: 'категории',
-  city: 'города',
-  point: 'точки',
-  order: 'заказа',
-  rate: 'ставки',
-  rateTyp: 'типа',
-  orderStatus: 'статуса заказа',
-};
-
 export const logoApp = 'logo';
 
 export const order = 'order';
@@ -116,27 +105,35 @@ export const links = [
   'orderStatus',
 ];
 
-export const translateStatus = {
-  new: 'Новый',
-  issued: 'Изменен',
-  confirmed: 'Потдвержден',
-  cancelled: 'Отменен',
+export const translate = {
+  name: 'наименование',
+  description: 'описание',
+  number: 'номер машины',
+  priceMin: 'минимальная цена',
+  priceMax: 'максимальная цена',
+  address: 'адресс',
+  price: 'цена',
+  unit: 'еденица измерения',
+  car: 'автомобиля',
+  category: 'категории',
+  city: 'города',
+  point: 'точки',
+  order: 'заказа',
+  rate: 'ставки',
+  rateTyp: 'типа',
+  orderStatus: 'статуса заказа',
+  new: 'новый',
+  issued: 'изменен',
+  confirmed: 'потдвержден',
+  cancelled: 'отменен',
 };
 
-export const columns = [
-  {
-    title: 'Номер',
-    dataIndex: 'number',
-    key: 'number',
-  },
-  {
-    title: 'Наименование',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Описание',
-    dataIndex: 'description',
-    key: 'description',
-  },
-];
+export const columns = {
+  car: ['name', 'description', 'number', 'priceMin', 'priceMax'],
+  category: ['name', 'description'],
+  city: ['name'],
+  point: ['address', 'name'],
+  rate: ['price'],
+  rateType: ['name', 'unit'],
+  orderStatus: ['name'],
+};

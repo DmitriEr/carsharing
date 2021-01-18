@@ -15,7 +15,6 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
   & .slider {
     box-shadow: $box;
   }
-
     
   & .header {
     display: flex;
@@ -45,6 +44,13 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
       font-size: 29px;
       line-height: 33px;
       width: 100%;
+    }
+
+    & .control {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: initial;
     }
   }
 

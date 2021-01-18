@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'antd';
+
 import { getData } from '../../../server/data';
-import { createOrder } from '../../../server/createOrder';
+import { create } from '../../../server/create';
 import { StatusType } from '../../../interfaces';
 import { list, resultMoney } from '../../../redux/selectors';
+
 import './style.scss';
 
 type ModalType = {
@@ -51,8 +53,8 @@ export const ModalWindow: React.FunctionComponent<ModalType> = ({
 
   useEffect(() => {
     if (statusId.length) {
-      createOrder(order).then((value) =>
-        localStorage.setItem('id', value.data.id)
+      create(order, 'order').then(({ data }) =>
+        localStorage.setItem('id', data.id)
       );
     }
   }, [statusId]);

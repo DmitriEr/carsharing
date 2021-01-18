@@ -5,8 +5,8 @@ import moment from 'moment';
 import { herokuapp } from '../../../constants/server';
 import { AdminError } from '../adminError';
 import { updateById } from '../../../server/updateById';
-import { translateStatus, cardEssence } from '../../../constants/admin';
-import { TypeTableAdmin, Data } from '../../../interfaces';
+import { translate, cardEssence } from '../../../constants/admin';
+import { Data, DataItem } from '../../../interfaces';
 import { getData } from '../../../server/data';
 
 import ok from '../../../assets/admin/Shape1.svg';
@@ -21,7 +21,7 @@ type TypeOrdersInfo = {
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
   setPage: (page: string) => void;
-  setEssence: (essence: TypeTableAdmin) => void;
+  setEssence: (essence: DataItem) => void;
 };
 
 const { Content, Header, Footer } = Layout;
@@ -83,13 +83,13 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
         color,
         dateFrom,
         dateTo,
-        car: carId.name,
-        city: cityId.name,
-        orderStatus: orderStatusId.name,
         isFullTank,
         isNeedChildChair,
         isRightWheel,
-        point: pointId.address,
+        car: { name: carId.name, id: carId.id },
+        city: { name: cityId.name, id: cityId.id },
+        orderStatus: { name: orderStatusId.name, id: orderStatusId.id },
+        point: { name: pointId.address, id: pointId.id },
         page: 'order',
       });
     };
@@ -116,7 +116,7 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
 
     return (
       <Layout className="wrapper-orders">
-        <Header className="header-orders">{`Статус: ${translateStatus[updateStatus]}`}</Header>
+        <Header className="header-orders">{`Статус: ${translate[updateStatus]}`}</Header>
         <Content className="orders">
           {showImage()}
           <div className="information">

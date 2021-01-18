@@ -2,7 +2,7 @@ import React from 'react';
 import { DatePicker, Typography, Layout } from 'antd';
 import moment from 'moment';
 
-import { TypeTableAdmin } from '../../../../../interfaces';
+import { DataItem } from '../../../../../interfaces';
 
 import './style.scss';
 
@@ -10,8 +10,8 @@ const { Text } = Typography;
 const { Content } = Layout;
 
 type TypeDate = {
-  func: (essence: TypeTableAdmin) => void;
-  essence: TypeTableAdmin;
+  func: (essence: DataItem) => void;
+  essence: DataItem;
   property: number;
 };
 

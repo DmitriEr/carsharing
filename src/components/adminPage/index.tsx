@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Layout } from 'antd';
+import { Layout, Typography, Button } from 'antd';
 
 import { authorization } from '../../redux/selectors';
 import { AdminMenu } from './adminMenu';
@@ -12,12 +12,7 @@ import { AdminCard } from './adminCard';
 import { AdminError } from './adminError';
 import { AdminOrders } from './adminOrders';
 import { getData, getOrders } from '../../server/data';
-import {
-  getCurrentName,
-  getCurrentNumber,
-  getCurrentOption,
-} from '../../helper';
-import { TypeTableAdmin, Data } from '../../interfaces';
+import { DataItem, Data } from '../../interfaces';
 import {
   startPage,
   links,
@@ -28,13 +23,16 @@ import {
 } from '../../constants/admin';
 import './style.scss';
 
-const { Sider } = Layout;
+const { Sider, Header, Content, Footer } = Layout;
+const { Title } = Typography;
+
+const newEssence = { id: 'new', name: '', dexcription: '' };
 
 export const AdminPage: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState('car');
-  const [tableData, setTableData] = useState<TypeTableAdmin[]>([]);
-  const [essence, setEssence] = useState<TypeTableAdmin>();
+  const [tableData, setTableData] = useState<DataItem[]>([]);
+  const [essence, setEssence] = useState<DataItem>();
   const [countPages, setCountPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(startPage);
   const [ordersInfo, setOrdersInfo] = useState<Data>();
@@ -55,18 +53,30 @@ export const AdminPage: React.FunctionComponent = () => {
         });
       } else {
         getData(page, firstIndex, 10).then((dataEssence) => {
-          const currentValues = dataEssence.data.map((item, index) => {
-            const number = getCurrentNumber(index, firstIndex);
-            const name: string = getCurrentName(page, item);
-            const description: string = getCurrentOption(page, item);
-            return { key: index, number, name, id: item.id, page, description };
-          });
-          setTableData(currentValues);
+          const keys = dataEssence.data.map((item, i) => ({
+            ...item,
+            key: i,
+            page,
+          }));
+          setTableData(keys);
           setCountPages(dataEssence.count);
         });
       }
     }
   }, [page, currentPage]);
+
+  const addButton = () => {
+    if (page !== cardEssence) {
+      return (
+        <Button
+          onClick={() => {
+            setPage(cardEssence);
+            setEssence({ ...newEssence, page });
+          }}
+        >{`Создать ${currentTitle}`}</Button>
+      );
+    }
+  };
 
   const showContent = () => {
     switch (page) {
@@ -98,6 +108,7 @@ export const AdminPage: React.FunctionComponent = () => {
           <AdminList
             tableData={tableData}
             setPage={setPage}
+            page={page}
             setEssence={setEssence}
             setCurrentPage={setCurrentPage}
             countPages={countPages}
@@ -126,16 +137,19 @@ export const AdminPage: React.FunctionComponent = () => {
           />
         </Sider>
         <Layout className="wrapper-content">
-          <header className="header">
+          <Header className="header">
             <AdminHeader />
-          </header>
-          <main className="content">
-            <h1 className="title">{currentTitle}</h1>
+          </Header>
+          <Content className="content">
+            <Layout className="control">
+              <Title className="title">{currentTitle}</Title>
+              {addButton()}
+            </Layout>
             {showContent()}
-          </main>
-          <footer className="footer">
+          </Content>
+          <Footer className="footer">
             <AdminFooter />
-          </footer>
+          </Footer>
         </Layout>
       </Layout>
     );

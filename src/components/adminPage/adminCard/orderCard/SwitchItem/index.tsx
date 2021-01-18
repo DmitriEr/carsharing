@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Typography, Layout } from 'antd';
 
-import { TypeTableAdmin } from '../../../../../interfaces';
+import { DataItem } from '../../../../../interfaces';
 
 import './style.scss';
 
@@ -9,8 +9,8 @@ const { Text } = Typography;
 const { Content } = Layout;
 
 type TypeSwitch = {
-  func: (essence: TypeTableAdmin) => void;
-  essence: TypeTableAdmin;
+  func: (essence: DataItem) => void;
+  essence: DataItem;
   property: string;
   trans: string;
 };
@@ -23,7 +23,7 @@ export const SwitchItem: React.FunctionComponent<TypeSwitch> = ({
 }) => {
   return (
     <Content className="settings-item__switch">
-      <Text>{trans}</Text>
+      <Text className="name">{trans}</Text>
       <Switch
         onChange={(value) => func({ ...essence, [property]: value })}
         defaultChecked={essence[property]}

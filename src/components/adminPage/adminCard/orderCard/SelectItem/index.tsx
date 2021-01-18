@@ -1,12 +1,12 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Select, Layout, Typography } from 'antd';
-import { TypeTableAdmin } from '../../../../../interfaces';
+import { DataItem } from '../../../../../interfaces';
 import { getData } from '../../../../../server/data';
 import './style.scss';
 
 type TypeSelect = {
-  func: (essence: TypeTableAdmin) => void;
-  essence: TypeTableAdmin;
+  func: (essence: DataItem) => void;
+  essence: DataItem;
   property: string;
   trans: string;
 };
@@ -21,14 +21,14 @@ const SelectItem: React.FunctionComponent<TypeSelect> = ({
   property,
   trans,
 }) => {
-  const [array, setArray] = useState<string[]>([]);
-  const [name, setName] = useState<string>(essence[property]);
+  const [array, setArray] = useState<{ [name: string]: string }[]>([{}]);
+  const [name, setName] = useState<string>(essence[property].name);
 
   useEffect(() => {
     if (property !== 'point' && property !== 'color') {
       getData(property).then((value) => {
-        const values = value.data.map((item) => {
-          return item.name;
+        const values = value.data.map(({ name, id }) => {
+          return { name, id };
         });
         setArray(values);
       });
@@ -38,50 +38,52 @@ const SelectItem: React.FunctionComponent<TypeSelect> = ({
   useEffect(() => {
     if (property === 'point') {
       getData(property).then((value) => {
-        const values = value.data.reduce((prev, item) => {
-          if (item.cityId.name === essence.city) {
-            prev.push(item.address);
+        const values = value.data.reduce((prev, { address, id, cityId }) => {
+          if (cityId.name === essence.city.name) {
+            prev.push({ name: address, id });
           }
           return prev;
         }, []);
         setArray(values);
       });
     }
-  }, [essence.city]);
+  }, [essence.city.name]);
 
   useEffect(() => {
     if (property === 'color') {
       getData('car').then((value) => {
-        value.data.forEach((item) => {
-          if (item.name === essence.car) {
-            setArray(item.colors);
+        value.data.forEach(({ name, colors, id }) => {
+          if (name === essence.car.name) {
+            const color = colors.map((name) => ({ name, id }));
+            setArray(color);
           }
         });
       });
     }
-  }, [essence.car]);
+  }, [essence.car.name]);
 
   useEffect(() => {
-    const num = array.findIndex((item) => item === essence[property]);
-    num >= 0 ? setName(essence[property]) : setName(array[0]);
+    const num = array.findIndex(({ name }) => name === essence[property].name);
+    const anyName = array.length === 0 ? '' : array[0].name;
+    num >= 0 ? setName(essence[property].name) : setName(anyName);
   }, [array]);
 
   return (
     <Content className="settings-item__select">
-      <Text>{trans}</Text>
+      <Text className="name">{trans}</Text>
       <Select
-        defaultValue={essence[property]}
+        defaultValue={essence[property].name}
         className="select"
         value={name}
-        onFocus={(event) => event.preventDefault()}
         onChange={(value) => {
           setName(value);
-          func({ ...essence, [property]: value });
+          const current = array.filter(({ name }) => name === value);
+          func({ ...essence, [property]: current[0] });
         }}
       >
-        {array.map((item, i) => (
-          <Option key={i} value={item}>
-            {item}
+        {array.map(({ name }, i) => (
+          <Option key={i} value={name}>
+            {name}
           </Option>
         ))}
       </Select>

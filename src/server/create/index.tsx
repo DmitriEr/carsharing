@@ -1,8 +1,8 @@
 import { urlCommon, headerCommon } from '../../constants/server';
 
-export const createOrder = async (item) => {
+export const create = async (item, path: string) => {
   try {
-    const response = await fetch(`${urlCommon}order`, {
+    const response = await fetch(`${urlCommon}${path}`, {
       method: 'POST',
       headers: headerCommon,
       body: JSON.stringify(item),
@@ -15,6 +15,6 @@ export const createOrder = async (item) => {
     const answer = await response.json();
     return answer;
   } catch (e) {
-    throw new Error(`Error in createOrder: ${e}`);
+    throw new Error(`Error in create ${path}: ${e}`);
   }
 };
