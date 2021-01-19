@@ -23,53 +23,6 @@ export const random = () => Math.random().toString(36).substr(2, 7);
 export const getCurrentNumber = (ind: number, count: number) =>
   ind + 1 + count * 10;
 
-// export const currentBody = (link, obj, id, ...args) => {
-//   const {
-//     priceMax,
-//     priceMin,
-//     thumbnail,
-//     categoryId,
-//     colors,
-//     cityId,
-//     rateTypeId,
-//   } = obj;
-//   switch (link) {
-//     case 'category':
-//       id !== 'new'
-//         ? updateById(id, { name: args[0], description: args[1] }, link)
-//         : create({ name: args[0], description: args[1] }, link);
-//       break;
-//     case 'rateType':
-//       id !== 'new'
-//         ? updateById(id, { name: args[0], unit: args[1] }, link)
-//         : create({ name: args[0], unit: args[1] }, link);
-//       break;
-//     case 'point':
-//       updateById(id, { cityId, name: args[0], address: args[1] }, link);
-//       break;
-//     case 'rate':
-//       updateById(id, { rateTypeId, price: args[0] }, link);
-//       break;
-//     case 'car':
-//       updateById(
-//         id,
-//         {
-//           priceMax,
-//           priceMin,
-//           thumbnail,
-//           categoryId,
-//           colors,
-//           name: args[0],
-//           description: args[1],
-//         },
-//         link
-//       );
-//       break;
-//     default:
-//       updateById(id, { name: args[0] }, link);
-//   }
-// };
-
 export const updateLetterCase = (string: string) => {
   return string.split('').reduce((prev, item, i) => {
     const letter = i === 0 ? item.toUpperCase() : item.toLowerCase();
