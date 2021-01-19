@@ -88,6 +88,7 @@ export interface DataItem {
   point?: TypeCommomTable;
   address?: string;
   orderStatusId?: { name: string; id: string };
+  rateId?: { rateTypeId: { name: string } };
   orderStatus?: TypeCommomTable;
   isFullTank?: boolean;
   isNeedChildChair?: boolean;

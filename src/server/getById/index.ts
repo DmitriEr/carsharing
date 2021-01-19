@@ -1,23 +1,11 @@
 import { urlCommon, headerCommon } from '../../constants/server';
+import { DataItem } from '../../interfaces';
 
 export const getById: (
   path: string,
   id: string
 ) => Promise<{
-  data: {
-    carId: { name: string; number: string; thumbnail: { path: string } };
-    cityId: { name: string };
-    color: string;
-    isFullTank: boolean;
-    isNeedChildChair: boolean;
-    isRightWheel: boolean;
-    pointId: { address: string };
-    price: number;
-    dateFrom: number;
-    dateTo: number;
-    rateId: { rateTypeId: { name: string } };
-    orderStatusId: { name: string; id: string };
-  };
+  data: DataItem;
 }> = async (path, id) => {
   try {
     const url = `${urlCommon}${path}/${id}`;

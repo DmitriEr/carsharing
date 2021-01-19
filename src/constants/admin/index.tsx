@@ -137,3 +137,16 @@ export const columns = {
   rateType: ['name', 'unit'],
   orderStatus: ['name'],
 };
+
+export const extraKeys = ['page', 'key', 'createdAt', 'updatedAt', 'id'];
+
+export const addToCar = {
+  colors: [],
+  categoryId: { name: '', id: '' },
+  thumbnail: {
+    mimetype: '',
+    originalname: '',
+    path: '',
+    size: 0,
+  },
+};

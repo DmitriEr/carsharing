@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Input, Layout } from 'antd';
 
 import { DataItem } from '../../../interfaces';
@@ -20,11 +20,6 @@ export const InputFolder: React.FunctionComponent<TypeInput> = ({
   setEssence,
   essence,
 }) => {
-  useEffect(() => {
-    console.log(essence);
-    console.log(value);
-  }, [essence]);
-
   return (
     <Layout className="admin-input">
       <label className="label" htmlFor={updateLetterCase(translate[name])}>
@@ -35,7 +30,6 @@ export const InputFolder: React.FunctionComponent<TypeInput> = ({
         className="input"
         id={name}
         onChange={(e) => setEssence({ ...essence, [name]: e.target.value })}
-        // onChange={(e) => setNameEssence(e.target.value)}
       />
     </Layout>
   );

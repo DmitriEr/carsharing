@@ -20,13 +20,13 @@ import {
   cardEssence,
   error,
   order,
+  columns,
+  addToCar,
 } from '../../constants/admin';
 import './style.scss';
 
 const { Sider, Header, Content, Footer } = Layout;
 const { Title } = Typography;
-
-const newEssence = { id: 'new', name: '', dexcription: '' };
 
 export const AdminPage: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,12 +66,26 @@ export const AdminPage: React.FunctionComponent = () => {
   }, [page, currentPage]);
 
   const addButton = () => {
-    if (page !== cardEssence) {
+    if (page !== cardEssence && page !== order) {
       return (
         <Button
           onClick={() => {
+            const obj = columns[page].reduce(
+              (prev: { [key: string]: string }, item: string) => {
+                const result = { ...prev, [item]: '', id: 'new', page };
+                switch (page) {
+                  case 'point':
+                    return { ...result, cityId: { name: '', id: '' } };
+                  case 'car':
+                    return { ...result, ...addToCar };
+                  default:
+                    return result;
+                }
+              },
+              {}
+            );
+            setEssence(obj);
             setPage(cardEssence);
-            setEssence({ ...newEssence, page });
           }}
         >{`Создать ${currentTitle}`}</Button>
       );

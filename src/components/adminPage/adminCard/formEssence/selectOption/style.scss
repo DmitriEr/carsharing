@@ -1,0 +1,9 @@
+@import '../../../../../styles/variables.scss';
+
+.select-option {  
+  & .title-option {
+    display: inline-block;
+    padding: 5px 0px;
+    background: $white;
+  }
+}

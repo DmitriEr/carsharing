@@ -1,11 +1,14 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
 
+import { SelectOption } from './selectOption';
+import { InputOption } from './inputOption';
+
 import { deleteById } from '../../../../server/deleteById';
 import { updateById } from '../../../../server/updateById';
 import { InputFolder } from '../../../common/Admin';
 import { create } from '../../../../server/create';
-import { translate, columns } from '../../../../constants/admin';
+import { translate, columns, extraKeys } from '../../../../constants/admin';
 
 import { DataItem } from '../../../../interfaces';
 
@@ -25,8 +28,25 @@ export const FormEssence: React.FunctionComponent<FormType> = ({
   const { id, page } = essence;
 
   const updateEssence = () => {
-    // нужно удалить два лишних значения key и page и вставить новые и обновить бэк
+    const newEssence = { ...essence };
+    extraKeys.forEach((key) => delete newEssence[key]);
+    id !== 'new' ? updateById(id, newEssence, page) : create(newEssence, page);
     setPage(page);
+  };
+
+  const showCarOption = () => {
+    if (page === 'car' && id === 'new') {
+      return <InputOption essence={essence} setEssence={setEssence} />;
+    }
+  };
+
+  const showCarPointSelect = () => {
+    if (
+      (page === 'car' && id === 'new') ||
+      (page === 'point' && id === 'new')
+    ) {
+      return <SelectOption essence={essence} setEssence={setEssence} />;
+    }
   };
 
   return (
@@ -44,6 +64,8 @@ export const FormEssence: React.FunctionComponent<FormType> = ({
             />
           );
         })}
+        {showCarPointSelect()}
+        {showCarOption()}
       </Content>
       <Footer className="footer">
         <>
