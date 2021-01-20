@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Layout, Typography, Button } from 'antd';
+import { Layout } from 'antd';
 
 import { authorization } from '../../redux/selectors';
 import { AdminMenu } from './adminMenu';
@@ -20,13 +20,10 @@ import {
   cardEssence,
   error,
   order,
-  columns,
-  addToCar,
 } from '../../constants/admin';
 import './style.scss';
 
 const { Sider, Header, Content, Footer } = Layout;
-const { Title } = Typography;
 
 export const AdminPage: React.FunctionComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,33 +62,6 @@ export const AdminPage: React.FunctionComponent = () => {
     }
   }, [page, currentPage]);
 
-  const addButton = () => {
-    if (page !== cardEssence && page !== order) {
-      return (
-        <Button
-          onClick={() => {
-            const obj = columns[page].reduce(
-              (prev: { [key: string]: string }, item: string) => {
-                const result = { ...prev, [item]: '', id: 'new', page };
-                switch (page) {
-                  case 'point':
-                    return { ...result, cityId: { name: '', id: '' } };
-                  case 'car':
-                    return { ...result, ...addToCar };
-                  default:
-                    return result;
-                }
-              },
-              {}
-            );
-            setEssence(obj);
-            setPage(cardEssence);
-          }}
-        >{`Создать ${currentTitle}`}</Button>
-      );
-    }
-  };
-
   const showContent = () => {
     switch (page) {
       case logoApp:
@@ -113,6 +83,7 @@ export const AdminPage: React.FunctionComponent = () => {
             setCurrentPage={setCurrentPage}
             setPage={setPage}
             setEssence={setEssence}
+            currentTitle={currentTitle}
           />
         );
       case error:
@@ -127,6 +98,7 @@ export const AdminPage: React.FunctionComponent = () => {
             setCurrentPage={setCurrentPage}
             countPages={countPages}
             currentPage={currentPage}
+            currentTitle={currentTitle}
           />
         );
     }
@@ -155,10 +127,7 @@ export const AdminPage: React.FunctionComponent = () => {
             <AdminHeader />
           </Header>
           <Content className="content">
-            <Layout className="control">
-              <Title className="title">{currentTitle}</Title>
-              {addButton()}
-            </Layout>
+            <Layout className="control" />
             {showContent()}
           </Content>
           <Footer className="footer">

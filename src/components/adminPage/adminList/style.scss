@@ -1,17 +1,30 @@
 @import '../../../styles/variables.scss';
 
 .table-admin {
-  height: 100%;
+  flex-direction: initial;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: auto;
   font-weight: normal;
 
-  & .card-row {
-    cursor: pointer;
-    height: 38px;
-    overflow: hidden;
+  & .wrapper-button {
+    @extend %displayFlex;
+    flex-direction: initial;
+    width: 100%;
   }
 
-  & .table {
-    background: $white;
-    @extend %pagination;
+  & .wrapper-table {
+    width: 100%;
+
+    & .card-row {
+      cursor: pointer;
+      height: 38px;
+      overflow: hidden;
+    }
+  
+    & .table {
+      background: $white;
+      @extend %pagination;
+    }
   }
 }

@@ -1,0 +1,6 @@
+@import '../../../../styles/variables.scss';
+
+.button-addition {
+  @extend %displayFlex;
+  flex-direction: initial;
+}
