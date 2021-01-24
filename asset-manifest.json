@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/carsharing/static/css/main.3b20d087.chunk.css",
-    "main.js": "/carsharing/static/js/main.785451a7.chunk.js",
-    "main.js.map": "/carsharing/static/js/main.785451a7.chunk.js.map",
+    "main.css": "/carsharing/static/css/main.e944ee33.chunk.css",
+    "main.js": "/carsharing/static/js/main.ac11d6b5.chunk.js",
+    "main.js.map": "/carsharing/static/js/main.ac11d6b5.chunk.js.map",
     "runtime-main.js": "/carsharing/static/js/runtime-main.45a4b5d7.js",
     "runtime-main.js.map": "/carsharing/static/js/runtime-main.45a4b5d7.js.map",
     "static/css/2.d355c8df.chunk.css": "/carsharing/static/css/2.d355c8df.chunk.css",
-    "static/js/2.0adb0ba4.chunk.js": "/carsharing/static/js/2.0adb0ba4.chunk.js",
-    "static/js/2.0adb0ba4.chunk.js.map": "/carsharing/static/js/2.0adb0ba4.chunk.js.map",
+    "static/js/2.29fbafb4.chunk.js": "/carsharing/static/js/2.29fbafb4.chunk.js",
+    "static/js/2.29fbafb4.chunk.js.map": "/carsharing/static/js/2.29fbafb4.chunk.js.map",
     "static/js/3.c7329995.chunk.js": "/carsharing/static/js/3.c7329995.chunk.js",
     "static/js/3.c7329995.chunk.js.map": "/carsharing/static/js/3.c7329995.chunk.js.map",
     "index.html": "/carsharing/index.html",
     "static/css/2.d355c8df.chunk.css.map": "/carsharing/static/css/2.d355c8df.chunk.css.map",
-    "static/css/main.3b20d087.chunk.css.map": "/carsharing/static/css/main.3b20d087.chunk.css.map",
-    "static/js/2.0adb0ba4.chunk.js.LICENSE.txt": "/carsharing/static/js/2.0adb0ba4.chunk.js.LICENSE.txt",
+    "static/css/main.e944ee33.chunk.css.map": "/carsharing/static/css/main.e944ee33.chunk.css.map",
+    "static/js/2.29fbafb4.chunk.js.LICENSE.txt": "/carsharing/static/js/2.29fbafb4.chunk.js.LICENSE.txt",
     "static/media/Facebook_white.01c0ca6a.svg": "/carsharing/static/media/Facebook_white.01c0ca6a.svg",
     "static/media/Instagram.5e14e95a.svg": "/carsharing/static/media/Instagram.5e14e95a.svg",
     "static/media/Notifications.25657f73.svg": "/carsharing/static/media/Notifications.25657f73.svg",
@@ -34,8 +34,8 @@
   "entrypoints": [
     "static/js/runtime-main.45a4b5d7.js",
     "static/css/2.d355c8df.chunk.css",
-    "static/js/2.0adb0ba4.chunk.js",
-    "static/css/main.3b20d087.chunk.css",
-    "static/js/main.785451a7.chunk.js"
+    "static/js/2.29fbafb4.chunk.js",
+    "static/css/main.e944ee33.chunk.css",
+    "static/js/main.ac11d6b5.chunk.js"
   ]
 }
