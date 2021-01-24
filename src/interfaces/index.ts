@@ -67,9 +67,9 @@ export type GenericActionPoint = {
 
 export type StatusType = { active: number; current: number };
 
-type TypeCommomTable = { name: string; id: string };
+type TypeCommomTable = { name?: string; id?: string };
 export interface DataItem {
-  categoryId?: { name: string };
+  categoryId?: TypeCommomTable;
   car?: TypeCommomTable;
   carId?: { name: string; thumbnail: { path: string }; id: string };
   description?: string;
@@ -77,7 +77,12 @@ export interface DataItem {
   name?: string;
   priceMin?: number;
   priceMax?: number;
-  thumbnail?: { path: string };
+  thumbnail?: {
+    path: string | ArrayBuffer;
+    mimetype: string;
+    size: number;
+    originalname: string;
+  };
   colors?: string[];
   number?: string | number;
   price?: number;

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
-import { Card, Radio } from 'antd';
+import { Card, Radio, Image, Typography } from 'antd';
+
+import { PaginationPages } from '../../common/Pagination';
+
 import { Loader } from '../../common/Loader';
 import { getData } from '../../../server/data';
 import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
 import { radioBtnsText } from '../../../constants/orderPage';
+import { startPage } from '../../../constants/admin';
 import { herokuapp } from '../../../constants/server';
 import { DataItem } from '../../../interfaces';
 import './style.scss';
+
+const { Paragraph } = Typography;
 
 interface CarsProps {
   setColorsOpt: (color: string[]) => void;
@@ -25,18 +31,17 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   const [radioBtn, setRadioBtn] = useState('Все модели');
   const [isLoading, setIsLoading] = useState(true);
   const [arrayCars, setArrayCars] = useState<DataItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(startPage);
+  const [countPages, setCountPages] = useState(0);
 
   useEffect(() => {
-    getData('car').then(({ data }) => {
-      const result = data.filter(({ thumbnail }) => {
-        if (thumbnail.path.startsWith('/files/')) {
-          return true;
-        }
-      });
-      setCars(result);
-      setArrayCars(result);
+    const firstIndex = currentPage - 1;
+    getData('car', firstIndex, 10).then(({ data, count }) => {
+      setCars(data);
+      setArrayCars(data);
+      setCountPages(Math.ceil(count / 10));
     });
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const result = arrayCars.filter(({ categoryId }) => {
@@ -72,7 +77,7 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
   };
 
   return (
-    <div className="cards">
+    <Paragraph className="cards">
       <Radio.Group
         onChange={(e) => setRadioBtn(e.target.value)}
         value={radioBtn}
@@ -117,18 +122,30 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
                   )
                 }
               >
-                <img
-                  className="image"
-                  src={`${herokuapp}${thumbnail.path}`}
-                  alt={name}
-                  referrerPolicy="origin"
-                  crossOrigin="anonymous"
-                />
+                {thumbnail.path ? (
+                  <Image
+                    src={
+                      thumbnail.path[0] === '/'
+                        ? `${herokuapp}${thumbnail.path}`
+                        : `${thumbnail.path}`
+                    }
+                    alt={name}
+                    referrerPolicy="origin"
+                    crossOrigin="anonymous"
+                  />
+                ) : null}
               </Card>
             );
           }
         )
       )}
-    </div>
+      <Paragraph className="pagination">
+        <PaginationPages
+          currentPage={currentPage}
+          func={setCurrentPage}
+          countPages={countPages}
+        />
+      </Paragraph>
+    </Paragraph>
   );
 };

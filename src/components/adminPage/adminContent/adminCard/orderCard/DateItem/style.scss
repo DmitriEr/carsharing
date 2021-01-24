@@ -1,0 +1,10 @@
+@import '../../../../../../styles/variables.scss';
+
+.settings-item__data {
+  @extend %displayFlex;
+  margin: 20px 0px;
+
+  & .date {
+    width: 80%;
+  }
+}

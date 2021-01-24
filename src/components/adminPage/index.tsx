@@ -6,21 +6,11 @@ import { Layout } from 'antd';
 import { authorization } from '../../redux/selectors';
 import { AdminMenu } from './adminMenu';
 import { AdminHeader } from './adminHeader';
+import { AdminContent } from './adminContent';
 import { AdminFooter } from './adminFooter';
-import { AdminList } from './adminList';
-import { AdminCard } from './adminCard';
-import { AdminError } from './adminError';
-import { AdminOrders } from './adminOrders';
 import { getData, getOrders } from '../../server/data';
 import { DataItem, Data } from '../../interfaces';
-import {
-  startPage,
-  links,
-  logoApp,
-  cardEssence,
-  error,
-  order,
-} from '../../constants/admin';
+import { startPage, links, order } from '../../constants/admin';
 import './style.scss';
 
 const { Sider, Header, Content, Footer } = Layout;
@@ -62,48 +52,6 @@ export const AdminPage: React.FunctionComponent = () => {
     }
   }, [page, currentPage]);
 
-  const showContent = () => {
-    switch (page) {
-      case logoApp:
-        return <Redirect to="/carsharing/main" />;
-      case cardEssence:
-        return (
-          <AdminCard
-            essence={essence}
-            setPage={setPage}
-            setEssence={setEssence}
-          />
-        );
-      case order:
-        return (
-          <AdminOrders
-            ordersInfo={ordersInfo}
-            countPages={countPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            setPage={setPage}
-            setEssence={setEssence}
-            currentTitle={currentTitle}
-          />
-        );
-      case error:
-        return <AdminError />;
-      default:
-        return (
-          <AdminList
-            tableData={tableData}
-            setPage={setPage}
-            page={page}
-            setEssence={setEssence}
-            setCurrentPage={setCurrentPage}
-            countPages={countPages}
-            currentPage={currentPage}
-            currentTitle={currentTitle}
-          />
-        );
-    }
-  };
-
   if (isAuth && isAdmin) {
     return (
       <Layout className="admin-page">
@@ -127,8 +75,18 @@ export const AdminPage: React.FunctionComponent = () => {
             <AdminHeader />
           </Header>
           <Content className="content">
-            <Layout className="control" />
-            {showContent()}
+            <AdminContent
+              setEssence={setEssence}
+              setPage={setPage}
+              setCurrentPage={setCurrentPage}
+              ordersInfo={ordersInfo}
+              essence={essence}
+              tableData={tableData}
+              countPages={countPages}
+              currentPage={currentPage}
+              currentTitle={currentTitle}
+              page={page}
+            />
           </Content>
           <Footer className="footer">
             <AdminFooter />

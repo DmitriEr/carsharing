@@ -37,6 +37,7 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
     width: 100%;
     padding: 10px 27.5px;
     margin: 70px 0px;
+    overflow: auto;
 
     & .title {
       font-weight: normal;
@@ -64,12 +65,13 @@ $box: 0px 1px 75px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   .admin-page {
     position: relative;
 
     & .header {
       left: 0px;
+      padding-left: 70px;
     }
 
     & .control {

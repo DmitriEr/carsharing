@@ -4,7 +4,10 @@ export const create = async (item, path: string) => {
   try {
     const response = await fetch(`${urlCommon}${path}`, {
       method: 'POST',
-      headers: headerCommon,
+      headers: {
+        ...headerCommon,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
       body: JSON.stringify(item),
     });
 

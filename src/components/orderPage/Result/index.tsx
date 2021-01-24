@@ -23,7 +23,7 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
   const results = useSelector(resultMoney);
   const [, car, color, date, price, petrol, seat, steer] = orderList;
 
-  const checkOption = (bool, value) => (bool ? value : 0);
+  const checkOption = (bool: boolean, value: number) => (bool ? value : 0);
 
   useEffect(() => {
     let result;

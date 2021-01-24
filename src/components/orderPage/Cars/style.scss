@@ -20,6 +20,7 @@
     height: 224px;
     cursor: pointer;
     border-width: 1px;
+    overflow: hidden;
 
     &:hover {
       border-color: $gray;
@@ -47,6 +48,15 @@
         height: 116px;
       }
     }
+  }
+
+  & .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 10px 0px;
   }
 }
 
