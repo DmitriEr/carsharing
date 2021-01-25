@@ -1,5 +1,5 @@
-export const herokuapp =
-  'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/';
+export const herokuapp = 'http://api-factory.simbirsoft1.com/';
+// 'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/';
 
 export const urlCommon = `${herokuapp}api/db/`;
 

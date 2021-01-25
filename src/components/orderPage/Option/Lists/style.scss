@@ -24,7 +24,7 @@
     & .active {
       color: $black;
   
-      & .ant-radio-checked {
+      // & .ant-radio-checked {
   
         &::after {
           border: 1px solid $white;
@@ -39,7 +39,7 @@
             width: 9px;
           }
         }
-      }
+      // }
     }
   }
 }

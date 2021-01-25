@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Checkbox } from 'antd';
+import { Checkbox, Layout, Typography } from 'antd';
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
 import { options } from '../../../constants/orderPage';
@@ -16,6 +16,8 @@ import { getTimeToString } from '../../../helper';
 import { list } from '../../../redux/selectors';
 import './style.scss';
 
+const { Text } = Typography;
+const { Content } = Layout;
 interface OptionProps {
   colorsOpt: string[];
 }
@@ -40,7 +42,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   useEffect(() => {
     getData('rate').then(({ data }) => {
       const newValue = data.map(({ price, rateTypeId }) => {
-        return `${rateTypeId.name}, ${price}₽/${rateTypeId.unit}`;
+        return `${rateTypeId.name}, ${price} ₽/${rateTypeId.unit}`;
       });
       setRates(data);
       setPrice(newValue);
@@ -56,11 +58,11 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   useEffect(() => {
     if (money) {
       const [name] = money.split(',');
-      rate.forEach(({ id, price, rateTypeId }) =>
-        rateTypeId.name === name
-          ? dispacth(changePrice({ value: name, count: price, rateId: id }))
-          : null
-      );
+      rate.forEach(({ id, price, rateTypeId }) => {
+        if (rateTypeId.name === name) {
+          dispacth(changePrice({ value: name, count: price, rateId: id }));
+        }
+      });
     }
   }, [money]);
 
@@ -96,7 +98,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   };
 
   return (
-    <div className="options-wrapper">
+    <Content className="options-wrapper">
       <Lists
         list={colorsOpt}
         title={'Цвет'}
@@ -104,8 +106,8 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
         option={color}
         currentValue={currentValue[2].value}
       />
-      <div className="date-wrapper">
-        <div className="title">Дата аренды</div>
+      <Content className="date-wrapper">
+        <Text className="title">Дата аренды</Text>
         <DateSelect
           queue={false}
           setDiffTime={setDiffTime}
@@ -128,22 +130,22 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
           moments={momentEnd}
           defaultTime={diffTime.end}
         />
-      </div>
+      </Content>
       <Lists
         list={price}
         title={'Тариф'}
         setOption={setMoney}
         option={money}
-        currentValue={`${currentValue[4].value}, ${currentValue[4].count}₽/мин`}
+        currentValue={`${currentValue[4].value}, ${currentValue[4].count} ₽/мин`}
       />
-      <div className="checkbox-wrapper">
-        <div className="title">Доп услуги</div>
+      <Content className="checkbox-wrapper">
+        <Text className="title">Доп услуги</Text>
         <Checkbox.Group
           options={options}
           onChange={selectOption}
           className="checkbox"
         />
-      </div>
-    </div>
+      </Content>
+    </Content>
   );
 };

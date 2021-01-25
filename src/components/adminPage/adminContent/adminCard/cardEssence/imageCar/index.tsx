@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Image } from 'antd';
 
-import { herokuapp } from '../../../../../../constants/server';
+import { showSrc } from '../../../../../../helper';
 import { toBase64 } from '../../../../../../helper';
 import { DataItem } from '../../../../../../interfaces';
 
@@ -30,20 +30,22 @@ export const ImageCar: React.FunctionComponent<ImageType> = ({
     });
   };
 
-  return (
-    <>
-      {thumbnail.path ? (
+  const showImage = () => {
+    if (thumbnail.path) {
+      return (
         <Image
-          src={
-            thumbnail.path[0] === '/'
-              ? `${herokuapp}${thumbnail.path}`
-              : `${thumbnail.path}`
-          }
+          src={showSrc(thumbnail)}
           alt={page}
           referrerPolicy="origin"
           crossOrigin="anonymous"
         />
-      ) : null}
+      );
+    }
+  };
+
+  return (
+    <>
+      {showImage()}
       <Input type="file" onChange={onInput} />
     </>
   );

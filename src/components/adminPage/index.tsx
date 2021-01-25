@@ -10,7 +10,7 @@ import { AdminContent } from './adminContent';
 import { AdminFooter } from './adminFooter';
 import { getData, getOrders } from '../../server/data';
 import { DataItem, Data } from '../../interfaces';
-import { startPage, links, order } from '../../constants/admin';
+import { startPage, links, order, error } from '../../constants/admin';
 import './style.scss';
 
 const { Sider, Header, Content, Footer } = Layout;
@@ -34,20 +34,24 @@ export const AdminPage: React.FunctionComponent = () => {
     if (isCurrentLink) {
       const firstIndex = currentPage - 1;
       if (page === order) {
-        getOrders(page, firstIndex).then((dataEssence) => {
-          setOrdersInfo(dataEssence);
-          setCountPages(dataEssence.count);
-        });
+        getOrders(page, firstIndex)
+          .then((dataEssence) => {
+            setOrdersInfo(dataEssence);
+            setCountPages(dataEssence.count);
+          })
+          .catch(() => setPage(error));
       } else {
-        getData(page, firstIndex, 10).then((dataEssence) => {
-          const keys = dataEssence.data.map((item, i) => ({
-            ...item,
-            key: i,
-            page,
-          }));
-          setTableData(keys);
-          setCountPages(dataEssence.count);
-        });
+        getData(page, firstIndex, 10)
+          .then((dataEssence) => {
+            const keys = dataEssence.data.map((item, i) => ({
+              ...item,
+              key: i,
+              page,
+            }));
+            setTableData(keys);
+            setCountPages(dataEssence.count);
+          })
+          .catch(() => setPage(error));
       }
     }
   }, [page, currentPage]);

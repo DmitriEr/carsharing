@@ -11,11 +11,10 @@
   margin-left: 64px;
 
   & .date-wrapper {
+    @extend %margin;
 
     & .title {
       color: $black;
-      margin-bottom: 8px;
-      @extend %margin;
     }
   }
 
@@ -23,10 +22,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    @extend %margin;
 
     & .title {
       color: $black;
-      @extend %margin;
     }
 
     & .checkbox {

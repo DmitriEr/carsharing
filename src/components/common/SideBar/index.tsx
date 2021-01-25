@@ -78,7 +78,6 @@ export const SideBar: React.FunctionComponent = () => {
         </div>
       );
     }
-    return null;
   };
 
   return (

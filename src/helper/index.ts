@@ -1,3 +1,5 @@
+import { herokuapp } from '../constants/server';
+
 export const getTimeToString = (start, end) => {
   const minutes = (end - start) / (60 * 1000);
 
@@ -38,3 +40,8 @@ export const toBase64 = (file: File): Promise<string | ArrayBuffer> =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+
+export const showSrc = (value) => {
+  const img = value.path;
+  return value.path[0] === '/' ? `${herokuapp}${img}` : `${img}`;
+};

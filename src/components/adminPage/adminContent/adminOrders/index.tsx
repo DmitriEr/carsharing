@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Image, Checkbox, Typography } from 'antd';
 import moment from 'moment';
 
-import { AdminError } from '../adminError';
 import { PaginationPages } from '../../../../components/common/Pagination';
+import { Loader } from '../../../../components/common/Loader';
 
 import { herokuapp } from '../../../../constants/server';
 import { updateById } from '../../../../server/updateById';
-import { translate, cardEssence } from '../../../../constants/admin';
+import { translate, cardEssence, error } from '../../../../constants/admin';
 import { Data, DataItem } from '../../../../interfaces';
 import { getData } from '../../../../server/data';
 
@@ -79,7 +79,8 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
             'order'
           )
         )
-        .then(() => setUpdateStatus(action));
+        .then(() => setUpdateStatus(action))
+        .catch(() => setPage(error));
     };
 
     const handleChange = () => {
@@ -174,5 +175,5 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
       </>
     );
   }
-  return <AdminError />;
+  return <Loader />;
 };

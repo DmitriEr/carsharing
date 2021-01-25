@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
-import { Card, Radio, Image, Typography } from 'antd';
+import { useSelector } from 'react-redux';
+import { Radio, Typography } from 'antd';
 
 import { PaginationPages } from '../../common/Pagination';
+import { CarList } from './carList';
 
 import { Loader } from '../../common/Loader';
 import { getData } from '../../../server/data';
-import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
 import { radioBtnsText } from '../../../constants/orderPage';
 import { startPage } from '../../../constants/admin';
-import { herokuapp } from '../../../constants/server';
 import { DataItem } from '../../../interfaces';
 import './style.scss';
 
@@ -22,8 +20,6 @@ interface CarsProps {
 }
 
 export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
-  const dispatch = useDispatch();
-
   const userCar = useSelector(list);
   const currentCar = userCar[1].value;
 
@@ -61,21 +57,6 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
     cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
-  const selectCar = (value, min, max, number, pathImg, color, carId) => {
-    dispatch(
-      changeModel({
-        ...userCar[1],
-        value,
-        min,
-        max,
-        number,
-        pathImg,
-        carId,
-      })
-    );
-    setColorsOpt(color);
-  };
-
   return (
     <Paragraph className="cards">
       <Radio.Group
@@ -92,52 +73,11 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
       {isLoading ? (
         <Loader />
       ) : (
-        cars.map(
-          (
-            { name, priceMin, priceMax, thumbnail, number, colors, id },
-            index
-          ) => {
-            return (
-              <Card
-                size="small"
-                title={
-                  <>
-                    <div className="title">{name}</div>
-                    <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
-                  </>
-                }
-                key={index}
-                className={
-                  currentCar === name ? classnames('active', 'card') : 'card'
-                }
-                onClick={() =>
-                  selectCar(
-                    name,
-                    priceMin,
-                    priceMax,
-                    number,
-                    thumbnail.path,
-                    colors,
-                    id
-                  )
-                }
-              >
-                {thumbnail.path ? (
-                  <Image
-                    src={
-                      thumbnail.path[0] === '/'
-                        ? `${herokuapp}${thumbnail.path}`
-                        : `${thumbnail.path}`
-                    }
-                    alt={name}
-                    referrerPolicy="origin"
-                    crossOrigin="anonymous"
-                  />
-                ) : null}
-              </Card>
-            );
-          }
-        )
+        <CarList
+          cars={cars}
+          currentCar={currentCar}
+          setColorsOpt={setColorsOpt}
+        />
       )}
       <Paragraph className="pagination">
         <PaginationPages

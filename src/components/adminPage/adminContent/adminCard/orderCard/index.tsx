@@ -80,6 +80,7 @@ const OrderCard: React.FunctionComponent<TypeOrderOptional> = ({
           property={name}
           key={i}
           trans={translate}
+          setPage={setPage}
         />
       ))}
       {Object.entries(switches).map(([name, translate], i) => (
