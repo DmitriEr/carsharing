@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Checkbox, Layout, Typography } from 'antd';
+import { Layout, Typography } from 'antd';
+
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
-import { options } from '../../../constants/orderPage';
-import {
-  changeColor,
-  changeTime,
-  changePrice,
-  changeOption,
-} from '../../../redux/actions';
+import { CheckBox } from './CheckBox';
+import { changeColor, changeTime, changePrice } from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
 import { getData } from '../../../server/data';
 import { getTimeToString } from '../../../helper';
 import { list } from '../../../redux/selectors';
+
 import './style.scss';
 
 const { Text } = Typography;
@@ -42,7 +39,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   useEffect(() => {
     getData('rate').then(({ data }) => {
       const newValue = data.map(({ price, rateTypeId }) => {
-        return `${rateTypeId.name}, ${price} ₽/${rateTypeId.unit}`;
+        return `${rateTypeId.name}, ${price}₽`;
       });
       setRates(data);
       setPrice(newValue);
@@ -85,18 +82,6 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
     return new Date(option).valueOf() >= new Date(selectedDate).valueOf();
   };
 
-  const selectOption = (checkedValues) => {
-    options.forEach((item) => {
-      const [value] = item.split(',');
-      const checkValue = checkedValues.find((value) => value === item);
-      if (checkValue === undefined) {
-        dispacth(changeOption({ value, visible: false }));
-      } else {
-        dispacth(changeOption({ value, visible: true }));
-      }
-    });
-  };
-
   return (
     <Content className="options-wrapper">
       <Lists
@@ -136,15 +121,18 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
         title={'Тариф'}
         setOption={setMoney}
         option={money}
-        currentValue={`${currentValue[4].value}, ${currentValue[4].count} ₽/мин`}
+        currentValue={`${currentValue[4].value}, ${currentValue[4].count}₽`}
       />
       <Content className="checkbox-wrapper">
         <Text className="title">Доп услуги</Text>
-        <Checkbox.Group
+        <CheckBox index={5} />
+        <CheckBox index={6} />
+        <CheckBox index={7} />
+        {/* <Checkbox.Group
           options={options}
           onChange={selectOption}
           className="checkbox"
-        />
+        /> */}
       </Content>
     </Content>
   );

@@ -5,11 +5,10 @@ import moment from 'moment';
 import { PaginationPages } from '../../../../components/common/Pagination';
 import { Loader } from '../../../../components/common/Loader';
 
+import { updateStatusOrderById } from '../../../common/UpdateOrderById';
 import { herokuapp } from '../../../../constants/server';
-import { updateById } from '../../../../server/updateById';
-import { translate, cardEssence, error } from '../../../../constants/admin';
+import { translate, cardEssence } from '../../../../constants/admin';
 import { Data, DataItem } from '../../../../interfaces';
-import { getData } from '../../../../server/data';
 
 import ok from '../../../../assets/admin/Shape1.svg';
 import cancel from '../../../../assets/admin/Shape2.svg';
@@ -68,19 +67,8 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
     const lastDay = moment(dateTo).format('DD.MM.YYYY hh:mm');
 
     const handleOrder = (action: string) => {
-      getData('orderStatus')
-        .then((items) => {
-          return items.data.filter((item) => item.name === action);
-        })
-        .then((statusId) =>
-          updateById(
-            id,
-            { ...ordersInfo.data[0], orderStatusId: { id: statusId[0].id } },
-            'order'
-          )
-        )
-        .then(() => setUpdateStatus(action))
-        .catch(() => setPage(error));
+      updateStatusOrderById(action, id, ordersInfo.data[0]);
+      setUpdateStatus(action);
     };
 
     const handleChange = () => {
@@ -108,6 +96,7 @@ export const AdminOrders: React.FunctionComponent<TypeOrdersInfo> = ({
             <Image
               src={`${herokuapp}${carId.thumbnail.path}`}
               alt={carId.name}
+              preview={false}
               referrerPolicy="origin"
               crossOrigin="anonymous"
               className="image"

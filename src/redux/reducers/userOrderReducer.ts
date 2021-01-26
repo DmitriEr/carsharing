@@ -60,9 +60,8 @@ export const userOrderReducer = (
     case CHANGE_OPTION:
       return {
         orderList: state.orderList.map((item, index) => {
-          return index >= 5 && item.name === payload.value
-            ? { ...item, visible: payload.visible }
-            : item;
+          const { ind, visible } = payload;
+          return index === ind ? { ...item, visible } : item;
         }),
       };
     case CLEAR_ORDER:

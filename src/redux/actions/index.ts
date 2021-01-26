@@ -74,7 +74,7 @@ export function changePrice(
   };
 }
 
-type SelectType = { value: string; visible: boolean };
+type SelectType = { ind: number; visible: boolean };
 
 export function changeOption(
   item: SelectType

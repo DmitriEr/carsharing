@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeUserCity } from '../../../redux/actions';
+import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { changeUserCity } from '../../../redux/actions';
 import { getUserLocation } from '../../../server/userLocation';
 import { TypeUserLocation } from '../../../server/userLocation/interface';
 import location from '../../../assets/common/location.svg';
 import { translateCityName } from '../../../constants/common';
 import { place } from '../../../redux/selectors';
+
 import './style.scss';
 
 const { Header } = Layout;
@@ -24,7 +27,9 @@ export const Head: React.FunctionComponent = () => {
 
   return (
     <Header className="order__header">
-      <span className="header__logo">Need for drive</span>
+      <Link to="/carsharing/main">
+        <span className="header__logo">Need for drive</span>
+      </Link>
       <div className="header__location">
         <img src={location} alt="location" />
         <span className="header__city">{userLocation}</span>

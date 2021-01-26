@@ -25,20 +25,23 @@ export const Result: React.FunctionComponent<ResultInterface> = ({
 
   const checkOption = (bool: boolean, value: number) => (bool ? value : 0);
 
+  const getOptionsPrice = () => {
+    return (
+      checkOption(petrol.visible, petrol.count) +
+      checkOption(seat.visible, seat.count) +
+      checkOption(steer.visible, steer.count)
+    );
+  };
+
   useEffect(() => {
     let result;
+
     if (price.count === 7) {
-      result =
-        date.count * price.count +
-        checkOption(petrol.visible, petrol.count) +
-        checkOption(seat.visible, seat.count) +
-        checkOption(steer.visible, steer.count);
+      result = date.count * price.count + getOptionsPrice();
+    } else if (price.count === 1999) {
+      result = (date.count / 1440) * price.count + getOptionsPrice();
     } else {
-      result =
-        (date.count / 1440) * price.count +
-        checkOption(petrol.visible, petrol.count) +
-        checkOption(seat.visible, seat.count) +
-        checkOption(steer.visible, steer.count);
+      result = Math.ceil(date.count / 10080) * price.count + getOptionsPrice();
     }
 
     dispatch(calculatPrice(parseInt(result, 10)));

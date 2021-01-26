@@ -17,6 +17,7 @@ export interface OrderType {
   rateId?: string;
   start?: number;
   end?: number;
+  ind?: number;
 }
 export interface RootReducer {
   information: {
