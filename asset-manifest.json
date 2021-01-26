@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/carsharing/static/css/main.455988c1.chunk.css",
+    "main.css": "/carsharing/static/css/main.4b58c043.chunk.css",
     "main.js": "/carsharing/static/js/main.532add0e.chunk.js",
     "main.js.map": "/carsharing/static/js/main.532add0e.chunk.js.map",
     "runtime-main.js": "/carsharing/static/js/runtime-main.45a4b5d7.js",
@@ -12,7 +12,7 @@
     "static/js/3.c7329995.chunk.js.map": "/carsharing/static/js/3.c7329995.chunk.js.map",
     "index.html": "/carsharing/index.html",
     "static/css/2.d355c8df.chunk.css.map": "/carsharing/static/css/2.d355c8df.chunk.css.map",
-    "static/css/main.455988c1.chunk.css.map": "/carsharing/static/css/main.455988c1.chunk.css.map",
+    "static/css/main.4b58c043.chunk.css.map": "/carsharing/static/css/main.4b58c043.chunk.css.map",
     "static/js/2.4d17c385.chunk.js.LICENSE.txt": "/carsharing/static/js/2.4d17c385.chunk.js.LICENSE.txt",
     "static/media/Facebook_white.01c0ca6a.svg": "/carsharing/static/media/Facebook_white.01c0ca6a.svg",
     "static/media/Instagram.5e14e95a.svg": "/carsharing/static/media/Instagram.5e14e95a.svg",
@@ -35,7 +35,7 @@
     "static/js/runtime-main.45a4b5d7.js",
     "static/css/2.d355c8df.chunk.css",
     "static/js/2.4d17c385.chunk.js",
-    "static/css/main.455988c1.chunk.css",
+    "static/css/main.4b58c043.chunk.css",
     "static/js/main.532add0e.chunk.js"
   ]
 }
