@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Checkbox } from 'antd';
+import { Layout, Typography } from 'antd';
+
 import { DateSelect } from './Date';
 import { Lists } from './Lists';
-import { options } from '../../../constants/orderPage';
-import {
-  changeColor,
-  changeTime,
-  changePrice,
-  changeOption,
-} from '../../../redux/actions';
+import { CheckBox } from './CheckBox';
+import { changeColor, changeTime, changePrice } from '../../../redux/actions';
 import { DiffTimeProps } from '../../../interfaces';
 import { getData } from '../../../server/data';
 import { getTimeToString } from '../../../helper';
 import { list } from '../../../redux/selectors';
+
 import './style.scss';
 
+const { Text } = Typography;
+const { Content } = Layout;
 interface OptionProps {
   colorsOpt: string[];
 }
@@ -40,7 +39,7 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   useEffect(() => {
     getData('rate').then(({ data }) => {
       const newValue = data.map(({ price, rateTypeId }) => {
-        return `${rateTypeId.name}, ${price}₽/${rateTypeId.unit}`;
+        return `${rateTypeId.name}, ${price}₽`;
       });
       setRates(data);
       setPrice(newValue);
@@ -56,11 +55,11 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
   useEffect(() => {
     if (money) {
       const [name] = money.split(',');
-      rate.forEach(({ id, price, rateTypeId }) =>
-        rateTypeId.name === name
-          ? dispacth(changePrice({ value: name, count: price, rateId: id }))
-          : null
-      );
+      rate.forEach(({ id, price, rateTypeId }) => {
+        if (rateTypeId.name === name) {
+          dispacth(changePrice({ value: name, count: price, rateId: id }));
+        }
+      });
     }
   }, [money]);
 
@@ -83,20 +82,8 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
     return new Date(option).valueOf() >= new Date(selectedDate).valueOf();
   };
 
-  const selectOption = (checkedValues) => {
-    options.forEach((item) => {
-      const [value] = item.split(',');
-      const checkValue = checkedValues.find((value) => value === item);
-      if (checkValue === undefined) {
-        dispacth(changeOption({ value, visible: false }));
-      } else {
-        dispacth(changeOption({ value, visible: true }));
-      }
-    });
-  };
-
   return (
-    <div className="options-wrapper">
+    <Content className="options-wrapper">
       <Lists
         list={colorsOpt}
         title={'Цвет'}
@@ -104,8 +91,8 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
         option={color}
         currentValue={currentValue[2].value}
       />
-      <div className="date-wrapper">
-        <div className="title">Дата аренды</div>
+      <Content className="date-wrapper">
+        <Text className="title">Дата аренды</Text>
         <DateSelect
           queue={false}
           setDiffTime={setDiffTime}
@@ -128,22 +115,25 @@ export const Option: React.FunctionComponent<OptionProps> = ({ colorsOpt }) => {
           moments={momentEnd}
           defaultTime={diffTime.end}
         />
-      </div>
+      </Content>
       <Lists
         list={price}
         title={'Тариф'}
         setOption={setMoney}
         option={money}
-        currentValue={`${currentValue[4].value}, ${currentValue[4].count}₽/мин`}
+        currentValue={`${currentValue[4].value}, ${currentValue[4].count}₽`}
       />
-      <div className="checkbox-wrapper">
-        <div className="title">Доп услуги</div>
-        <Checkbox.Group
+      <Content className="checkbox-wrapper">
+        <Text className="title">Доп услуги</Text>
+        <CheckBox index={5} />
+        <CheckBox index={6} />
+        <CheckBox index={7} />
+        {/* <Checkbox.Group
           options={options}
           onChange={selectOption}
           className="checkbox"
-        />
-      </div>
-    </div>
+        /> */}
+      </Content>
+    </Content>
   );
 };

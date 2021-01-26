@@ -1,0 +1,35 @@
+@import '../../../../styles/variables.scss';
+
+.table-admin {
+  flex-direction: initial;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: auto;
+  font-weight: normal;
+
+  & .wrapper-button {
+    @extend %displayFlex;
+    flex-direction: initial;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  & .wrapper-table {
+    width: 100%;
+
+    & .card-row {
+      cursor: pointer;
+      height: 38px;
+      overflow: hidden;
+    }
+  
+    & .table {
+      background: $white;
+      @extend %pagination;
+
+      & .ant-table-tbody {
+        background: $white;
+      }
+    }
+  }
+}

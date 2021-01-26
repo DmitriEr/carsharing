@@ -1,7 +1,11 @@
 import React from 'react';
-import { Radio } from 'antd';
+import { Radio, Layout, Typography } from 'antd';
 import classnames from 'classnames';
+
 import './style.scss';
+
+const { Text } = Typography;
+const { Content } = Layout;
 
 interface ListsProps {
   title: string;
@@ -19,8 +23,8 @@ export const Lists: React.FunctionComponent<ListsProps> = ({
   currentValue,
 }) => {
   return (
-    <div className="select-wrapper">
-      <div className="title">{title}</div>
+    <Content className="select-wrapper">
+      <Text className="title">{title}</Text>
       <Radio.Group
         onChange={(e) => setOption(e.target.value)}
         className="select-values"
@@ -38,6 +42,6 @@ export const Lists: React.FunctionComponent<ListsProps> = ({
           </Radio>
         ))}
       </Radio.Group>
-    </div>
+    </Content>
   );
 };

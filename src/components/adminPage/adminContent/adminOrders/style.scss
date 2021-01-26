@@ -1,11 +1,11 @@
-@import '../../../styles/variables.scss';
+@import '../../../../styles/variables.scss';
 
 .wrapper-orders {
   background: $white;
   height: 470px;
   font-size: 13px;
 
-  & .header {
+  & .header-orders {
     background: $white;
     height: 60px;
     color: $adminTextGray;
@@ -86,7 +86,7 @@
     }
   }
   
-  .footer {
+  .footer-orders {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -23,21 +23,18 @@
   
     & .active {
       color: $black;
-  
-      & .ant-radio-checked {
-  
+    
+      &::after {
+        border: 1px solid $white;
+      }
+
+      & .ant-radio-inner {
+        background-color: $mainAccent;
+        border-color: $white;
+
         &::after {
-          border: 1px solid $white;
-        }
-  
-        & .ant-radio-inner {
-          background-color: $mainAccent;
-          border-color: $white;
-  
-          &::after {
-            background-color: $white;
-            width: 9px;
-          }
+          background-color: $white;
+          width: 9px;
         }
       }
     }

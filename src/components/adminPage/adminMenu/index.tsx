@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, List } from 'antd';
-import { MenuLogo } from '../menuLogo';
+import { MenuLogo } from './menuLogo';
 import { menu } from '../../../constants/admin';
 
 import { startPage } from '../../../constants/admin';

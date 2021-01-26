@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Layout, Button } from 'antd';
 import { Link } from 'react-router-dom';
+
 import { SideBar } from '../../components/common/SideBar';
 import { Head } from '../common/Head';
 import { Confirm } from '../orderPage/Confirm';
+
+import { updateStatusOrderById } from '../../components/common/UpdateOrderById';
 import { getById } from '../../server/getById';
 import { getTimeToString } from '../../helper';
 import { initState } from '../../constants/redux';
@@ -40,11 +43,13 @@ export const ConfirmOrder: React.FunctionComponent = () => {
 
   const [result, setResult] = useState(orderTitles);
   const [money, setMoney] = useState(0);
+  const [data, setData] = useState({});
 
   const id = localStorage.getItem('id');
 
   useEffect(() => {
     getById('order', id).then(({ data }) => {
+      setData(data);
       const {
         cityId,
         pointId,
@@ -71,6 +76,11 @@ export const ConfirmOrder: React.FunctionComponent = () => {
       setMoney(price);
     });
   }, []);
+
+  const onCancel = () => {
+    updateStatusOrderById('cancelled', id, data);
+    dispatch(clearOrder(initState));
+  };
 
   return (
     <Layout
@@ -107,10 +117,7 @@ export const ConfirmOrder: React.FunctionComponent = () => {
               })}
               <div className="price">{`Цена: ${money}`}</div>
               <Link to="/carsharing/order">
-                <Button
-                  className="btn-cancel"
-                  onClick={() => dispatch(clearOrder(initState))}
-                >
+                <Button className="btn-cancel" onClick={onCancel}>
                   Отменить
                 </Button>
               </Link>

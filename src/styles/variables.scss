@@ -27,6 +27,13 @@ $orderButton: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
 
 $fonts: 'Roboto', 'Arial', sans-serif;
 
+%displayFlex {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 %pagination {
   thead[class*="ant-table-thead"] th{
     background-color: $white;

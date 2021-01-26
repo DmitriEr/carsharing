@@ -1,52 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
-import { Card, Radio } from 'antd';
+import { useSelector } from 'react-redux';
+import { Radio, Typography } from 'antd';
+
+import { PaginationPages } from '../../common/Pagination';
+import { CarList } from './carList';
+
 import { Loader } from '../../common/Loader';
 import { getData } from '../../../server/data';
-import { changeModel } from '../../../redux/actions';
 import { list } from '../../../redux/selectors';
 import { radioBtnsText } from '../../../constants/orderPage';
-import { herokuapp } from '../../../constants/server';
+import { startPage } from '../../../constants/admin';
+import { DataItem } from '../../../interfaces';
 import './style.scss';
 
-interface CarsData {
-  name?: string;
-  priceMin?: number;
-  priceMax?: number;
-  thumbnail?: { path: string };
-  categoryId?: { name: string };
-  colors?: string[];
-  number?: string;
-  id?: string;
-}
+const { Paragraph } = Typography;
 
 interface CarsProps {
   setColorsOpt: (color: string[]) => void;
 }
 
 export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
-  const dispatch = useDispatch();
-
   const userCar = useSelector(list);
   const currentCar = userCar[1].value;
 
-  const [cars, setCars] = useState<CarsData[]>([]);
+  const [cars, setCars] = useState<DataItem[]>([]);
   const [radioBtn, setRadioBtn] = useState('Все модели');
   const [isLoading, setIsLoading] = useState(true);
-  const [arrayCars, setArrayCars] = useState<CarsData[]>([]);
+  const [arrayCars, setArrayCars] = useState<DataItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(startPage);
+  const [countPages, setCountPages] = useState(0);
 
   useEffect(() => {
-    getData('car').then(({ data }) => {
-      const result = data.filter(({ thumbnail }) => {
-        if (thumbnail.path.startsWith('/files/')) {
-          return true;
-        }
-      });
-      setCars(result);
-      setArrayCars(result);
+    const firstIndex = currentPage - 1;
+    getData('car', firstIndex, 10).then(({ data, count }) => {
+      setCars(data);
+      setArrayCars(data);
+      setCountPages(Math.ceil(count / 10));
     });
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     const result = arrayCars.filter(({ categoryId }) => {
@@ -66,23 +57,8 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
     cars.length === 0 ? setIsLoading(true) : setIsLoading(false);
   }, [cars]);
 
-  const selectCar = (value, min, max, number, pathImg, color, carId) => {
-    dispatch(
-      changeModel({
-        ...userCar[1],
-        value,
-        min,
-        max,
-        number,
-        pathImg,
-        carId,
-      })
-    );
-    setColorsOpt(color);
-  };
-
   return (
-    <div className="cards">
+    <Paragraph className="cards">
       <Radio.Group
         onChange={(e) => setRadioBtn(e.target.value)}
         value={radioBtn}
@@ -97,48 +73,19 @@ export const Cars: React.FunctionComponent<CarsProps> = ({ setColorsOpt }) => {
       {isLoading ? (
         <Loader />
       ) : (
-        cars.map(
-          (
-            { name, priceMin, priceMax, thumbnail, number, colors, id },
-            index
-          ) => {
-            return (
-              <Card
-                size="small"
-                title={
-                  <>
-                    <div className="title">{name}</div>
-                    <div className="price">{`${priceMin} - ${priceMax} Р`}</div>
-                  </>
-                }
-                key={index}
-                className={
-                  currentCar === name ? classnames('active', 'card') : 'card'
-                }
-                onClick={() =>
-                  selectCar(
-                    name,
-                    priceMin,
-                    priceMax,
-                    number,
-                    thumbnail.path,
-                    colors,
-                    id
-                  )
-                }
-              >
-                <img
-                  className="image"
-                  src={`${herokuapp}${thumbnail.path}`}
-                  alt={name}
-                  referrerPolicy="origin"
-                  crossOrigin="anonymous"
-                />
-              </Card>
-            );
-          }
-        )
+        <CarList
+          cars={cars}
+          currentCar={currentCar}
+          setColorsOpt={setColorsOpt}
+        />
       )}
-    </div>
+      <Paragraph className="pagination">
+        <PaginationPages
+          currentPage={currentPage}
+          func={setCurrentPage}
+          countPages={countPages}
+        />
+      </Paragraph>
+    </Paragraph>
   );
 };
