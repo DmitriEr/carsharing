@@ -60,7 +60,6 @@
     width: 45%;
     background: $white !important;
     flex: none;
-    padding: 18px;
     margin-bottom: 100px;
 
     & .header {
@@ -70,10 +69,11 @@
       box-shadow: none;
       padding: 0px;
       position: inherit;
+      padding: 18px 18px 0px;
     }
 
     & .content {
-      padding: 0px;
+      padding: 0px 18px;
       margin: 0px;
     }
 
@@ -85,6 +85,7 @@
       box-sizing: border-box;
       margin-top: 20px;
       position: inherit;
+      padding: 0px 18px 18px;
 
       & .save {
         background: $buttonsAdmin;

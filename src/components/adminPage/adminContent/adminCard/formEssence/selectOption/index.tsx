@@ -53,6 +53,7 @@ export const SelectOption: React.FunctionComponent<TypeOption> = ({
           value={item}
           placeholder={`Выберите ${translate[source]}`}
           onChange={onHadleValue}
+          className="select"
         >
           {array.map(({ name }, i) => (
             <Option key={i} value={name}>
